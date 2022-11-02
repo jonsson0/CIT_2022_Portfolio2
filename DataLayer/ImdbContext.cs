@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataLayer
 {
-    internal class ImdbContext
+    public class ImdbContext
     {
+
     }
 }
