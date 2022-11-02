@@ -4,9 +4,9 @@ namespace DataLayer.Models
     public class Characters
     {
 
-        public char Character_ID { get; set; }
-        public char Person_ID { get; set; }
-        public char Title_ID { get; set; }
+        public char CharacterId { get; set; }
+        public char PersonId { get; set; }
+        public char TitleId { get; set; }
         public string Character { get; set; }
         
 
