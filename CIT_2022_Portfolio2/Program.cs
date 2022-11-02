@@ -18,7 +18,6 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddSingleton<IDataService, DataService>();
 
-
 // app.UseAuthorization();
 
 app.MapControllers();
