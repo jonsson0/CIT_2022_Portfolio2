@@ -1,21 +1,21 @@
 ﻿using System;
 namespace DataLayer.Models
 {
-    public class title
+    public class Title
     {
-        public char titleID { get; set; }
-        public string type { get; set; }
-        public string primarytitle { get; set; }
-        public string originaltitle { get; set; }
-        public string isadult { get; set; }
-        public char startyear { get; set; }
-        public char endyear { get; set; }
-        public int runtimeminutes { get; set; }
-        public string poster { get; set; }
-        public object plot { get; set; }
+        public char Title_Id { get; set; }
+        public string Type { get; set; }
+        public string PrimaryTitle { get; set; }
+        public string OriginalTitle { get; set; }
+        public string IsAdult { get; set; }
+        public char StartYear { get; set; }
+        public char EndYear { get; set; }
+        public int RunTimeMinutes { get; set; }
+        public string Poster { get; set; }
+        public object Plot { get; set; }
         public object MyProperty { get; set; }
-        public double averagerating { get; set; }
-        public int numvotes { get; set; }
+        public double AverageRating { get; set; }
+        public int NumVotes { get; set; }
     }
 }
 
