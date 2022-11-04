@@ -1,10 +1,10 @@
 ﻿using System;
 namespace DataLayer.Models
 {
-    public class KnownFor
+    public class KnownFors
     {
-        public char PersonId { get; set; }
-        public char titleId { get; set; }
+        public string PersonId { get; set; }
+        public string titleId { get; set; }
     }
 }
 
