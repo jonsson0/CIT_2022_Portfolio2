@@ -3,7 +3,7 @@ namespace DataLayer.Models
 {
     public class Title
     {
-        public char Title_Id { get; set; }
+        public char TitleId { get; set; }
         public string Type { get; set; }
         public string PrimaryTitle { get; set; }
         public string OriginalTitle { get; set; }

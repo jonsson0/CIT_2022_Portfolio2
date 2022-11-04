@@ -3,9 +3,11 @@ namespace DataLayer.Models
 {
     public class PersonProfession
     {
-        public PersonProfession()
-        {
-        }
+        public char TitleId { get; set; }
+        public char PersonId { get; set; }
+        public string Category { get; set; }
+        public string Job { get; set; }
+
     }
 }
 
