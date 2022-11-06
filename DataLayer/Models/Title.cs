@@ -1,7 +1,7 @@
 ﻿using System;
 namespace DataLayer.Models
 {
-    public class Titles
+    public class Title
     {
         public string TitleId { get; set; }
         public string Type { get; set; }
@@ -12,10 +12,9 @@ namespace DataLayer.Models
         public char EndYear { get; set; }
         public int RunTimeMinutes { get; set; }
         public string Poster { get; set; }
-        public object Plot { get; set; }
-        public object MyProperty { get; set; }
+        public string Plot { get; set; }
         public double AverageRating { get; set; }
         public int NumVotes { get; set; }
+        List<TitleGenre> GenreList { get; set; }
     }
 }
-
