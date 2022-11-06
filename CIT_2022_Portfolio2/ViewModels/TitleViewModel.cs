@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataLayer.Models;
+﻿using DataLayer.Models;
 
-namespace DataLayer.DataTransferObjects
+namespace CIT_2022_Portfolio2.ViewModels
 {
-    public class TitleOnMainPage
+    public class TitleViewModel
     {
         public string Type { get; set; }
         public string PrimaryTitle { get; set; }
@@ -20,6 +15,6 @@ namespace DataLayer.DataTransferObjects
         public string Plot { get; set; }
         public double AverageRating { get; set; }
         public int NumVotes { get; set; }
-        List<TitleGenre>? TitleGenreList { get; set; }
+        List<TitleGenre> GenreList { get; set; }
     }
 }
