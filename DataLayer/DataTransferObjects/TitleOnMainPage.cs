@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataLayer.Models;
 
 namespace DataLayer.DataTransferObjects
 {
@@ -18,6 +19,6 @@ namespace DataLayer.DataTransferObjects
         public string Plot { get; set; }
         public double AverageRating { get; set; }
         public int NumVotes { get; set; }
-
+        List<TitleGenre>? TitleGenreList { get; set; }
     }
 }
