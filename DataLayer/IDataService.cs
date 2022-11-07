@@ -1,6 +1,10 @@
-﻿namespace DataLayer;
+﻿using DataLayer.Models;
 
-public interface IDataService
+namespace DataLayer
 {
-    
+    public interface IDataService
+    {
+        Title getTItle(int id);
+        public List<Title> getTitles();
+    }
 }

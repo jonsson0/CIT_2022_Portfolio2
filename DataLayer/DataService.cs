@@ -11,17 +11,15 @@ namespace DataLayer
     {
         ImdbContext db = new ImdbContext();
 
-    Title getTItle()
+        public Title getTItle(int id)
         {
-            return null;
+            var title = db.Titles.Find(id);
+            return title;
         }
 
         public List<Title> getTitles()
         {
-            return db.Titles.ToList().GetRange(0,3);
+            return db.Titles.ToList().GetRange(0, 3);
         }
-
-
-
     }
 }

@@ -4,6 +4,8 @@ var ds = new DataService();
 
 var list = ds.getTitles();
 
+var Stitle = ds.getTItle(0);
+
 Console.WriteLine("here:");
 Console.WriteLine(list.First());
 
