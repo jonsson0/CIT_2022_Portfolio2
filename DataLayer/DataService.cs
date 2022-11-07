@@ -9,12 +9,19 @@ namespace DataLayer
 {
     public class DataService : IDataService
     {
-        Title getTItle()
+        ImdbContext db = new ImdbContext();
+
+    Title getTItle()
         {
             return null;
         }
 
-       
+        public List<Title> getTitles()
+        {
+            return db.Titles.ToList().GetRange(0,3);
+        }
+
+
 
     }
 }
