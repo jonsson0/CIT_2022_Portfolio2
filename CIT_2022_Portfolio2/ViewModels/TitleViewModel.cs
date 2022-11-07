@@ -4,6 +4,7 @@ namespace CIT_2022_Portfolio2.ViewModels
 {
     public class TitleViewModel
     {
+        public string url { get; set; }
         public string Type { get; set; }
         public string PrimaryTitle { get; set; }
         public string OriginalTitle { get; set; }

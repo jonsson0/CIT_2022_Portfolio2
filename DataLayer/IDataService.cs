@@ -4,7 +4,7 @@ namespace DataLayer
 {
     public interface IDataService
     {
-        Title getTItle(int id);
+        Title getTItle(string id);
         public List<Title> getTitles();
     }
 }
