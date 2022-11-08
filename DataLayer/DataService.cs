@@ -12,7 +12,7 @@ namespace DataLayer
     {
         ImdbContext db = new ImdbContext();
 
-        
+
         // Titles:
         public Title getTitle(string id)
         {
@@ -26,7 +26,16 @@ namespace DataLayer
         }
 
         // Persons:
+        public Persons getPerson(string id)
+        {
+            var person = db.Persons.Find(id);
+            return person;
+        }
 
+        public List<Persons> getPerson()
+        {
+            return db.Persons.ToList().GetRange(0, 3);
+        }
 
         // Users:
 
