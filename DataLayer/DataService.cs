@@ -14,7 +14,7 @@ namespace DataLayer
 
         
         // Titles:
-        public Title getTItle(string id)
+        public Title getTitle(string id)
         {
             var title = db.Titles.Find(id);
             return title;

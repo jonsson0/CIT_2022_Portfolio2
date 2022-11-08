@@ -5,7 +5,8 @@ namespace DataLayer
     public interface IDataService
     {
         // Titles
-        Title getTItle(string id);
+        Title getTitle(string id);
+
         public List<Title> getTitles();
 
         // Persons
