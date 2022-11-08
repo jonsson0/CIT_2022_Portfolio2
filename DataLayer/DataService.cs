@@ -29,5 +29,19 @@ namespace DataLayer
 
 
         // Users:
+
+
+        // HELPER MEHTODS
+
+
+        /*
+        public IQueryable Databaseset callDbFunction(string function)
+        {
+            var list = null;
+
+            return list
+        }
+        */
+
     }
 }
