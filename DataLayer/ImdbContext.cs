@@ -42,6 +42,15 @@ namespace DataLayer
             modelBuilder.Entity<Title>().Property(x => x.Plot).HasColumnName("plot");
             modelBuilder.Entity<Title>().Property(x => x.AverageRating).HasColumnName("averagerating");
             modelBuilder.Entity<Title>().Property(x => x.NumVotes).HasColumnName("numvotes");
+
+
+            modelBuilder.Entity<Persons>().ToTable("persons");
+            modelBuilder.Entity<Persons>().HasKey(x => x.PersonId);
+            modelBuilder.Entity<Persons>().Property(x => x.PersonId).HasColumnName("person_ID");
+            modelBuilder.Entity<Persons>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<Persons>().Property(x => x.BirthYear).HasColumnName("birthyear");
+            modelBuilder.Entity<Persons>().Property(x => x.DeathYear).HasColumnName("deathyear");
+
         }
     }
 }
