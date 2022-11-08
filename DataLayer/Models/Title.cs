@@ -15,6 +15,6 @@ namespace DataLayer.Models
         public string? Plot { get; set; }
         public double? AverageRating { get; set; }
         public int? NumVotes { get; set; }
-        List<TitleGenre> GenreList { get; set; }
+        List<TitleGenre>? GenreList { get; set; }
     }
 }
