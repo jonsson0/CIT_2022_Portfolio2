@@ -5,9 +5,14 @@ namespace DataLayer
     public interface IDataService
     {
         // Titles
+        // Get
         Title getTitle(string id);
+        List<Title> getTitles();
+        List<TitleGenre> getTitlesByGenre(string genre);
+        List<Title>? getSimilarTitles(string id);
 
-        public List<Title> getTitles();
+        // Other
+        void insertTitle(Title title);
 
         // Persons
 

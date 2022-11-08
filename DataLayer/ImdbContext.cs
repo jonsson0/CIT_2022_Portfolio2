@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Models;
+using DataLayer.Models.Test;
 
 namespace DataLayer
 {
@@ -15,6 +16,8 @@ namespace DataLayer
 
         public DbSet<Title> Titles { get; set; }
         public DbSet<Persons> Persons { get; set; }
+        public DbSet<TitleGenre> TitleGenres { get; set; }
+    //    public DbSet<Similar_Movie> SimilarMovies { get; set; }
 
 
 
@@ -45,6 +48,10 @@ namespace DataLayer
             modelBuilder.Entity<Title>().Property(x => x.AverageRating).HasColumnName("averagerating");
             modelBuilder.Entity<Title>().Property(x => x.NumVotes).HasColumnName("numvotes");
 
+            modelBuilder.Entity<TitleGenre>().ToTable("title_genres");
+            modelBuilder.Entity<TitleGenre>().HasKey(x => new { x.TitleId, x.Genre });
+            modelBuilder.Entity<TitleGenre>().Property(x => x.TitleId).HasColumnName("title_ID");
+            modelBuilder.Entity<TitleGenre>().Property(x => x.Genre).HasColumnName("genre");
 
             modelBuilder.Entity<Persons>().ToTable("persons");
             modelBuilder.Entity<Persons>().HasKey(x => x.PersonId);

@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using DataLayer.Models;
 
 var ds = new DataService();
 
@@ -27,4 +28,21 @@ foreach (var persons in PersonList)
 {
     Console.WriteLine(persons.Name);
 
+}
+
+var something = ds.getTitlesByGenre("Drama").GetRange(0, 3);
+
+Console.WriteLine("titles with genre drama");
+foreach (var titleGenre in something)
+{
+    Console.WriteLine(titleGenre.Title.PrimaryTitle);
+}
+
+var similar_titles = ds.getSimilarTitles("tt0052520");
+Console.WriteLine("here are similar titles:");
+Console.WriteLine(similar_titles.Count);
+
+foreach (var similarTitle in similar_titles)
+{
+    Console.WriteLine(similarTitle.PrimaryTitle);
 }
