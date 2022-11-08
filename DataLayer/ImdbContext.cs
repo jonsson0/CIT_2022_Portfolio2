@@ -14,6 +14,9 @@ namespace DataLayer
         const string ConnectionString = "host=localhost;db=imdb;uid=postgres;pwd=1234"; // needs changing
 
         public DbSet<Title> Titles { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<BookmarkPerson> BookmarkPersons {get; set;}
+        public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,6 +45,24 @@ namespace DataLayer
             modelBuilder.Entity<Title>().Property(x => x.Plot).HasColumnName("plot");
             modelBuilder.Entity<Title>().Property(x => x.AverageRating).HasColumnName("averagerating");
             modelBuilder.Entity<Title>().Property(x => x.NumVotes).HasColumnName("numvotes");
+
+            //users
+            modelBuilder.Entity<User>().ToTable("users");
+            modelBuilder.Entity<User>().HasKey(x => x.Username);
+            modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
+
+            modelBuilder.Entity<BookmarkPerson>().ToTable("bookmarkperson");
+            modelBuilder.Entity<BookmarkPerson>().HasKey(x => x.Username);
+            modelBuilder.Entity<BookmarkPerson>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<BookmarkPerson>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<BookmarkPerson>().Property(x => x.Timestamp).HasColumnName("timestamp");
+
+            modelBuilder.Entity<BookmarkTitle>().ToTable("bookmarktitle");
+            modelBuilder.Entity<BookmarkTitle>().HasKey(x => x.Username);
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Title).HasColumnName("title");
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Timestamp).HasColumnName("timestamp");
         }
     }
 }

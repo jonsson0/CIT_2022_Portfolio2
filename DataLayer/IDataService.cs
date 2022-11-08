@@ -14,5 +14,9 @@ namespace DataLayer
 
 
         // Users
+
+        public Boolean createUser(string username, string password);
+        public Boolean updateUserPassword(string username, string oldpassword, string newpassword);
+        public Boolean deleteUser(string username, string password);
     }
 }
