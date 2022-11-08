@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using DataLayer.Models;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace DataLayer
 {
@@ -13,21 +14,53 @@ namespace DataLayer
     {
         ImdbContext db = new ImdbContext();
 
-        
+
         // Titles:
+        // get
         public Title getTitle(string id)
         {
             var title = db.Titles.Find(id);
             return title;
         }
-
         public List<Title> getTitles()
         {
             return db.Titles.ToList().GetRange(0, 3);
         }
 
-        // Persons:
+        public List<TitleGenre> getTitlesByGenre(string genre)
+        {
+            var list = db
+                .TitleGenres
+                .Include(x => x.Title)
+                .Where(x => x.Genre == genre).ToList();
+            return list;
+        }
+        public List<Title>? getSimilarTitles(string id)
+        {
+            var list = db.Titles.FromSqlInterpolated($"select similar_movies({id})");
+            return list.ToList();
+        }
 
+        // Other
+        public void insertTitle(Title title)
+        {
+            db.Titles.Add(title);
+            db.SaveChanges();
+        }
+
+
+
+        // Persons:
+        public Persons getPerson(string id)
+        {
+            var person = db.Persons.Find(id);
+            return person;
+        }
+
+        public List<Persons> getPerson()
+        {
+            return db.Persons.ToList().GetRange(0, 3);
+        }
 
         // Users:
         public Boolean createUser(string username, string password)
@@ -73,10 +106,55 @@ namespace DataLayer
             else { return false; }
         }
 
-        public Boolean createBookmarkPerson(string username, string name)
+        public Boolean createBookmarkPerson(string username, string personID)
         {
             var user = db.Users.Find(username);
-            var person =
+            var person = db.Persons.Find(personID);
+
+            if (user != null && person != null)
+            {
+                var bookmark = new BookmarkPerson();
+                bookmark.Persons.PersonId = personID;
+                bookmark.User.Username = username;
+                bookmark.Timestamp = new DateTime();
+                return true;
+            }
+            else { return false; }
+        }
+
+        public Boolean createBookmarkTitle(string username, string titleID)
+        {
+            var user = db.Users.Find(username);
+            var person = db.Titles.Find(titleID);
+
+            if (user != null && titleID != null)
+            {
+                var bookmark = new BookmarkTitle();
+                bookmark.Title.TitleId = titleID;
+                bookmark.User.Username = username;
+                bookmark.Timestamp = new DateTime();
+                return true;
+            }
+            else { return false; }
+        }
+
+        // Skal have lavet mere på denne her så den opdatere total votes på titel, samt avg rating
+        public Boolean createRating(string username, string titleID, float rating)
+        {
+            var user = db.Users.Find(username);
+            var title = db.Titles.Find(titleID);
+
+            if (user != null && title != null && rating <= 10 && rating >= 0)
+            {
+                var userrating = new Rating();
+                userrating.User.Username = username;
+                userrating.Title.TitleId = titleID;
+                userrating.rating = rating;
+                db.Add(userrating);
+                db.SaveChanges();
+                return true;
+            }
+            else { return false; }
         }
 
     }

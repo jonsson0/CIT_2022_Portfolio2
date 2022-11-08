@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Models
 {
-    public class BookmarkPerson
+    public class Rating
     {
         public User User { get; set; }
         public User Username { get; set; }
-        public Persons Persons { get; set; }
-        public Persons Name { get; set; }
-        public DateTime Timestamp { get; set; }
+        public Title Title { get; set; }
+        public Title Primarytitle { get; set; }
+        public float rating { get; set; }
     }
 }

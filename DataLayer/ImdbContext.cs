@@ -5,18 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Models;
+using DataLayer.Models.Test;
 
 namespace DataLayer
 {
     public class ImdbContext : DbContext
     {
 
-        const string ConnectionString = "host=localhost;db=imdb;uid=postgres;pwd=1234"; // needs changing
+        const string ConnectionString = "host=cit.ruc.dk;db=cit09;uid=cit09;pwd=8wUBnJ0Lw4Zn"; // needs changing
 
         public DbSet<Title> Titles { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
         public DbSet<BookmarkPerson> BookmarkPersons {get; set;}
         public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
+        public DbSet<Persons> Persons { get; set; }
+        public DbSet<TitleGenre> TitleGenres { get; set; }
+    //    public DbSet<Similar_Movie> SimilarMovies { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -63,6 +69,25 @@ namespace DataLayer
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Username).HasColumnName("username");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Title).HasColumnName("title");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Timestamp).HasColumnName("timestamp");
+
+            modelBuilder.Entity<Rating>().ToTable("ratings");
+            modelBuilder.Entity<Rating>().HasKey(x => new { x.Username, x.Primarytitle });
+            modelBuilder.Entity<Rating>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<Rating>().Property(x => x.Primarytitle).HasColumnName("primarytitle");
+            modelBuilder.Entity<Rating>().Property(x => x.rating).HasColumnName("rating");
+
+            modelBuilder.Entity<TitleGenre>().ToTable("title_genres");
+            modelBuilder.Entity<TitleGenre>().HasKey(x => new { x.TitleId, x.Genre });
+            modelBuilder.Entity<TitleGenre>().Property(x => x.TitleId).HasColumnName("title_ID");
+            modelBuilder.Entity<TitleGenre>().Property(x => x.Genre).HasColumnName("genre");
+
+            modelBuilder.Entity<Persons>().ToTable("persons");
+            modelBuilder.Entity<Persons>().HasKey(x => x.PersonId);
+            modelBuilder.Entity<Persons>().Property(x => x.PersonId).HasColumnName("person_ID");
+            modelBuilder.Entity<Persons>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<Persons>().Property(x => x.BirthYear).HasColumnName("birthyear");
+            modelBuilder.Entity<Persons>().Property(x => x.DeathYear).HasColumnName("deathyear");
+
         }
     }
 }

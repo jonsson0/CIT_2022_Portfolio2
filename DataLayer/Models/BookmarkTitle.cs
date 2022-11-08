@@ -12,7 +12,7 @@ namespace DataLayer.Models
         public User Username { get; set; }
         public Title Title { get; set; }  
         public Title Primarytitle { get; set; }
-        public TimeOnly Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
 
     }
 }
