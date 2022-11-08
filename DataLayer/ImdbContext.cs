@@ -14,6 +14,8 @@ namespace DataLayer
         const string ConnectionString = "host=localhost;db=imdb;uid=postgres;pwd=1234"; // needs changing
 
         public DbSet<Title> Titles { get; set; }
+        public DbSet<Persons> Persons { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
