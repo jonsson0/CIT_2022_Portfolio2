@@ -46,3 +46,5 @@ foreach (var similarTitle in similar_titles)
 {
     Console.WriteLine(similarTitle.TitleId);
 }
+
+Console.WriteLine("");

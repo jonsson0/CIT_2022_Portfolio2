@@ -22,6 +22,7 @@ namespace DataLayer
         public DbSet<Persons> Persons { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
         public DbSet<Similar_Title> SimilarMovies { get; set; }
+        
 
 
 

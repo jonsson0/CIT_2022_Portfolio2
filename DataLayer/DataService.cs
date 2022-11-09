@@ -83,6 +83,7 @@ namespace DataLayer
 
         public Boolean updateUserPassword(string username, string oldpassword, string newpassword)
         {
+            //var user = db.Users.FromSqlInterpolated($"select update_password({username, oldpassword, newpassword})");
             var user = db.Users.Find(username);
             if(user != null && oldpassword == user.Password)
             {
