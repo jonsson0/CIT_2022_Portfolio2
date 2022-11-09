@@ -16,7 +16,8 @@ namespace CIT_2022_Portfolio2.models
         public string Plot { get; set; }
         public double? AverageRating { get; set; }
         public int? NumVotes { get; set; }
-        List<TitleGenre> GenreList { get; set; }
+        public List<TitleGenre> GenreList { get; set; }
+        public List<Similar_Title> SimilarTitles { get; set; }
 
     }
 }

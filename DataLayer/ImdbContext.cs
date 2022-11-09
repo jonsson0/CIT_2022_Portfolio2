@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Models;
-using DataLayer.Models.Test;
 using Microsoft.Extensions.Logging;
 
 namespace DataLayer
@@ -22,7 +21,7 @@ namespace DataLayer
         public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
         public DbSet<Person> Person { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
-        public DbSet<Similar_Title> SimilarMovies { get; set; }
+        public DbSet<Similar_Title> SimilarTitles { get; set; }
         
 
 
@@ -42,7 +41,9 @@ namespace DataLayer
             // titles
             modelBuilder.Entity<Title>().ToTable("titles");
             modelBuilder.Entity<Title>().HasKey(x => x.TitleId);
-            modelBuilder.Entity<Title>().HasMany(x => x.TitleGenres).WithOne(x => x.Title);
+            modelBuilder.Entity<Title>().HasMany(x => x.TitleGenres); //.WithOne(x => x.Title);
+            modelBuilder.Entity<Title>().HasMany(x => x.SimilarTitles);
+
             modelBuilder.Entity<Title>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Title>().Property(x => x.Type).HasColumnName("type");
             modelBuilder.Entity<Title>().Property(x => x.PrimaryTitle).HasColumnName("primarytitle");
@@ -57,7 +58,8 @@ namespace DataLayer
             modelBuilder.Entity<Title>().Property(x => x.NumVotes).HasColumnName("numvotes");
 
             // similar titles
-            modelBuilder.Entity<Similar_Title>().HasNoKey();
+           // modelBuilder.Entity<Title>().ToTable("similar_movies");
+            modelBuilder.Entity<Similar_Title>().HasKey(x => new { x.TitleId, x.PrimaryTitle });
             modelBuilder.Entity<Similar_Title>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Similar_Title>().Property(x => x.PrimaryTitle).HasColumnName("primarytitle");
 

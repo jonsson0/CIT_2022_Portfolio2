@@ -22,5 +22,7 @@ namespace DataLayer.DataTransferObjects
         public double? AverageRating { get; set; }
         public int? NumVotes { get; set; }
         public List<TitleGenre>? TitleGenreList { get; set; }
+        public List<Similar_Title> SimilarTitles { get; set; }
+
     }
 }
