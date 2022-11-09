@@ -2,5 +2,8 @@
 {
     public class SimilarTitlesModel
     {
+        public string url { get; set; }
+        public string TitleId { get; set; }
+        public string PrimaryTitle { get; set; }
     }
 }

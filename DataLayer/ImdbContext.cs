@@ -33,11 +33,11 @@ namespace DataLayer
             optionsBuilder.UseNpgsql(ConnectionString);
         }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // titles
             modelBuilder.Entity<Title>().ToTable("titles");
             modelBuilder.Entity<Title>().HasKey(x => x.TitleId);
             modelBuilder.Entity<Title>().Property(x => x.TitleId).HasColumnName("title_ID");
@@ -52,6 +52,11 @@ namespace DataLayer
             modelBuilder.Entity<Title>().Property(x => x.Plot).HasColumnName("plot");
             modelBuilder.Entity<Title>().Property(x => x.AverageRating).HasColumnName("averagerating");
             modelBuilder.Entity<Title>().Property(x => x.NumVotes).HasColumnName("numvotes");
+
+            // similar titles
+            modelBuilder.Entity<Similar_Title>().HasNoKey();
+            modelBuilder.Entity<Similar_Title>().Property(x => x.TitleId).HasColumnName("title_ID");
+            modelBuilder.Entity<Similar_Title>().Property(x => x.PrimaryTitle).HasColumnName("primarytitle");
 
             //users
             modelBuilder.Entity<User>().ToTable("users");
@@ -90,9 +95,7 @@ namespace DataLayer
             modelBuilder.Entity<Person>().Property(x => x.BirthYear).HasColumnName("birthyear");
             modelBuilder.Entity<Person>().Property(x => x.DeathYear).HasColumnName("deathyear");
 
-            modelBuilder.Entity<Similar_Title>().HasNoKey();
-            modelBuilder.Entity<Similar_Title>().Property(x => x.TitleId).HasColumnName("title_ID");
-            modelBuilder.Entity<Similar_Title>().Property(x => x.PrimaryTitle).HasColumnName("primarytitle");
+         
 
 
 

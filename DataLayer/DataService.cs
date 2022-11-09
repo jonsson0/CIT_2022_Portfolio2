@@ -252,7 +252,7 @@ namespace DataLayer
                 Plot = title.Plot,
                 AverageRating = title.AverageRating,
                 NumVotes = title.NumVotes,
-                TitleGenreList = 
+                TitleGenreList = title.TitleGenres
             };
             return titleOnMainPageDTO;
         }

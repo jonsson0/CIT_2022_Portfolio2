@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataLayer.DataTransferObjects
 {
-    internal class SimilarTitleDTO
+    public class SimilarTitleDTO
     {
+        public string TitleId { get; set; }
+        public string PrimaryTitle { get; set; }
     }
 }
