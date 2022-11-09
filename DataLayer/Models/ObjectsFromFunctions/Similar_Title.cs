@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Models.Test
 {
-    public class Similar_Movie
+    public class Similar_Title
     {
         public string TitleId { get; set; }
     }

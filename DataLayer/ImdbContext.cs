@@ -17,7 +17,7 @@ namespace DataLayer
         public DbSet<Title> Titles { get; set; }
         public DbSet<Persons> Persons { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
-    //    public DbSet<Similar_Movie> SimilarMovies { get; set; }
+        public DbSet<Similar_Title> SimilarMovies { get; set; }
 
 
 
@@ -59,6 +59,10 @@ namespace DataLayer
             modelBuilder.Entity<Persons>().Property(x => x.Name).HasColumnName("name");
             modelBuilder.Entity<Persons>().Property(x => x.BirthYear).HasColumnName("birthyear");
             modelBuilder.Entity<Persons>().Property(x => x.DeathYear).HasColumnName("deathyear");
+
+            modelBuilder.Entity<Similar_Title>().HasNoKey();
+            modelBuilder.Entity<Similar_Title>().Property(x => x.TitleId).HasColumnName("similar_movies");
+
 
         }
     }

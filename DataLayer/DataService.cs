@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using DataLayer.Models;
+using DataLayer.Models.Test;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -35,9 +36,9 @@ namespace DataLayer
                 .Where(x => x.Genre == genre).ToList();
             return list;
         }
-        public List<Title>? getSimilarTitles(string id)
+        public List<Similar_Title>? getSimilarTitles(string id)
         {
-            var list = db.Titles.FromSqlInterpolated($"select similar_movies({id})");
+            var list = db.SimilarMovies.FromSqlInterpolated($"select similar_movies({id})");
             return list.ToList();
         }
 

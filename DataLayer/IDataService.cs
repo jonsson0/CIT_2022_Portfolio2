@@ -1,4 +1,5 @@
 ﻿using DataLayer.Models;
+using DataLayer.Models.Test;
 
 namespace DataLayer
 {
@@ -9,7 +10,7 @@ namespace DataLayer
         Title getTitle(string id);
         List<Title> getTitles();
         List<TitleGenre> getTitlesByGenre(string genre);
-        List<Title>? getSimilarTitles(string id);
+        List<Similar_Title>? getSimilarTitles(string id);
 
         // Other
         void insertTitle(Title title);
