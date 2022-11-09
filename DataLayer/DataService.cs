@@ -87,6 +87,23 @@ namespace DataLayer
             }
             else { return false; }
         }
+        public Boolean updatePerson(String personId, string name, string birthYear, string deathYear)
+        {
+            var c = db.Person.Find(personId);
+
+            if (c != null)
+            {
+                c.Name = name;
+                c.BirthYear = birthYear;
+                c.DeathYear = deathYear;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
 
