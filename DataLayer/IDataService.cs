@@ -17,6 +17,10 @@ namespace DataLayer
 
         // Persons
 
+        public Person getPerson(string id);
+        public List<Person> getPerson();
+        public Person createPerson(String personId, string name, string birthYear, string deathYear);
+        public Boolean deletePerson(string personId);
 
 
         // Users
