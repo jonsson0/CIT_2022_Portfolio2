@@ -44,9 +44,9 @@ Console.WriteLine(similar_titles.Count);
 
 foreach (var similarTitle in similar_titles)
 {
-    Console.WriteLine(similarTitle.TitleId);
+    Console.WriteLine(similarTitle.PrimaryTitle);
 }
 
-Console.WriteLine("test create user");
-var createuser = ds.createUser("testing", "1234");
-Console.WriteLine(ds.getUsers());
+Console.WriteLine("");
+
+//ds.createPerson("nm9993710", "Steen", "1991", null);

@@ -19,7 +19,7 @@ namespace DataLayer
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<BookmarkPerson> BookmarkPersons {get; set;}
         public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
-        public DbSet<Persons> Persons { get; set; }
+        public DbSet<Person> Person { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
         public DbSet<Similar_Title> SimilarMovies { get; set; }
         
@@ -83,12 +83,12 @@ namespace DataLayer
             modelBuilder.Entity<TitleGenre>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<TitleGenre>().Property(x => x.Genre).HasColumnName("genre");
 
-            modelBuilder.Entity<Persons>().ToTable("persons");
-            modelBuilder.Entity<Persons>().HasKey(x => x.PersonId);
-            modelBuilder.Entity<Persons>().Property(x => x.PersonId).HasColumnName("person_ID");
-            modelBuilder.Entity<Persons>().Property(x => x.Name).HasColumnName("name");
-            modelBuilder.Entity<Persons>().Property(x => x.BirthYear).HasColumnName("birthyear");
-            modelBuilder.Entity<Persons>().Property(x => x.DeathYear).HasColumnName("deathyear");
+            modelBuilder.Entity<Person>().ToTable("persons");
+            modelBuilder.Entity<Person>().HasKey(x => x.PersonId);
+            modelBuilder.Entity<Person>().Property(x => x.PersonId).HasColumnName("person_ID");
+            modelBuilder.Entity<Person>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<Person>().Property(x => x.BirthYear).HasColumnName("birthyear");
+            modelBuilder.Entity<Person>().Property(x => x.DeathYear).HasColumnName("deathyear");
 
             modelBuilder.Entity<Similar_Title>().HasNoKey();
             modelBuilder.Entity<Similar_Title>().Property(x => x.TitleId).HasColumnName("title_ID");

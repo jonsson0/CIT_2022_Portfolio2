@@ -11,7 +11,7 @@ namespace DataLayer.Models
         public string UserName { get; set; }
         public User User { get; set; }
         public string PersonName { get; set; }
-        public Persons Persons { get; set; }
+        public Person Persons { get; set; }
         public DateTime Timestamp { get; set; }
     }
 }

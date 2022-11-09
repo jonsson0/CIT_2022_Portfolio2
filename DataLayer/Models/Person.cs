@@ -1,7 +1,7 @@
 ﻿using System;
 namespace DataLayer.Models
 {
-    public class Persons
+    public class Person
     {
 
         public string PersonId { get; set; }
