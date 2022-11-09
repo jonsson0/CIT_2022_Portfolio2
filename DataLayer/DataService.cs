@@ -173,7 +173,7 @@ namespace DataLayer
         public Boolean createBookmarkPerson(string username, string personID)
         {
             var user = db.Users.Find(username);
-            var person = db.Persons.Find(personID);
+            var person = db.Person.Find(personID);
 
             if (user != null && person != null)
             {
