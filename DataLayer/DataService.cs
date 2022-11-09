@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using DataLayer.DataTransferObjects;
 using DataLayer.Models;
 using DataLayer.Models.Test;
 using Microsoft.EntityFrameworkCore;
@@ -18,14 +19,23 @@ namespace DataLayer
 
         // Titles:
         // get
-        public Title getTitle(string id)
+        public TitleOnMainPage getTitle(string id)
         {
             var title = db.Titles.Find(id);
-            return title;
+            var titleDTO = CreateTitleOnMainPageDTO(title);
+            return titleDTO;
         }
-        public List<Title> getTitles()
+        public List<TitleOnMainPage> getTitles()
         {
-            return db.Titles.ToList().GetRange(0, 3);
+            var titles = db.Titles.ToList().GetRange(0, 3);
+            List<TitleOnMainPage> titlesDTO = new List<TitleOnMainPage>();
+           
+            foreach (var title in titles)
+            {
+                var titleDTO = CreateTitleOnMainPageDTO(title);
+               titlesDTO.Add(titleDTO);
+            }
+            return titlesDTO;
         }
 
         public List<TitleGenre> getTitlesByGenre(string genre)
@@ -157,6 +167,31 @@ namespace DataLayer
                 return true;
             }
             else { return false; }
+        }
+
+
+
+        // HELPERS
+
+        public TitleOnMainPage CreateTitleOnMainPageDTO(Title title)
+        {
+
+            var titleOnMainPageDTO = new TitleOnMainPage
+            {
+                Type = title.Type,
+                PrimaryTitle = title.PrimaryTitle,
+                OriginalTitle = title.OriginalTitle,
+                IsAdult = title.IsAdult,
+                StartYear = title.StartYear,
+                EndYear = title.EndYear,
+                RunTimeMinutes = title.RunTimeMinutes,
+                Poster = title.Poster,
+                Plot = title.Plot,
+                AverageRating = title.AverageRating,
+                NumVotes = title.NumVotes,
+                TitleGenreList = title.TitleGenres
+            };
+            return titleOnMainPageDTO;
         }
 
     }

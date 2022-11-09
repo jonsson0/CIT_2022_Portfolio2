@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CIT_2022_Portfolio2.models;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
 
@@ -9,9 +10,9 @@ namespace CIT_2022_Portfolio2.ViewModels.Profiles
     {
         public TitleProfile()
         {
-            CreateMap<TitleOnMainPage, TitleViewModel>();
+            CreateMap<TitleOnMainPage, TitleModel>();
 
-            CreateMap<TitleViewModel, TitleOnMainPage>();
+            CreateMap<TitleModel, TitleOnMainPage>();
         }
     }
 }

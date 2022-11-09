@@ -9,6 +9,7 @@ namespace DataLayer.DataTransferObjects
 {
     public class TitleOnMainPage
     {
+        public string TitleId { get; set; }
         public string Type { get; set; }
         public string PrimaryTitle { get; set; }
         public string OriginalTitle { get; set; }
@@ -17,9 +18,9 @@ namespace DataLayer.DataTransferObjects
         public string? EndYear { get; set; }
         public int? RunTimeMinutes { get; set; }
         public string? Poster { get; set; }
-        public string Plot { get; set; }
+        public string? Plot { get; set; }
         public double? AverageRating { get; set; }
         public int? NumVotes { get; set; }
-        List<TitleGenre>? TitleGenreList { get; set; }
+        public List<TitleGenre>? TitleGenreList { get; set; }
     }
 }

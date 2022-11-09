@@ -1,8 +1,8 @@
 ﻿using DataLayer.Models;
 
-namespace CIT_2022_Portfolio2.ViewModels
+namespace CIT_2022_Portfolio2.models
 {
-    public class TitleViewModel
+    public class TitleModel
     {
         public string url { get; set; }
         public string Type { get; set; }

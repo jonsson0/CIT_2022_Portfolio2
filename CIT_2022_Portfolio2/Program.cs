@@ -10,13 +10,13 @@ builder.Services.AddControllers();
 // builder.Services.AddEndpointsApiExplorer();
 // builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddSingleton<IDataService, DataService>();
+
+var app = builder.Build();
 
 // app.UseAuthorization();
 
