@@ -8,6 +8,17 @@ var ds = new DataService();
 var list = ds.getTitles();
 var PersonList = ds.getPerson();
 
+foreach (var titleOnMainPageDto in list)
+{
+    Console.WriteLine(titleOnMainPageDto.TitleId);
+}
+
+var title123 = ds.getTitle("tt0052520");
+
+Console.WriteLine(title123.TitleGenreList.First().Genre);
+
+Console.WriteLine("----------------------------------------");
+
 
 var Stitle = ds.getTitle("tt0052520");
 var TestPerson = ds.getPerson("nm9993711");
@@ -48,9 +59,11 @@ foreach (var title in titles)
     Console.WriteLine(title.TitleId);
 }
 
+
+
 Console.WriteLine("");
 
 //ds.createPerson("nm9993711", "Tom", "1991", null);
-//ds.updatePerson("nm9993710", "steen", "1991", "2012");
+ds.updatePerson("nm9993710", "steen", "1991", "2012");
 //ds.deletePerson("nm9993711");
 //Console.WriteLine(TestPerson.PersonId);

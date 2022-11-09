@@ -42,7 +42,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
             var model = createTitleModel(title);
 
-            return Ok(model);
+            return Ok(title);
 
         }
 

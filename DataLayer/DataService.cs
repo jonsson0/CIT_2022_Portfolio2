@@ -21,7 +21,10 @@ namespace DataLayer
         // get
         public TitleOnMainPageDTO getTitle(string id)
         {
-            var title = db.Titles.Find(id);
+            var title = db
+                        .Titles
+                        .Include(x => x.TitleGenres)
+                        .Where(x => x.TitleId == id).ToList().First();
             var titleDTO = CreateTitleOnMainPageDTO(title);
             return titleDTO;
         }
@@ -58,8 +61,6 @@ namespace DataLayer
             db.Titles.Add(title);
             db.SaveChanges();
         }
-
-
 
         // Persons:
         public Person getPerson(string id)

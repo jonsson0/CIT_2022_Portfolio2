@@ -40,6 +40,7 @@ namespace DataLayer
             // titles
             modelBuilder.Entity<Title>().ToTable("titles");
             modelBuilder.Entity<Title>().HasKey(x => x.TitleId);
+            modelBuilder.Entity<Title>().HasMany(x => x.TitleGenres).WithOne(x => x.Title);
             modelBuilder.Entity<Title>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Title>().Property(x => x.Type).HasColumnName("type");
             modelBuilder.Entity<Title>().Property(x => x.PrimaryTitle).HasColumnName("primarytitle");
@@ -57,6 +58,13 @@ namespace DataLayer
             modelBuilder.Entity<Similar_Title>().HasNoKey();
             modelBuilder.Entity<Similar_Title>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Similar_Title>().Property(x => x.PrimaryTitle).HasColumnName("primarytitle");
+
+            // title_genre
+            modelBuilder.Entity<TitleGenre>().ToTable("title_genres");
+            modelBuilder.Entity<TitleGenre>().HasKey(x => new { x.TitleId, x.Genre });
+            modelBuilder.Entity<TitleGenre>().Property(x => x.TitleId).HasColumnName("title_ID");
+            modelBuilder.Entity<TitleGenre>().Property(x => x.Genre).HasColumnName("genre");
+
 
             //users
             modelBuilder.Entity<User>().ToTable("users");

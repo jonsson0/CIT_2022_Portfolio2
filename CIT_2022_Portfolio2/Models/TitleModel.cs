@@ -18,8 +18,5 @@ namespace CIT_2022_Portfolio2.models
         public int? NumVotes { get; set; }
         List<TitleGenre> GenreList { get; set; }
 
-
-
-
     }
 }
