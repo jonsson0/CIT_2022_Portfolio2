@@ -11,6 +11,7 @@ namespace DataLayer
         List<TitleOnMainPageDTO> getTitles();
         List<Title> getTitlesByGenre(TitleGenre genre);
        // List<Similar_Title>? getSimilarTitles(string id);
+        List<Person> getPersonsByTitle();
 
         // Other
         void insertTitle(Title title);
