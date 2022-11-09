@@ -8,8 +8,7 @@ var PersonList = ds.getPerson();
 
 
 var Stitle = ds.getTitle("tt0052520");
-var TestPerson = ds.getPerson("nm0000001");
-
+var TestPerson = ds.getPerson("nm9993711");
 
 Console.WriteLine("here is a title::");
 Console.WriteLine(Stitle.PrimaryTitle);
@@ -49,4 +48,7 @@ foreach (var similarTitle in similar_titles)
 
 Console.WriteLine("");
 
-//ds.createPerson("nm9993710", "Steen", "1991", null);
+//ds.createPerson("nm9993711", "Tom", "1991", null);
+//ds.updatePerson("nm9993710", "steen", "1991", "2012");
+//ds.deletePerson("nm9993711");
+//Console.WriteLine(TestPerson.PersonId);
