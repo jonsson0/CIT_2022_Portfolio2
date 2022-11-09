@@ -25,6 +25,8 @@ namespace DataLayer
                         .Titles
                         .Include(x => x.TitleGenres)
                         //.Include(x => x.SimilarTitles)
+                        .Include(x => x.TitleCharacters)
+                        .ThenInclude(x => x.Person)
                         .Where(x => x.TitleId == id).ToList().First();
             var titleDTO = CreateTitleOnMainPageDTO(title);
             return titleDTO;
@@ -288,8 +290,9 @@ namespace DataLayer
                 Plot = title.Plot,
                 AverageRating = title.AverageRating,
                 NumVotes = title.NumVotes,
-                TitleGenres = title.TitleGenres
-              //  SimilarTitles =  title.SimilarTitles
+                TitleGenres = title.TitleGenres,
+                TitleCharacters = title.TitleCharacters
+                //  SimilarTitles =  title.SimilarTitles
             };
             return titleOnMainPageDTO;
         }

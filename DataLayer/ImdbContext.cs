@@ -17,14 +17,14 @@ namespace DataLayer
         public DbSet<Title> Titles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Rating> Ratings { get; set; }
-        public DbSet<BookmarkPerson> BookmarkPersons {get; set;}
+        public DbSet<BookmarkPerson> BookmarkPersons { get; set; }
         public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
         public DbSet<Person> Person { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
-      //  public DbSet<Similar_Title> SimilarTitles { get; set; }
-      public DbSet<Character> Characters { get; set; }
+        //  public DbSet<Similar_Title> SimilarTitles { get; set; }
+        public DbSet<Character> Characters { get; set; }
 
-      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.EnableSensitiveDataLogging();
@@ -40,7 +40,7 @@ namespace DataLayer
             modelBuilder.Entity<Title>().ToTable("titles");
             modelBuilder.Entity<Title>().HasKey(x => x.TitleId);
             modelBuilder.Entity<Title>().HasMany(x => x.TitleGenres); //.WithOne(x => x.Title);
-           // modelBuilder.Entity<Title>().HasMany(x => x.SimilarTitles);
+                                                                      // modelBuilder.Entity<Title>().HasMany(x => x.SimilarTitles);
 
             modelBuilder.Entity<Title>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Title>().Property(x => x.Type).HasColumnName("type");
@@ -107,9 +107,9 @@ namespace DataLayer
             modelBuilder.Entity<Character>().ToTable("characters");
             modelBuilder.Entity<Character>().HasKey(x => x.CharacterId);
             modelBuilder.Entity<Character>().Property(x => x.CharacterId).HasColumnName("character_ID");
-            modelBuilder.Entity<Character>().Property(x => x.PersonId).HasColumnName("character_ID");
-            modelBuilder.Entity<Character>().Property(x => x.TitleId).HasColumnName("character_ID");
-            modelBuilder.Entity<Character>().Property(x => x.TitleCharacter).HasColumnName("character_ID");
+            modelBuilder.Entity<Character>().Property(x => x.PersonId).HasColumnName("person_ID");
+            modelBuilder.Entity<Character>().Property(x => x.TitleId).HasColumnName("title_ID");
+            modelBuilder.Entity<Character>().Property(x => x.TitleCharacter).HasColumnName("character");
 
         }
     }

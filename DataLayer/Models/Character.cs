@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Json.Serialization;
+
 namespace DataLayer.Models
 {
     public class Character
@@ -7,6 +9,8 @@ namespace DataLayer.Models
         public string PersonId { get; set; }
         public Person Person { get; set; }
         public string TitleId { get; set; }
+      
+        [JsonIgnore]
         public Title Title { get; set; }
         public string TitleCharacter { get; set; }
     }
