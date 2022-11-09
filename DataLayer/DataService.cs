@@ -64,19 +64,99 @@ namespace DataLayer
         }
 
         // Users:
-
-
-        // HELPER MEHTODS
-
-
-        /*
-        public IQueryable Databaseset callDbFunction(string function)
+        public Boolean createUser(string username, string password)
         {
-            var list = null;
-
-            return list
+            if(username == null || password == null)
+            {
+                return false;
+            }
+            else
+            {
+                var user = new User();
+                user.Username = username;
+                user.Password = password;
+                db.Add(user);
+                db.SaveChanges();
+                return true;
+            }
         }
-        */
+
+        public Boolean updateUserPassword(string username, string oldpassword, string newpassword)
+        {
+            var user = db.Users.Find(username);
+            if(user != null && oldpassword == user.Password)
+            {
+                user.Password = newpassword;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Boolean deleteUser(string username, string password)
+        {
+            var user = db.Users.Find(username);
+            if(user != null && user.Password == password)
+            {
+                db.Remove(user);
+                db.SaveChanges();
+                return true;
+            }
+            else { return false; }
+        }
+
+        public Boolean createBookmarkPerson(string username, string personID)
+        {
+            var user = db.Users.Find(username);
+            var person = db.Persons.Find(personID);
+
+            if (user != null && person != null)
+            {
+                var bookmark = new BookmarkPerson();
+                bookmark.Persons.PersonId = personID;
+                bookmark.User.Username = username;
+                bookmark.Timestamp = new DateTime();
+                return true;
+            }
+            else { return false; }
+        }
+
+        public Boolean createBookmarkTitle(string username, string titleID)
+        {
+            var user = db.Users.Find(username);
+            var person = db.Titles.Find(titleID);
+
+            if (user != null && titleID != null)
+            {
+                var bookmark = new BookmarkTitle();
+                bookmark.Title.TitleId = titleID;
+                bookmark.User.Username = username;
+                bookmark.Timestamp = new DateTime();
+                return true;
+            }
+            else { return false; }
+        }
+
+        // Skal have lavet mere på denne her så den opdatere total votes på titel, samt avg rating
+        public Boolean createRating(string username, string titleID, float rating)
+        {
+            var user = db.Users.Find(username);
+            var title = db.Titles.Find(titleID);
+
+            if (user != null && title != null && rating <= 10 && rating >= 0)
+            {
+                var userrating = new Rating();
+                userrating.User.Username = username;
+                userrating.Title.TitleId = titleID;
+                userrating.rating = rating;
+                db.Add(userrating);
+                db.SaveChanges();
+                return true;
+            }
+            else { return false; }
+        }
 
     }
 }
