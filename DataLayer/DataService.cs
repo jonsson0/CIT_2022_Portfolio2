@@ -25,7 +25,7 @@ namespace DataLayer
             var title = db
                         .Titles
                         .Include(x => x.TitleGenres)
-                        .Include(x => x.SimilarTitles)
+                        //.Include(x => x.SimilarTitles)
                         .Where(x => x.TitleId == id).ToList().First();
             var titleDTO = CreateTitleOnMainPageDTO(title);
             return titleDTO;
@@ -34,7 +34,12 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
 
-            var titles = db.Titles.ToList().GetRange(0, 3);
+            var titles = db
+                                    .Titles
+                                    .Include(x => x.TitleGenres)
+                                    .ToList()
+                                    .GetRange(0, 3);
+
             List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            
             foreach (var title in titles)
@@ -55,13 +60,14 @@ namespace DataLayer
             return list;
         }
 
+        /*
         public List<Similar_Title>? getSimilarTitles(string id)
         {
             using var db = new ImdbContext();
-            var list = db
-                .SimilarTitles.FromSqlInterpolated($"select * FROM similar_movies({id})");
+            var list = db.SimilarTitles.Where(x => x.TitleId == id);  // FromSqlInterpolated($"select * FROM similar_movies({id})");
             return list.ToList();
         }
+        */
 
         // Other
         public void insertTitle(Title title)
@@ -281,8 +287,8 @@ namespace DataLayer
                 Plot = title.Plot,
                 AverageRating = title.AverageRating,
                 NumVotes = title.NumVotes,
-                TitleGenreList = title.TitleGenres,
-                SimilarTitles =  title.SimilarTitles
+                TitleGenres = title.TitleGenres
+              //  SimilarTitles =  title.SimilarTitles
             };
             return titleOnMainPageDTO;
         }

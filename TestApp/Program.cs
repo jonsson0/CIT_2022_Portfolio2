@@ -5,7 +5,15 @@ using DataLayer.Models;
 
 var ds = new DataService();
 
+var list = ds.getTitles();
 
+Console.WriteLine("here are the title genres");
+foreach (var titleOnMainPageDto in list)
+{
+    Console.WriteLine(titleOnMainPageDto.TitleGenres.First().Genre);
+}
+
+;
 
 /*var list = ds.getTitles();
 var PersonList = ds.getPerson();
