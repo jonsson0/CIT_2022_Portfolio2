@@ -1,4 +1,6 @@
-﻿using DataLayer;
+﻿using System.Runtime.InteropServices;
+using System.Threading.Channels;
+using DataLayer;
 using DataLayer.Models;
 
 var ds = new DataService();
@@ -37,13 +39,13 @@ foreach (var titleGenre in something)
     Console.WriteLine(titleGenre.Title.PrimaryTitle);
 }
 
-var similar_titles = ds.getSimilarTitles("tt0052520");
-Console.WriteLine("here are similar titles:");
-Console.WriteLine(similar_titles.Count);
 
-foreach (var similarTitle in similar_titles)
+Console.WriteLine("this is the titleonmainpage ids:");
+
+var titles = ds.getTitles();
+foreach (var title in titles)
 {
-    Console.WriteLine(similarTitle.PrimaryTitle);
+    Console.WriteLine(title.TitleId);
 }
 
 Console.WriteLine("");

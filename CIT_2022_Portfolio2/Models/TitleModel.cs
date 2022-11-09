@@ -4,7 +4,7 @@ namespace CIT_2022_Portfolio2.models
 {
     public class TitleModel
     {
-        public string url { get; set; }
+        public string? url { get; set; }
         public string Type { get; set; }
         public string PrimaryTitle { get; set; }
         public string OriginalTitle { get; set; }
@@ -17,5 +17,9 @@ namespace CIT_2022_Portfolio2.models
         public double? AverageRating { get; set; }
         public int? NumVotes { get; set; }
         List<TitleGenre> GenreList { get; set; }
+
+
+
+
     }
 }

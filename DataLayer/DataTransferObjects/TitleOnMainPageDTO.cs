@@ -7,7 +7,7 @@ using DataLayer.Models;
 
 namespace DataLayer.DataTransferObjects
 {
-    public class TitleOnMainPage
+    public class TitleOnMainPageDTO
     {
         public string TitleId { get; set; }
         public string Type { get; set; }

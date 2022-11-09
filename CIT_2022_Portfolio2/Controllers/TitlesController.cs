@@ -2,6 +2,7 @@
 using CIT_2022_Portfolio2.models;
 using DataLayer;
 using DataLayer.DataTransferObjects;
+using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CIT_2022_Portfolio2.Controllers
@@ -21,7 +22,7 @@ namespace CIT_2022_Portfolio2.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet (Name = nameof(getTitles))]
         public IActionResult getTitles()
         {
             var titles =
@@ -29,10 +30,10 @@ namespace CIT_2022_Portfolio2.Controllers
             return Ok(titles);
         }
 
-        [HttpGet("{id}", Name = nameof(getTitle))]
-        public IActionResult getTitle(string id)
+        [HttpGet("{titleId}", Name = nameof(getTitle))]
+        public IActionResult getTitle(string titleId)
         {
-            var title = _dataService.getTitle(id);
+            var title = _dataService.getTitle(titleId);
 
             if (title == null)
             {
@@ -45,7 +46,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         }
 
-        private TitleModel createTitleModel(TitleOnMainPage title)
+        private TitleModel createTitleModel(TitleOnMainPageDTO title)
         {
             var model = _mapper.Map<TitleModel>(title);
             model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { title.TitleId });

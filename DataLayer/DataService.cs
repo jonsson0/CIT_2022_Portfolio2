@@ -19,16 +19,16 @@ namespace DataLayer
 
         // Titles:
         // get
-        public TitleOnMainPage getTitle(string id)
+        public TitleOnMainPageDTO getTitle(string id)
         {
             var title = db.Titles.Find(id);
             var titleDTO = CreateTitleOnMainPageDTO(title);
             return titleDTO;
         }
-        public List<TitleOnMainPage> getTitles()
+        public List<TitleOnMainPageDTO> getTitles()
         {
             var titles = db.Titles.ToList().GetRange(0, 3);
-            List<TitleOnMainPage> titlesDTO = new List<TitleOnMainPage>();
+            List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            
             foreach (var title in titles)
             {
@@ -235,11 +235,12 @@ namespace DataLayer
 
         // HELPERS
 
-        public TitleOnMainPage CreateTitleOnMainPageDTO(Title title)
+        public TitleOnMainPageDTO CreateTitleOnMainPageDTO(Title title)
         {
 
-            var titleOnMainPageDTO = new TitleOnMainPage
+            var titleOnMainPageDTO = new TitleOnMainPageDTO
             {
+                TitleId = title.TitleId,
                 Type = title.Type,
                 PrimaryTitle = title.PrimaryTitle,
                 OriginalTitle = title.OriginalTitle,
@@ -251,7 +252,7 @@ namespace DataLayer
                 Plot = title.Plot,
                 AverageRating = title.AverageRating,
                 NumVotes = title.NumVotes,
-                TitleGenreList = title.TitleGenres
+                TitleGenreList = 
             };
             return titleOnMainPageDTO;
         }

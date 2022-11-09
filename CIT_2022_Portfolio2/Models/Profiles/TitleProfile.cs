@@ -10,9 +10,9 @@ namespace CIT_2022_Portfolio2.ViewModels.Profiles
     {
         public TitleProfile()
         {
-            CreateMap<TitleOnMainPage, TitleModel>();
+            CreateMap<TitleOnMainPageDTO, TitleModel>();
 
-            CreateMap<TitleModel, TitleOnMainPage>();
+            CreateMap<TitleModel, TitleOnMainPageDTO>();
         }
     }
 }

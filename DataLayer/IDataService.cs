@@ -8,8 +8,8 @@ namespace DataLayer
     {
         // Titles
         // Get
-        TitleOnMainPage getTitle(string id);
-        List<TitleOnMainPage> getTitles();
+        TitleOnMainPageDTO getTitle(string id);
+        List<TitleOnMainPageDTO> getTitles();
         List<TitleGenre> getTitlesByGenre(string genre);
         List<Similar_Title>? getSimilarTitles(string id);
 
