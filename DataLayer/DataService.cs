@@ -38,7 +38,7 @@ namespace DataLayer
         }
         public List<Similar_Title>? getSimilarTitles(string id)
         {
-            var list = db.SimilarMovies.FromSqlInterpolated($"select similar_movies({id})");
+            var list = db.SimilarMovies.FromSqlInterpolated($"select * FROM similar_movies({id})");
             return list.ToList();
         }
 

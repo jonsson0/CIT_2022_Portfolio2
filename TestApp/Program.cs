@@ -44,7 +44,7 @@ Console.WriteLine(similar_titles.Count);
 
 foreach (var similarTitle in similar_titles)
 {
-    Console.WriteLine(similarTitle.TitleId);
+    Console.WriteLine(similarTitle.PrimaryTitle);
 }
 
 Console.WriteLine("");
