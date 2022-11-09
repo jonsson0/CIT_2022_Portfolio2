@@ -38,7 +38,7 @@ namespace DataLayer
         }
         public List<Similar_Title>? getSimilarTitles(string id)
         {
-            var list = db.SimilarMovies.FromSqlInterpolated($"select similar_movies({id})");
+            var list = db.SimilarMovies.FromSqlInterpolated($"select * FROM similar_movies({id})");
             return list.ToList();
         }
 
@@ -66,7 +66,9 @@ namespace DataLayer
         // Users:
         public Boolean createUser(string username, string password)
         {
-            if(username == null || password == null)
+            //var user = db.Users.FromSqlInterpolated($"input_user({username} {password}");
+            return true;
+            /*if(username == null || password == null)
             {
                 return false;
             }
@@ -78,13 +80,14 @@ namespace DataLayer
                 db.Add(user);
                 db.SaveChanges();
                 return true;
-            }
+            }*/
         }
 
         public Boolean updateUserPassword(string username, string oldpassword, string newpassword)
         {
-            //var user = db.Users.FromSqlInterpolated($"select update_password({username, oldpassword, newpassword})");
-            var user = db.Users.Find(username);
+            var user = db.Users.FromSqlInterpolated($"select update_password({username}{oldpassword}{newpassword})");
+            return true;
+            /*var user = db.Users.Find(username);
             if(user != null && oldpassword == user.Password)
             {
                 user.Password = newpassword;
@@ -93,7 +96,7 @@ namespace DataLayer
             else
             {
                 return false;
-            }
+            }*/
         }
 
         public Boolean deleteUser(string username, string password)
@@ -108,9 +111,18 @@ namespace DataLayer
             else { return false; }
         }
 
-        public Boolean createBookmarkPerson(string username, string personID)
+        public List<User> getUsers()
         {
-            var user = db.Users.Find(username);
+            return db.Users.ToList();
+        }
+
+        public Boolean createBookmarkPerson(string username, string name)
+        {
+            var bookmark = db.BookmarkPersons.FromSqlInterpolated($"select input_bookmark_person({username}{name})");
+            return true;
+        }
+
+            /*var user = db.Users.Find(username);
             var person = db.Persons.Find(personID);
 
             if (user != null && person != null)
@@ -122,7 +134,7 @@ namespace DataLayer
                 return true;
             }
             else { return false; }
-        }
+        }*/
 
         public Boolean createBookmarkTitle(string username, string titleID)
         {
