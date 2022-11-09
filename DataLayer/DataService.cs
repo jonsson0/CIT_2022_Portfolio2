@@ -21,6 +21,7 @@ namespace DataLayer
         // get
         public TitleOnMainPageDTO getTitle(string id)
         {
+            using var db = new ImdbContext();
             var title = db
                         .Titles
                         .Include(x => x.TitleGenres)
