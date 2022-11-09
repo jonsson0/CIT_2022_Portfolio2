@@ -18,6 +18,12 @@ namespace DataLayer
 
         // Persons
 
+        public Person getPerson(string id);
+        public List<Person> getPerson();
+        public Person createPerson(string personId, string name, string birthYear, string deathYear);
+        public Boolean deletePerson(string personId);
+        public Boolean updatePerson(string personId, string name, string birthYear, string deathYear);
+
 
 
         // Users
@@ -25,5 +31,6 @@ namespace DataLayer
         public Boolean createUser(string username, string password);
         public Boolean updateUserPassword(string username, string oldpassword, string newpassword);
         public Boolean deleteUser(string username, string password);
+
     }
 }
