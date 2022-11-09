@@ -59,9 +59,9 @@ namespace DataLayer
             modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
 
             modelBuilder.Entity<BookmarkPerson>().ToTable("bookmarkperson");
-            modelBuilder.Entity<BookmarkPerson>().HasKey(x => x.Username);
-            modelBuilder.Entity<BookmarkPerson>().Property(x => x.Username).HasColumnName("username");
-            modelBuilder.Entity<BookmarkPerson>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<BookmarkPerson>().HasKey(x => x.UserName);
+            modelBuilder.Entity<BookmarkPerson>().Property(x => x.UserName).HasColumnName("username");
+            modelBuilder.Entity<BookmarkPerson>().Property(x => x.PersonName).HasColumnName("name");
             modelBuilder.Entity<BookmarkPerson>().Property(x => x.Timestamp).HasColumnName("timestamp");
 
             modelBuilder.Entity<BookmarkTitle>().ToTable("bookmarktitle");
