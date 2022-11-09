@@ -89,7 +89,10 @@ namespace DataLayer
             modelBuilder.Entity<Persons>().Property(x => x.DeathYear).HasColumnName("deathyear");
 
             modelBuilder.Entity<Similar_Title>().HasNoKey();
-            modelBuilder.Entity<Similar_Title>().Property(x => x.TitleId).HasColumnName("similar_movies");
+            modelBuilder.Entity<Similar_Title>().Property(x => x.TitleId).HasColumnName("title_ID");
+            modelBuilder.Entity<Similar_Title>().Property(x => x.PrimaryTitle).HasColumnName("primarytitle");
+
+
 
 
         }

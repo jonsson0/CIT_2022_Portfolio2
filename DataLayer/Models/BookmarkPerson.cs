@@ -8,10 +8,10 @@ namespace DataLayer.Models
 {
     public class BookmarkPerson
     {
+        public string UserName { get; set; }
         public User User { get; set; }
-        public User Username { get; set; }
+        public string PersonName { get; set; }
         public Persons Persons { get; set; }
-        public Persons Name { get; set; }
         public DateTime Timestamp { get; set; }
     }
 }

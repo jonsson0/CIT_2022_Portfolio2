@@ -9,5 +9,6 @@ namespace DataLayer.Models.Test
     public class Similar_Title
     {
         public string TitleId { get; set; }
+        public string PrimaryTitle { get; set; }
     }
 }
