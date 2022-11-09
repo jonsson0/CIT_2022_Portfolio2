@@ -67,7 +67,7 @@ namespace DataLayer
             modelBuilder.Entity<BookmarkTitle>().ToTable("bookmarktitle");
             modelBuilder.Entity<BookmarkTitle>().HasKey(x => x.Username);
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Username).HasColumnName("username");
-            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Title).HasColumnName("title");
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Primarytitle).HasColumnName("primarytitle");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Timestamp).HasColumnName("timestamp");
 
             modelBuilder.Entity<Rating>().ToTable("ratings");
