@@ -6,7 +6,6 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
-using DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -37,16 +36,18 @@ namespace DataLayer
             var titles = db
                                     .Titles
                                     .Include(x => x.TitleGenres)
-                                    .ToList()
-                                    .GetRange(0, 3);
+                                    .ToList().GetRange(0, 3);
 
             List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            
+            
             foreach (var title in titles)
             {
                 var titleDTO = CreateTitleOnMainPageDTO(title);
                titlesDTO.Add(titleDTO);
             }
+            
+
             return titlesDTO;
         }
 
