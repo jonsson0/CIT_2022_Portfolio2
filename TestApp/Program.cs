@@ -5,7 +5,7 @@ using DataLayer.Models;
 
 var ds = new DataService();
 
-var list = ds.getTitles();
+/*var list = ds.getTitles();
 var PersonList = ds.getPerson();
 
 foreach (var titleOnMainPageDto in list)
@@ -62,8 +62,9 @@ foreach (var title in titles)
 
 
 Console.WriteLine("");
+*/
 
 //ds.createPerson("nm9993711", "Tom", "1991", null);
-ds.updatePerson("nm9993710", "steen", "1991", "2012");
+//ds.updatePerson("nm9993710", "steen", "1991", "2012");
 //ds.deletePerson("nm9993711");
 //Console.WriteLine(TestPerson.PersonId);

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Models;
 using DataLayer.Models.Test;
+using Microsoft.Extensions.Logging;
 
 namespace DataLayer
 {
@@ -29,7 +30,8 @@ namespace DataLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            //optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
+            optionsBuilder.EnableSensitiveDataLogging();
+            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
             optionsBuilder.UseNpgsql(ConnectionString);
         }
 

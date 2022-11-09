@@ -14,7 +14,7 @@ namespace DataLayer
 {
     public class DataService : IDataService
     {
-        ImdbContext db = new ImdbContext();
+        //ImdbContext db = new ImdbContext();
 
 
         // Titles:
@@ -30,6 +30,8 @@ namespace DataLayer
         }
         public List<TitleOnMainPageDTO> getTitles()
         {
+            using var db = new ImdbContext();
+
             var titles = db.Titles.ToList().GetRange(0, 3);
             List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            
@@ -43,6 +45,7 @@ namespace DataLayer
 
         public List<TitleGenre> getTitlesByGenre(string genre)
         {
+            using var db = new ImdbContext();
             var list = db
                 .TitleGenres
                 .Include(x => x.Title)
@@ -51,6 +54,7 @@ namespace DataLayer
         }
         public List<Similar_Title>? getSimilarTitles(string id)
         {
+            using var db = new ImdbContext();
             var list = db.SimilarMovies.FromSqlInterpolated($"select * FROM similar_movies({id})");
             return list.ToList();
         }
@@ -58,6 +62,7 @@ namespace DataLayer
         // Other
         public void insertTitle(Title title)
         {
+            using var db = new ImdbContext();
             db.Titles.Add(title);
             db.SaveChanges();
         }
@@ -65,18 +70,21 @@ namespace DataLayer
         // Persons:
         public Person getPerson(string id)
         {
+            using var db = new ImdbContext();
             var person = db.Person.Find(id);
             return person;
         }
 
         public List<Person> getPerson()
         {
+            using var db = new ImdbContext();
             return db.Person.ToList().GetRange(0, 3);
         }
 
 
         public Person createPerson(string personId, string name, string birthYear, string deathYear)
         {
+            using var db = new ImdbContext();
             var person = new Person();
             person.PersonId = personId;
             person.Name = name;
@@ -89,6 +97,7 @@ namespace DataLayer
 
         public Boolean deletePerson(string personId)
         {
+            using var db = new ImdbContext();
             var c = db.Person.Find(personId);
             if (c != null)
             {
@@ -100,20 +109,28 @@ namespace DataLayer
         }
         public Boolean updatePerson(string personId, string name, string birthYear, string deathYear)
         {
-            var c = db.Person.Find(personId);
+            using var db = new ImdbContext();
 
-            if (c != null)
-            {
-                c.Name = name;
-                c.BirthYear = birthYear;
-                c.DeathYear = deathYear;
-                db.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var conn = (NpgsqlConnection)db.Database.GetDbConnection();
+            conn.Open();
+            var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = $"UPDATE persons SET deathyear = {deathYear}, birthyear = {birthYear}, name = '{name}' WHERE \"person_ID\" = '{personId}'";
+            return cmd.ExecuteNonQuery() > 0;
+            //var c = db.Person.Find(personId);
+
+            //if (c != null)
+            //{
+            //    //c.Name = name;
+            //    //c.BirthYear = birthYear;
+            //    c.DeathYear = deathYear+10;
+            //    db.SaveChanges();
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
 
 
@@ -139,7 +156,8 @@ namespace DataLayer
         // Users:
         public Boolean createUser(string username, string password)
         {
-            if(username == null || password == null)
+            using var db = new ImdbContext();
+            if (username == null || password == null)
             {
                 return false;
             }
@@ -156,6 +174,7 @@ namespace DataLayer
 
         public Boolean updateUserPassword(string username, string oldpassword, string newpassword)
         {
+            using var db = new ImdbContext();
             //var user = db.Users.FromSqlInterpolated($"select update_password({username, oldpassword, newpassword})");
             var user = db.Users.Find(username);
             if(user != null && oldpassword == user.Password)
@@ -171,6 +190,7 @@ namespace DataLayer
 
         public Boolean deleteUser(string username, string password)
         {
+            using var db = new ImdbContext();
             var user = db.Users.Find(username);
             if(user != null && user.Password == password)
             {
@@ -183,6 +203,7 @@ namespace DataLayer
 
         public Boolean createBookmarkPerson(string username, string personID)
         {
+            using var db = new ImdbContext();
             var user = db.Users.Find(username);
             var person = db.Person.Find(personID);
 
@@ -199,6 +220,7 @@ namespace DataLayer
 
         public Boolean createBookmarkTitle(string username, string titleID)
         {
+            using var db = new ImdbContext();
             var user = db.Users.Find(username);
             var person = db.Titles.Find(titleID);
 
@@ -216,6 +238,7 @@ namespace DataLayer
         // Skal have lavet mere på denne her så den opdatere total votes på titel, samt avg rating
         public Boolean createRating(string username, string titleID, float rating)
         {
+            using var db = new ImdbContext();
             var user = db.Users.Find(username);
             var title = db.Titles.Find(titleID);
 
