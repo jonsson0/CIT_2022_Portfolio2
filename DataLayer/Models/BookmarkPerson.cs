@@ -12,7 +12,7 @@ namespace DataLayer.Models
         public User User { get; set; }
 <<<<<<< Updated upstream
         public string PersonName { get; set; }
-        public Persons Persons { get; set; }
+        public Person Persons { get; set; }
 =======
         public User Username { get; set; }
         public Person Persons { get; set; }
