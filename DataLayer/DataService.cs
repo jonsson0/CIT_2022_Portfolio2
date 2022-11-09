@@ -52,17 +52,62 @@ namespace DataLayer
 
 
         // Persons:
-        public Persons getPerson(string id)
+        public Person getPerson(string id)
         {
-            var person = db.Persons.Find(id);
+            var person = db.Person.Find(id);
             return person;
         }
 
-        public List<Persons> getPerson()
+        public List<Person> getPerson()
         {
-            return db.Persons.ToList().GetRange(0, 3);
+            return db.Person.ToList().GetRange(0, 3);
         }
-        //test
+
+
+        public Person createPerson(String personId, string name, string birthYear, string deathYear)
+        {
+            var person = new Person();
+            person.PersonId = personId;
+            person.Name = name;
+            person.BirthYear = birthYear;
+            person.DeathYear = deathYear;
+            db.Add(person);
+            db.SaveChanges();
+            return person;
+        }
+
+        public Boolean deletePerson(string personId)
+        {
+            var c = db.Person.Find(personId);
+            if (c != null)
+            {
+                db.Remove(c);
+                db.SaveChanges();
+                return true;
+            }
+            else { return false; }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // Users:
         public Boolean createUser(string username, string password)
         {
