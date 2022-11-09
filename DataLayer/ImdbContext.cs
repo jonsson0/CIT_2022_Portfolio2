@@ -22,11 +22,9 @@ namespace DataLayer
         public DbSet<Person> Person { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
       //  public DbSet<Similar_Title> SimilarTitles { get; set; }
-        
+      public DbSet<Character> Characters { get; set; }
 
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.EnableSensitiveDataLogging();
@@ -72,7 +70,7 @@ namespace DataLayer
             modelBuilder.Entity<TitleGenre>().Property(x => x.Genre).HasColumnName("genre");
 
 
-            //users
+            // users
             modelBuilder.Entity<User>().ToTable("users");
             modelBuilder.Entity<User>().HasKey(x => x.Username);
             modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("username");
@@ -97,11 +95,7 @@ namespace DataLayer
             modelBuilder.Entity<Rating>().Property(x => x.Primarytitle).HasColumnName("primarytitle");
             modelBuilder.Entity<Rating>().Property(x => x.rating).HasColumnName("rating");
 
-            modelBuilder.Entity<TitleGenre>().ToTable("title_genres");
-            modelBuilder.Entity<TitleGenre>().HasKey(x => new { x.TitleId, x.Genre });
-            modelBuilder.Entity<TitleGenre>().Property(x => x.TitleId).HasColumnName("title_ID");
-            modelBuilder.Entity<TitleGenre>().Property(x => x.Genre).HasColumnName("genre");
-
+            // Persons
             modelBuilder.Entity<Person>().ToTable("persons");
             modelBuilder.Entity<Person>().HasKey(x => x.PersonId);
             modelBuilder.Entity<Person>().Property(x => x.PersonId).HasColumnName("person_ID");
@@ -109,10 +103,13 @@ namespace DataLayer
             modelBuilder.Entity<Person>().Property(x => x.BirthYear).HasColumnName("birthyear");
             modelBuilder.Entity<Person>().Property(x => x.DeathYear).HasColumnName("deathyear");
 
-         
-
-
-
+            // Characters
+            modelBuilder.Entity<Character>().ToTable("characters");
+            modelBuilder.Entity<Character>().HasKey(x => x.CharacterId);
+            modelBuilder.Entity<Character>().Property(x => x.CharacterId).HasColumnName("character_ID");
+            modelBuilder.Entity<Character>().Property(x => x.PersonId).HasColumnName("character_ID");
+            modelBuilder.Entity<Character>().Property(x => x.TitleId).HasColumnName("character_ID");
+            modelBuilder.Entity<Character>().Property(x => x.TitleCharacter).HasColumnName("character_ID");
 
         }
     }
