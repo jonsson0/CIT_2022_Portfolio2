@@ -2,6 +2,7 @@
 using System.Threading.Channels;
 using DataLayer;
 using DataLayer.Models;
+using Npgsql;
 
 var ds = new DataService();
 
@@ -68,3 +69,12 @@ Console.WriteLine("");
 //ds.updatePerson("nm9993710", "steen", "1991", "2012");
 //ds.deletePerson("nm9993711");
 //Console.WriteLine(TestPerson.PersonId);
+
+
+
+ds.createUser("testing123", "1234");
+Console.WriteLine(ds.getUser("testing123"));
+ds.createBookmarkPerson("testing123", "Fred Astaire");
+ds.getBookmarkPersonByUser("testing123");
+ds.deleteUser("testing123", "1234");
+
