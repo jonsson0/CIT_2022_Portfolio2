@@ -6,7 +6,6 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
-using DataLayer.Models.Test;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -25,6 +24,9 @@ namespace DataLayer
             var title = db
                         .Titles
                         .Include(x => x.TitleGenres)
+                        //.Include(x => x.SimilarTitles)
+                        .Include(x => x.TitleCharacters)
+                        .ThenInclude(x => x.Person)
                         .Where(x => x.TitleId == id).ToList().First();
             var titleDTO = CreateTitleOnMainPageDTO(title);
             return titleDTO;
@@ -33,32 +35,42 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
 
-            var titles = db.Titles.ToList().GetRange(0, 3);
+            var titles = db
+                                    .Titles
+                                    .Include(x => x.TitleGenres)
+                                    .ToList().GetRange(0, 3);
+
             List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            
+            
             foreach (var title in titles)
             {
                 var titleDTO = CreateTitleOnMainPageDTO(title);
                titlesDTO.Add(titleDTO);
             }
+            
+
             return titlesDTO;
         }
 
-        public List<TitleGenre> getTitlesByGenre(string genre)
+        public List<Title> getTitlesByGenre(TitleGenre genre)
         {
             using var db = new ImdbContext();
             var list = db
-                .TitleGenres
-                //.Include(x => x.Title)
-                .Where(x => x.Genre == genre).ToList();
+                .Titles
+                .Include(x => x.TitleGenres)
+                .Where(x => x.TitleGenres.Contains(genre)).ToList();
             return list;
         }
+
+        /*
         public List<Similar_Title>? getSimilarTitles(string id)
         {
             using var db = new ImdbContext();
-            var list = db.SimilarMovies.FromSqlInterpolated($"select * FROM similar_movies({id})");
+            var list = db.SimilarTitles.Where(x => x.TitleId == id);  // FromSqlInterpolated($"select * FROM similar_movies({id})");
             return list.ToList();
         }
+        */
 
         // Other
         public void insertTitle(Title title)
@@ -286,6 +298,7 @@ namespace DataLayer
 
         public TitleOnMainPageDTO CreateTitleOnMainPageDTO(Title title)
         {
+            using var db = new ImdbContext();
 
             var titleOnMainPageDTO = new TitleOnMainPageDTO
             {
@@ -301,7 +314,9 @@ namespace DataLayer
                 Plot = title.Plot,
                 AverageRating = title.AverageRating,
                 NumVotes = title.NumVotes,
-                TitleGenreList = title.TitleGenres
+                TitleGenres = title.TitleGenres,
+                TitleCharacters = title.TitleCharacters
+                //  SimilarTitles =  title.SimilarTitles
             };
             return titleOnMainPageDTO;
         }

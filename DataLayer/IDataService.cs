@@ -1,6 +1,5 @@
 ﻿using DataLayer.DataTransferObjects;
 using DataLayer.Models;
-using DataLayer.Models.Test;
 
 namespace DataLayer
 {
@@ -10,8 +9,9 @@ namespace DataLayer
         // Get
         TitleOnMainPageDTO getTitle(string id);
         List<TitleOnMainPageDTO> getTitles();
-        List<TitleGenre> getTitlesByGenre(string genre);
-        List<Similar_Title>? getSimilarTitles(string id);
+        List<Title> getTitlesByGenre(TitleGenre genre);
+       // List<Similar_Title>? getSimilarTitles(string id);
+       // List<Person> getPersonsByTitle();
 
         // Other
         void insertTitle(Title title);

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.Models.Test
+namespace DataLayer.Models
 {
     public class Similar_Title
     {
         public string TitleId { get; set; }
+        public Title Title { get; set; }
         public string PrimaryTitle { get; set; }
     }
 }
