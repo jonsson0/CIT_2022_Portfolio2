@@ -28,9 +28,22 @@ namespace DataLayer
                         .Include(x => x.TitleCharacters)
                         .ThenInclude(x => x.Person)
                         .Where(x => x.TitleId == id).ToList().First();
+           
             var titleDTO = CreateTitleOnMainPageDTO(title);
             return titleDTO;
         }
+
+        public List<Character> getCharactersByTitle(Title title)
+        {
+            using var db = new ImdbContext();
+
+            var list = db
+                .Characters
+                .Include(x => x.Person)
+                .OrderBy(x => x.Person.Name).ToList();
+            return list;
+        }
+
         public List<TitleOnMainPageDTO> getTitles()
         {
             using var db = new ImdbContext();
