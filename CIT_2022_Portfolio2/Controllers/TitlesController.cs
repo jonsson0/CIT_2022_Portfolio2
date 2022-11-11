@@ -66,6 +66,5 @@ namespace CIT_2022_Portfolio2.Controllers
             model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { similarTitle.TitleId });
             return model;
         }
-
     }
 }
