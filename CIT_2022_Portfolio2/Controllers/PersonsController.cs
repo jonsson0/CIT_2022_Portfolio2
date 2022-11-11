@@ -11,7 +11,7 @@ using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 namespace CIT_2022_Portfolio2.Controllers
 {
     [Route("api/persons")]
-
+    [ApiController]
     public class PersonsController : ControllerBase
     {
         private IDataService _dataService;
@@ -26,24 +26,37 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
 
-        //[HttpGet(Name = nameof(getPerson))]
-        //public IActionResult getPerson()
-        //{
-        //    var persons =
-        //        _dataService.getPerson()
-        //            .Select(x => createPersonModel(x)).ToList();
-        //    return Ok(persons);
-        //}
+        [HttpGet(Name = nameof(getPersons))]
+        public IActionResult getPersons()
+        {
+            var persons =
+                _dataService.getPerson()
+                    .Select(x => createPersonModel(x)).ToList();
+            return Ok(persons);
+        }
 
-        //private PersonModel createPersonModel(Person name)
-        //{
-        //    var model = _mapper.Map<PersonModel>(name);
-        //    model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { title.TitleId });
-        //    return model;
-        //}
+        [HttpGet("{personId}", Name = nameof(getPerson))]
+        public IActionResult getPerson(string personId)
+        {
+            var Person = _dataService.getPerson(personId);
+
+            if (Person != null)
+            {
+                return Ok(Person);
+
+            }
+            return NotFound();
+            var model = createPersonModel(Person);
 
 
+        }
 
+        private PersonModel createPersonModel(Person person)
+        {
+            var model = _mapper.Map<PersonModel>(person);
+            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { person.PersonId });
+            return model;
+        }
     }
 }
 
