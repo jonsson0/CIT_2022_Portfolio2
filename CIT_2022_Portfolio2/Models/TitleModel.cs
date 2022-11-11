@@ -1,6 +1,6 @@
 ﻿using DataLayer.Models;
 
-namespace CIT_2022_Portfolio2.models
+namespace CIT_2022_Portfolio2.Models
 {
     public class TitleModel
     {

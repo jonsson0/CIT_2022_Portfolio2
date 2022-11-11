@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using CIT_2022_Portfolio2.models;
-using CIT_2022_Portfolio2.Models;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
 
 
-namespace CIT_2022_Portfolio2.models.Profiles
+
+namespace CIT_2022_Portfolio2.Models.Profiles
 {
     public class TitleProfile : Profile
     {
