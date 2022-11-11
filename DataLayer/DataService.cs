@@ -117,8 +117,8 @@ namespace DataLayer
                 .Persons
                 .Find(id);
 
-            var dto = createPersonOnMainPageDTO(person);
-            return dto;
+            var personOnMainPageDTO = createPersonOnMainPageDTO(person);
+            return personOnMainPageDTO;
         }
 
         public List<PersonOnMainPageDTO> getPersons()
@@ -126,6 +126,8 @@ namespace DataLayer
             using var db = new ImdbContext();
             var persons = db
                 .Persons
+                .ToList()
+                .Take(10).ToList()
                 .Select(x => createPersonOnMainPageDTO(x)).ToList();
             return persons;
         }
