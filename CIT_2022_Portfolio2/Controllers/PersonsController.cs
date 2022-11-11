@@ -1,6 +1,6 @@
 ﻿using System;
 using AutoMapper;
-using CIT_2022_Portfolio2.models;
+using CIT_2022_Portfolio2.Models;
 using DataLayer;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
