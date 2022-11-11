@@ -42,6 +42,7 @@ namespace DataLayer
             modelBuilder.Entity<Title>().HasKey(x => x.TitleId);
             modelBuilder.Entity<Title>().HasMany(x => x.TitleGenres); //.WithOne(x => x.Title);
                                                                       // modelBuilder.Entity<Title>().HasMany(x => x.SimilarTitles);
+            modelBuilder.Entity<Title>().HasMany(x => x.TitleCharacters).WithOne(x => x.Title); //.WithOne(x => x.Title);
 
             modelBuilder.Entity<Title>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Title>().Property(x => x.Type).HasColumnName("type");

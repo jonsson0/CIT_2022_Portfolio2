@@ -28,6 +28,7 @@ namespace CIT_2022_Portfolio2.Controllers
             var titles =
                 _dataService.getTitles()
                     .Select(x => createTitleModel(x)).ToList();
+                
             return Ok(titles);
         }
 

@@ -348,9 +348,11 @@ namespace DataLayer
 
         // HELPERS
 
-        public static TitleOnMainPageDTO createTitleOnMainPageDTO(Title title)
+        public TitleOnMainPageDTO createTitleOnMainPageDTO(Title title)
         {
             using var db = new ImdbContext();
+
+            // Could implement mapping
 
             var titleOnMainPageDTO = new TitleOnMainPageDTO
             {
@@ -377,6 +379,8 @@ namespace DataLayer
         public PersonOnMainPageDTO createPersonOnMainPageDTO(Person person)
         {
             using var db = new ImdbContext();
+
+            // Could implement mapping
 
             var personOnMainPageDTO = new PersonOnMainPageDTO
             {
