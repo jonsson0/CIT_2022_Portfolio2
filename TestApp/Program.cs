@@ -77,7 +77,7 @@ Console.WriteLine("");
 
 //ds.createPerson("nm9993710", "Tom", "1991", null);
 //ds.updatePerson("nm9993710", "steen", "1991", "2012");
-ds.deletePerson("nm9993710");
+//ds.deletePerson("nm9993710");
 //Console.WriteLine(TestPerson.PersonId);
 
 
