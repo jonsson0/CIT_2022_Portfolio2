@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CIT_2022_Portfolio2.models;
+using CIT_2022_Portfolio2.Models;
 using DataLayer;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
@@ -36,21 +37,34 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             var title = _dataService.getTitle(titleId);
 
-            if (title == null)
+            if (title != null)
             {
-                return NotFound();
+                var model = createTitleModel(title);
+
+                return Ok(title);
             }
+            return NotFound();
+        }
 
-            var model = createTitleModel(title);
-
-            return Ok(title);
-
+        [HttpGet("{titleId}/similartitles", Name = nameof(getSimilarTitle))]
+        public IActionResult getSimilarTitle(string titleId)
+        {
+            var similarTitles = _dataService.getSimilarTitles(titleId)
+                .Select(createSimilarTitleModel);
+            return Ok(similarTitles);
         }
 
         private TitleModel createTitleModel(TitleOnMainPageDTO title)
         {
             var model = _mapper.Map<TitleModel>(title);
             model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { title.TitleId });
+            return model;
+        }
+
+        private SimilarTitlesModel createSimilarTitleModel(Similar_Title similarTitle)
+        {
+            var model = _mapper.Map<SimilarTitlesModel>(similarTitle);
+            model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { similarTitle.TitleId });
             return model;
         }
 

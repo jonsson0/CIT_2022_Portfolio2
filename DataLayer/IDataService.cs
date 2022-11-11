@@ -10,8 +10,11 @@ namespace DataLayer
         TitleOnMainPageDTO getTitle(string id);
         List<TitleOnMainPageDTO> getTitles();
         List<Title> getTitlesByGenre(TitleGenre genre);
-       // List<Similar_Title>? getSimilarTitles(string id);
-       // List<Person> getPersonsByTitle();
+        // List<Similar_Title>? getSimilarTitles(string id);
+        // List<Person> getPersonsByTitle();
+
+        List<Similar_Title>? getSimilarTitles(string id);
+
 
         // Other
         void insertTitle(Title title);

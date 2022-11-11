@@ -22,15 +22,27 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var title = db
-                        .Titles
-                        .Include(x => x.TitleGenres)
-                        //.Include(x => x.SimilarTitles)
-                        .Include(x => x.TitleCharacters)
-                        .ThenInclude(x => x.Person)
-                        .Where(x => x.TitleId == id).ToList().First();
+                .Titles
+                .Include(x => x.TitleGenres)
+                //.Include(x => x.SimilarTitles)
+                .Include(x => x.TitleCharacters)
+                .ThenInclude(x => x.Person)
+                //.Where(x => x.TitleCharacters)
+                .FirstOrDefault(x => x.TitleId == id)
+                ; //.Where(x => x. == false).ToList().First();
+
            
-            var titleDTO = CreateTitleOnMainPageDTO(title);
-            return titleDTO;
+
+          //  title.TitleCharacters = getCharactersByTitle(title);
+
+            if (title != null)
+            {
+                title.TitleCharacters = db.Characters.Where(x => x.TitleId == id).Take(10).ToList();
+                var titleDTO = CreateTitleOnMainPageDTO(title);
+                return titleDTO;
+            }
+
+            return null;
         }
 
         public List<Character> getCharactersByTitle(Title title)
@@ -40,9 +52,11 @@ namespace DataLayer
             var list = db
                 .Characters
                 .Include(x => x.Person)
-                .OrderBy(x => x.Person.Name).ToList();
+                .Where(x => x.TitleId == title.TitleId)
+                .ToList();
             return list;
         }
+
 
         public List<TitleOnMainPageDTO> getTitles()
         {
@@ -76,14 +90,18 @@ namespace DataLayer
             return list;
         }
 
-        /*
+
+
         public List<Similar_Title>? getSimilarTitles(string id)
         {
             using var db = new ImdbContext();
-            var list = db.SimilarTitles.Where(x => x.TitleId == id);  // FromSqlInterpolated($"select * FROM similar_movies({id})");
+            var list = db.SimilarTitles.FromSqlInterpolated($"select * FROM similar_movies({id})");
+
+           // db.SimilarTitles.Where(x => x.TitleId == id);  //
             return list.ToList();
         }
-        */
+        
+        
 
         // Other
         public void insertTitle(Title title)
@@ -334,6 +352,5 @@ namespace DataLayer
             };
             return titleOnMainPageDTO;
         }
-
     }
 }
