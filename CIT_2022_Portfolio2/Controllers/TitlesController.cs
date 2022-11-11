@@ -58,6 +58,7 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             var model = _mapper.Map<TitleModel>(titleOnMainPageDTO);
             model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { titleOnMainPageDTO.TitleId });
+            model.SimilarTitlesUrl = model.url + "/similartitles";
             return model;
         }
 

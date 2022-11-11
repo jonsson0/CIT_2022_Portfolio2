@@ -92,8 +92,6 @@ namespace DataLayer
             return list;
         }
 
-
-
         public List<Similar_Title>? getSimilarTitles(string id)
         {
             using var db = new ImdbContext();
@@ -102,8 +100,6 @@ namespace DataLayer
            // db.SimilarTitles.Where(x => x.TitleId == id);  //
             return list.ToList();
         }
-        
-        
 
         // Other
         public void insertTitle(Title title)
