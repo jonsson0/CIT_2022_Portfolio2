@@ -65,8 +65,9 @@ namespace DataLayer
             var titles = db
                                     .Titles
                                     .Include(x => x.TitleGenres)
+                                    //.ToList().GetRange(0, 3)
+                                    .Take(3).ToList()
                                     .Select(x => createTitleOnMainPageDTO(x)).ToList();
-            //.ToList().GetRange(0, 3);
 
           //  List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            
