@@ -14,6 +14,7 @@ namespace DataLayer
 
         const string ConnectionString = "host=cit.ruc.dk;db=cit09;uid=cit09;pwd=8wUBnJ0Lw4Zn"; // needs changing
 
+
         public DbSet<Title> Titles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Rating> Ratings { get; set; }
@@ -76,14 +77,14 @@ namespace DataLayer
             modelBuilder.Entity<User>().Property(x => x.Username).HasColumnName("username");
             modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
 
-            modelBuilder.Entity<BookmarkPerson>().ToTable("bookmarkperson");
+            modelBuilder.Entity<BookmarkPerson>().ToTable("bookmark_persons");
             //modelBuilder.Entity<BookmarkPerson>().HasKey(x => x.UserName);
             modelBuilder.Entity<BookmarkPerson>().HasNoKey();
             modelBuilder.Entity<BookmarkPerson>().Property(x => x.UserName).HasColumnName("username");
             modelBuilder.Entity<BookmarkPerson>().Property(x => x.PersonName).HasColumnName("name");
             modelBuilder.Entity<BookmarkPerson>().Property(x => x.Timestamp).HasColumnName("timestamp");
 
-            modelBuilder.Entity<BookmarkTitle>().ToTable("bookmarktitle");
+            modelBuilder.Entity<BookmarkTitle>().ToTable("bookmark_titles");
             modelBuilder.Entity<BookmarkTitle>().HasKey(x => x.Username);
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Username).HasColumnName("username");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Primarytitle).HasColumnName("primarytitle");

@@ -137,26 +137,27 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
 
-            var conn = (NpgsqlConnection)db.Database.GetDbConnection();
-            conn.Open();
-            var cmd = new NpgsqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = $"UPDATE persons SET deathyear = {deathYear}, birthyear = {birthYear}, name = '{name}' WHERE \"person_ID\" = '{personId}'";
-            return cmd.ExecuteNonQuery() > 0;
-            //var c = db.Person.Find(personId);
+            //var conn = (NpgsqlConnection)db.Database.GetDbConnection();
+            //conn.Open();
+            //var cmd = new NpgsqlCommand();
+            //cmd.Connection = conn;
+            //cmd.CommandText = $"UPDATE persons SET deathyear = {deathYear}, birthyear = {birthYear}, name = '{name}' WHERE \"person_ID\" = '{personId}'";
+            //return cmd.ExecuteNonQuery() > 0;
 
-            //if (c != null)
-            //{
-            //    //c.Name = name;
-            //    //c.BirthYear = birthYear;
-            //    c.DeathYear = deathYear+10;
-            //    db.SaveChanges();
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+            var c = db.Person.Find(personId);
+
+            if (c != null)
+            {
+                c.Name = name;
+                c.BirthYear = birthYear;
+                c.DeathYear = deathYear;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -180,6 +181,21 @@ namespace DataLayer
 
 
         // Users:
+
+        public string getUser(string username)
+        {
+            using var db = new ImdbContext();
+            if (db.Users.Find(username) == null)
+            {
+                return "User does not exist";
+            }
+            else
+            {
+                var u_name = db.Users.Find(username).Username;
+                var p_word = db.Users.Find(username).Password;
+                return (u_name + "\n" + p_word);
+            }
+        }
         public Boolean createUser(string username, string password)
         {
             using var db = new ImdbContext();
@@ -189,11 +205,7 @@ namespace DataLayer
             }
             else
             {
-                var user = new User();
-                user.Username = username;
-                user.Password = password;
-                db.Add(user);
-                db.SaveChanges();
+                db.Database.ExecuteSqlInterpolated($"select input_user({username},{password})");
                 return true;
             }
         }
@@ -201,11 +213,10 @@ namespace DataLayer
         public Boolean updateUserPassword(string username, string oldpassword, string newpassword)
         {
             using var db = new ImdbContext();
-            //var user = db.Users.FromSqlInterpolated($"select update_password({username, oldpassword, newpassword})");
             var user = db.Users.Find(username);
-            if(user != null && oldpassword == user.Password)
+            if (user != null && oldpassword == user.Password)
             {
-                user.Password = newpassword;
+                db.Database.ExecuteSqlInterpolated($"select update_password({username},{oldpassword},{newpassword})");
                 return true;
             }
             else
@@ -220,8 +231,7 @@ namespace DataLayer
             var user = db.Users.Find(username);
             if(user != null && user.Password == password)
             {
-                db.Remove(user);
-                db.SaveChanges();
+                db.Database.ExecuteSqlInterpolated($"select delete_user({username},{password})");
                 return true;
             }
             else { return false; }
@@ -235,10 +245,7 @@ namespace DataLayer
 
             if (user != null && person != null)
             {
-                var bookmark = new BookmarkPerson();
-                bookmark.Persons.PersonId = personID;
-                bookmark.User.Username = username;
-                bookmark.Timestamp = new DateTime();
+                db.BookmarkPersons.FromSqlInterpolated($"select input_bookmark_person({username},{personID})");
                 return true;
             }
             else { return false; }
@@ -259,6 +266,24 @@ namespace DataLayer
                 return true;
             }
             else { return false; }
+        }
+
+        public void getBookmarkPersonByUser(string username)
+        {
+            using var db = new ImdbContext();
+            var bookmarkpersonlist = db.BookmarkPersons.Where( x => x.UserName == username);
+            Console.WriteLine("User has bookmarked these actors: \n");
+            foreach(var bookmarkperson in bookmarkpersonlist)
+            {
+                Console.WriteLine(bookmarkperson.PersonName);
+            }
+            
+        }
+
+        public List<BookmarkTitle> getBookmarkTitleByUser(string username)
+        {
+            using var db = new ImdbContext();
+            return db.BookmarkTitles.ToList();
         }
 
         // Skal have lavet mere på denne her så den opdatere total votes på titel, samt avg rating
