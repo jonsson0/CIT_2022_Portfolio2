@@ -4,14 +4,12 @@ using CIT_2022_Portfolio2.Models;
 using DataLayer;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace CIT_2022_Portfolio2.Controllers
 {
     [Route("api/persons")]
-
+    [ApiController]
     public class PersonsController : ControllerBase
     {
         private IDataService _dataService;
@@ -26,24 +24,38 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
 
-        //[HttpGet(Name = nameof(getPerson))]
-        //public IActionResult getPerson()
-        //{
-        //    var persons =
-        //        _dataService.getPerson()
-        //            .Select(x => createPersonModel(x)).ToList();
-        //    return Ok(persons);
-        //}
+        [HttpGet(Name = nameof(getPersons))]
+        public IActionResult getPersons()
+        {
+            var persons =
+                _dataService.getPersons()
+                    .Select(x => createPersonModel(x)).ToList();
+            return Ok(persons);
+        }
 
-        //private PersonModel createPersonModel(Person name)
-        //{
-        //    var model = _mapper.Map<PersonModel>(name);
-        //    model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { title.TitleId });
-        //    return model;
-        //}
+        [HttpGet("{personId}", Name = nameof(getPerson))]
+        public IActionResult getPerson(string personId)
+        {
+            var Person = _dataService.getPerson(personId);
+
+            if (Person != null)
+            {
+                var model = createPersonModel(Person);
+
+                return Ok(model);
+
+            }
+            return NotFound();
 
 
+        }
 
+        private PersonModel createPersonModel(PersonOnMainPageDTO personOnMainPageDTO)
+        {
+            var model = _mapper.Map<PersonModel>(personOnMainPageDTO);
+            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { personOnMainPageDTO.PersonId });
+            return model;
+        }
     }
 }
 

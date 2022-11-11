@@ -20,7 +20,7 @@ namespace DataLayer
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<BookmarkPerson> BookmarkPersons { get; set; }
         public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
-        public DbSet<Person> Person { get; set; }
+        public DbSet<Person> Persons { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
         public DbSet<Similar_Title> SimilarTitles { get; set; }
         public DbSet<Character> Characters { get; set; }

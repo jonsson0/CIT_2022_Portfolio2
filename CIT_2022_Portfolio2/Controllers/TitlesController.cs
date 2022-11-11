@@ -40,7 +40,7 @@ namespace CIT_2022_Portfolio2.Controllers
             {
                 var model = createTitleModel(title);
 
-                return Ok(title);
+                return Ok(model);
             }
             return NotFound();
         }
@@ -53,10 +53,10 @@ namespace CIT_2022_Portfolio2.Controllers
             return Ok(similarTitles);
         }
 
-        private TitleModel createTitleModel(TitleOnMainPageDTO title)
+        private TitleModel createTitleModel(TitleOnMainPageDTO titleOnMainPageDTO)
         {
-            var model = _mapper.Map<TitleModel>(title);
-            model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { title.TitleId });
+            var model = _mapper.Map<TitleModel>(titleOnMainPageDTO);
+            model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { titleOnMainPageDTO.TitleId });
             return model;
         }
 

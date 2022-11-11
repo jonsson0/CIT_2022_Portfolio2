@@ -1,15 +1,12 @@
 ﻿using System;
-namespace CIT_2022_Portfolio2.Models
+namespace DataLayer.DataTransferObjects
 {
-	public class PersonModel
+	public class PersonOnMainPageDTO
 	{
-
-        public string? url { get; set; }
+        public string PersonId { get; set; }
         public string Name { get; set; }
         public string? BirthYear { get; set; }
         public string? DeathYear { get; set; }
-
-
     }
 }
 

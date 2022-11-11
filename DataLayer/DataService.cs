@@ -38,7 +38,7 @@ namespace DataLayer
             if (title != null)
             {
                 title.TitleCharacters = db.Characters.Where(x => x.TitleId == id).Take(10).ToList();
-                var titleDTO = CreateTitleOnMainPageDTO(title);
+                var titleDTO = createTitleOnMainPageDTO(title);
                 return titleDTO;
             }
 
@@ -65,19 +65,20 @@ namespace DataLayer
             var titles = db
                                     .Titles
                                     .Include(x => x.TitleGenres)
-                                    .ToList().GetRange(0, 3);
+                                    .Select(x => createTitleOnMainPageDTO(x)).ToList();
+            //.ToList().GetRange(0, 3);
 
-            List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
+          //  List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            
             
-            foreach (var title in titles)
-            {
-                var titleDTO = CreateTitleOnMainPageDTO(title);
-               titlesDTO.Add(titleDTO);
-            }
+            //foreach (var title in titles)
+            //{
+            //    var titleDTO = CreateTitleOnMainPageDTO(title);
+            //   titlesDTO.Add(titleDTO);
+            //}
             
 
-            return titlesDTO;
+            return titles;
         }
 
         public List<Title> getTitlesByGenre(TitleGenre genre)
@@ -112,18 +113,37 @@ namespace DataLayer
         }
 
         // Persons:
-        public Person getPerson(string id)
+        public PersonOnMainPageDTO getPerson(string id)
         {
             using var db = new ImdbContext();
-            var person = db.Person.Find(id);
-            return person;
+            var person = db
+                .Persons
+                .Find(id);
+
+            var dto = createPersonOnMainPageDTO(person);
+            return dto;
         }
 
-        public List<Person> getPerson()
+        public List<PersonOnMainPageDTO> getPersons()
         {
             using var db = new ImdbContext();
-            return db.Person.ToList().GetRange(0, 3);
+            var persons = db
+                .Persons
+                .Select(x => createPersonOnMainPageDTO(x)).ToList();
+            return persons;
         }
+
+        //    List<PersonOnMainPageDTO> DTOlist = new List<PersonOnMainPageDTO>();
+        //    foreach(var person in persons)
+        //    {
+        //        var DTO = createPersonOnMainPageDTO(person);
+        //        DTOlist.Add(DTO);
+        //    }
+
+        //    return DTOlist;
+        //}
+
+
 
 
         public Person createPerson(string personId, string name, string birthYear, string deathYear)
@@ -142,7 +162,7 @@ namespace DataLayer
         public Boolean deletePerson(string personId)
         {
             using var db = new ImdbContext();
-            var c = db.Person.Find(personId);
+            var c = db.Persons.Find(personId);
             if (c != null)
             {
                 db.Remove(c);
@@ -162,7 +182,7 @@ namespace DataLayer
             //cmd.CommandText = $"UPDATE persons SET deathyear = {deathYear}, birthyear = {birthYear}, name = '{name}' WHERE \"person_ID\" = '{personId}'";
             //return cmd.ExecuteNonQuery() > 0;
 
-            var c = db.Person.Find(personId);
+            var c = db.Persons.Find(personId);
 
             if (c != null)
             {
@@ -259,7 +279,7 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var person = db.Person.Find(personID);
+            var person = db.Persons.Find(personID);
 
             if (user != null && person != null)
             {
@@ -328,7 +348,7 @@ namespace DataLayer
 
         // HELPERS
 
-        public TitleOnMainPageDTO CreateTitleOnMainPageDTO(Title title)
+        public static TitleOnMainPageDTO createTitleOnMainPageDTO(Title title)
         {
             using var db = new ImdbContext();
 
@@ -349,8 +369,23 @@ namespace DataLayer
                 TitleGenres = title.TitleGenres,
                 TitleCharacters = title.TitleCharacters
                 //  SimilarTitles =  title.SimilarTitles
+
             };
             return titleOnMainPageDTO;
+        }
+
+        public PersonOnMainPageDTO createPersonOnMainPageDTO(Person person)
+        {
+            using var db = new ImdbContext();
+
+            var personOnMainPageDTO = new PersonOnMainPageDTO
+            {
+                PersonId = person.PersonId,
+                Name = person.Name,
+                BirthYear = person.BirthYear,
+                DeathYear = person.DeathYear
+            };
+            return personOnMainPageDTO;
         }
     }
 }
