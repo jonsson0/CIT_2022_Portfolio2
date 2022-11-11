@@ -4,9 +4,7 @@ using CIT_2022_Portfolio2.Models;
 using DataLayer;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace CIT_2022_Portfolio2.Controllers
 {
@@ -30,7 +28,7 @@ namespace CIT_2022_Portfolio2.Controllers
         public IActionResult getPersons()
         {
             var persons =
-                _dataService.getPerson()
+                _dataService.getPersons()
                     .Select(x => createPersonModel(x)).ToList();
             return Ok(persons);
         }
@@ -42,19 +40,20 @@ namespace CIT_2022_Portfolio2.Controllers
 
             if (Person != null)
             {
-                return Ok(Person);
+                var model = createPersonModel(Person);
+
+                return Ok(model);
 
             }
             return NotFound();
-            var model = createPersonModel(Person);
 
 
         }
 
-        private PersonModel createPersonModel(Person person)
+        private PersonModel createPersonModel(PersonOnMainPageDTO personOnMainPageDTO)
         {
-            var model = _mapper.Map<PersonModel>(person);
-            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { person.PersonId });
+            var model = _mapper.Map<PersonModel>(personOnMainPageDTO);
+            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { personOnMainPageDTO.PersonId });
             return model;
         }
     }
