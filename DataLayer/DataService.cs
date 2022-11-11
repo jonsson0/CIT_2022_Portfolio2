@@ -124,26 +124,27 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
 
-            var conn = (NpgsqlConnection)db.Database.GetDbConnection();
-            conn.Open();
-            var cmd = new NpgsqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = $"UPDATE persons SET deathyear = {deathYear}, birthyear = {birthYear}, name = '{name}' WHERE \"person_ID\" = '{personId}'";
-            return cmd.ExecuteNonQuery() > 0;
-            //var c = db.Person.Find(personId);
+            //var conn = (NpgsqlConnection)db.Database.GetDbConnection();
+            //conn.Open();
+            //var cmd = new NpgsqlCommand();
+            //cmd.Connection = conn;
+            //cmd.CommandText = $"UPDATE persons SET deathyear = {deathYear}, birthyear = {birthYear}, name = '{name}' WHERE \"person_ID\" = '{personId}'";
+            //return cmd.ExecuteNonQuery() > 0;
 
-            //if (c != null)
-            //{
-            //    //c.Name = name;
-            //    //c.BirthYear = birthYear;
-            //    c.DeathYear = deathYear+10;
-            //    db.SaveChanges();
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+            var c = db.Person.Find(personId);
+
+            if (c != null)
+            {
+                c.Name = name;
+                c.BirthYear = birthYear;
+                c.DeathYear = deathYear;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
