@@ -219,19 +219,20 @@ namespace DataLayer
 
         // Users:
 
-        public string getUser(string username)
+        public UserPageDTO getUser(string username)
         {
             using var db = new ImdbContext();
-            if (db.Users.Find(username) == null)
+            
+            var user = db.Users.Find(username);
+
+            if (user != null)
             {
-                return "User does not exist";
+                var userpagedto = createUserPageDTO(user);
+                return userpagedto;
             }
-            else
-            {
-                var u_name = db.Users.Find(username).Username;
-                var p_word = db.Users.Find(username).Password;
-                return (u_name + "\n" + p_word);
-            }
+            else { return null; }
+            
+            
         }
         public Boolean createUser(string username, string password)
         {
@@ -306,7 +307,7 @@ namespace DataLayer
             else { return false; }
         }
 
-        public void getBookmarkPersonByUser(string username)
+        public List<BookmarkPerson> getBookmarkPersonByUser(string username)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
@@ -314,44 +315,60 @@ namespace DataLayer
             if(user != null)
             {
                 Console.WriteLine("User has bookmarked these actors: \n");
-                var result = db.BookmarkPersons.FromSqlInterpolated($"select * from bookmark_persons");// WHERE bookmark_persons.username = '{username}'");
-                foreach (var bookperson in result)
-                {
-                    Console.WriteLine(bookperson.Username + bookperson.Personname);
-                }
+                var result = db.BookmarkPersons.FromSqlInterpolated($"select get_bookmark_person_by_user({username})");// WHERE bookmark_persons.username = '{username}'");
+                return result.ToList();
+                //foreach (var bookperson in result)
+                //{
+                //    Console.WriteLine(bookperson.Username + bookperson.Personname);
+                //}
             }
+            else { return null; }
         }
 
-        public void getBookmarkTitleByUser(string username)
+        public List<BookmarkTitle> getBookmarkTitleByUser(string username)
         {
             using var db = new ImdbContext();
-            Console.WriteLine("User has bookmarked these titles: \n");
-            var result = db.BookmarkTitles.FromSqlInterpolated($"select * from bookmark_titles");
-            foreach (BookmarkTitle bookmarktitle in result)
+
+            if (username != null)
             {
-                Console.WriteLine(bookmarktitle.Username
-                    + bookmarktitle.Primarytitle);
+                Console.WriteLine("User has bookmarked these titles: \n");
+                var result = db.BookmarkTitles.FromSqlInterpolated($"select get_bookmark_title_by_user({username})");
+                return result.ToList();
             }
+            else { return null; }
+            //foreach (BookmarkTitle bookmarktitle in result)
+            ////{
+            ////    Console.WriteLine(bookmarktitle.Username
+            ////        + bookmarktitle.Primarytitle);
+            ////}
         }
 
         // Skal have lavet mere på denne her så den opdatere total votes på titel, samt avg rating
-        public Boolean createRating(string username, string titleID, float rating)
+        public Boolean createRating(string username, string titlename, float rating)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var title = db.Titles.Find(titleID);
+            var title = db.Titles.Find(titlename);
 
-            if (user != null && title != null && rating <= 10 && rating >= 0)
+            if (user != null && title != null)
             {
-                var userrating = new Rating();
-                userrating.User.Username = username;
-                userrating.Title.TitleId = titleID;
-                userrating.rating = rating;
-                db.Add(userrating);
-                db.SaveChanges();
+                var result = db.Ratings.FromSqlInterpolated($"select input_rating({username},{titlename},{rating})");
                 return true;
             }
             else { return false; }
+        }
+
+        public List<Rating> getRatingsByUser (string username)
+        {
+            using var db = new ImdbContext();
+            var user = db.Users.Find(username);
+
+            if(user != null)
+            {
+                var result = db.Ratings.FromSqlInterpolated($"select get_ratings_by_user({username})");
+                return result.ToList();
+            }
+            else { return null; }
         }
 
 
@@ -400,6 +417,26 @@ namespace DataLayer
                 DeathYear = person.DeathYear
             };
             return personOnMainPageDTO;
+        }
+
+        public UserPageDTO createUserPageDTO(User user)
+        {
+            using var db = new ImdbContext();
+
+            var username = db.Users.Find(user).Username;
+            var bookmarkedtitles = getBookmarkTitleByUser(username);
+            var bookmarkedactors = getBookmarkPersonByUser(username);
+            var userratings = getRatingsByUser(username);
+
+
+            var userPageDTO = new UserPageDTO
+            {
+                Username = user.Username,
+                BookmarkedActors = bookmarkedactors,
+                BookmarkedTitles = bookmarkedtitles,
+                UserRatings = userratings
+            };
+            return userPageDTO;
         }
     }
 }
