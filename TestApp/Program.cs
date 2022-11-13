@@ -75,9 +75,9 @@ foreach (var title in titles)
 Console.WriteLine("");
 */
 
-//ds.createPerson("nm9993711", "Tom", "1991", null);
+//ds.createPerson("nm9993710", "Tom", "1991", null);
 //ds.updatePerson("nm9993710", "steen", "1991", "2012");
-//ds.deletePerson("nm9993711");
+//ds.deletePerson("nm9993710");
 //Console.WriteLine(TestPerson.PersonId);
 
 

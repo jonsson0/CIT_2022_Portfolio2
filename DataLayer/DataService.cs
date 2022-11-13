@@ -22,15 +22,42 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var title = db
-                        .Titles
-                        .Include(x => x.TitleGenres)
-                        //.Include(x => x.SimilarTitles)
-                        .Include(x => x.TitleCharacters)
-                        .ThenInclude(x => x.Person)
-                        .Where(x => x.TitleId == id).ToList().First();
-            var titleDTO = CreateTitleOnMainPageDTO(title);
-            return titleDTO;
+                .Titles
+                .Include(x => x.TitleGenres)
+                //.Include(x => x.SimilarTitles)
+                .Include(x => x.TitleCharacters)
+                .ThenInclude(x => x.Person)
+                //.Where(x => x.TitleCharacters)
+                .FirstOrDefault(x => x.TitleId == id)
+                ; //.Where(x => x. == false).ToList().First();
+
+           
+
+          //  title.TitleCharacters = getCharactersByTitle(title);
+
+            if (title != null)
+            {
+                title.TitleCharacters = db.Characters.Where(x => x.TitleId == id).Take(10).ToList();
+                var titleDTO = createTitleOnMainPageDTO(title);
+                return titleDTO;
+            }
+
+            return null;
         }
+
+        public List<Character> getCharactersByTitle(Title title)
+        {
+            using var db = new ImdbContext();
+
+            var list = db
+                .Characters
+                .Include(x => x.Person)
+                .Where(x => x.TitleId == title.TitleId)
+                .ToList();
+            return list;
+        }
+
+
         public List<TitleOnMainPageDTO> getTitles()
         {
             using var db = new ImdbContext();
@@ -38,19 +65,21 @@ namespace DataLayer
             var titles = db
                                     .Titles
                                     .Include(x => x.TitleGenres)
-                                    .ToList().GetRange(0, 3);
+                                    //.ToList().GetRange(0, 3)
+                                    .Take(3).ToList()
+                                    .Select(x => createTitleOnMainPageDTO(x)).ToList();
 
-            List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
+          //  List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            
             
-            foreach (var title in titles)
-            {
-                var titleDTO = CreateTitleOnMainPageDTO(title);
-               titlesDTO.Add(titleDTO);
-            }
+            //foreach (var title in titles)
+            //{
+            //    var titleDTO = CreateTitleOnMainPageDTO(title);
+            //   titlesDTO.Add(titleDTO);
+            //}
             
 
-            return titlesDTO;
+            return titles;
         }
 
         public List<Title> getTitlesByGenre(TitleGenre genre)
@@ -63,14 +92,14 @@ namespace DataLayer
             return list;
         }
 
-        /*
         public List<Similar_Title>? getSimilarTitles(string id)
         {
             using var db = new ImdbContext();
-            var list = db.SimilarTitles.Where(x => x.TitleId == id);  // FromSqlInterpolated($"select * FROM similar_movies({id})");
+            var list = db.SimilarTitles.FromSqlInterpolated($"select * FROM similar_movies({id})");
+
+           // db.SimilarTitles.Where(x => x.TitleId == id);  //
             return list.ToList();
         }
-        */
 
         // Other
         public void insertTitle(Title title)
@@ -81,18 +110,39 @@ namespace DataLayer
         }
 
         // Persons:
-        public Person getPerson(string id)
+        public PersonOnMainPageDTO getPerson(string id)
         {
             using var db = new ImdbContext();
-            var person = db.Person.Find(id);
-            return person;
+            var person = db
+                .Persons
+                .Find(id);
+
+            var personOnMainPageDTO = createPersonOnMainPageDTO(person);
+            return personOnMainPageDTO;
         }
 
-        public List<Person> getPerson()
+        public List<PersonOnMainPageDTO> getPersons()
         {
             using var db = new ImdbContext();
-            return db.Person.ToList().GetRange(0, 3);
+            var persons = db
+                .Persons
+                .ToList()
+                .Take(10).ToList()
+                .Select(x => createPersonOnMainPageDTO(x)).ToList();
+            return persons;
         }
+
+        //    List<PersonOnMainPageDTO> DTOlist = new List<PersonOnMainPageDTO>();
+        //    foreach(var person in persons)
+        //    {
+        //        var DTO = createPersonOnMainPageDTO(person);
+        //        DTOlist.Add(DTO);
+        //    }
+
+        //    return DTOlist;
+        //}
+
+
 
 
         public Person createPerson(string personId, string name, string birthYear, string deathYear)
@@ -111,7 +161,7 @@ namespace DataLayer
         public Boolean deletePerson(string personId)
         {
             using var db = new ImdbContext();
-            var c = db.Person.Find(personId);
+            var c = db.Persons.Find(personId);
             if (c != null)
             {
                 db.Remove(c);
@@ -124,26 +174,27 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
 
-            var conn = (NpgsqlConnection)db.Database.GetDbConnection();
-            conn.Open();
-            var cmd = new NpgsqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = $"UPDATE persons SET deathyear = {deathYear}, birthyear = {birthYear}, name = '{name}' WHERE \"person_ID\" = '{personId}'";
-            return cmd.ExecuteNonQuery() > 0;
-            //var c = db.Person.Find(personId);
+            //var conn = (NpgsqlConnection)db.Database.GetDbConnection();
+            //conn.Open();
+            //var cmd = new NpgsqlCommand();
+            //cmd.Connection = conn;
+            //cmd.CommandText = $"UPDATE persons SET deathyear = {deathYear}, birthyear = {birthYear}, name = '{name}' WHERE \"person_ID\" = '{personId}'";
+            //return cmd.ExecuteNonQuery() > 0;
 
-            //if (c != null)
-            //{
-            //    //c.Name = name;
-            //    //c.BirthYear = birthYear;
-            //    c.DeathYear = deathYear+10;
-            //    db.SaveChanges();
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+            var c = db.Persons.Find(personId);
+
+            if (c != null)
+            {
+                c.Name = name;
+                c.BirthYear = birthYear;
+                c.DeathYear = deathYear;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -307,9 +358,11 @@ namespace DataLayer
 
         // HELPERS
 
-        public TitleOnMainPageDTO CreateTitleOnMainPageDTO(Title title)
+        public TitleOnMainPageDTO createTitleOnMainPageDTO(Title title)
         {
             using var db = new ImdbContext();
+
+            // Could implement mapping
 
             var titleOnMainPageDTO = new TitleOnMainPageDTO
             {
@@ -328,9 +381,25 @@ namespace DataLayer
                 TitleGenres = title.TitleGenres,
                 TitleCharacters = title.TitleCharacters
                 //  SimilarTitles =  title.SimilarTitles
+
             };
             return titleOnMainPageDTO;
         }
 
+        public PersonOnMainPageDTO createPersonOnMainPageDTO(Person person)
+        {
+            using var db = new ImdbContext();
+
+            // Could implement mapping
+
+            var personOnMainPageDTO = new PersonOnMainPageDTO
+            {
+                PersonId = person.PersonId,
+                Name = person.Name,
+                BirthYear = person.BirthYear,
+                DeathYear = person.DeathYear
+            };
+            return personOnMainPageDTO;
+        }
     }
 }

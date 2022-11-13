@@ -9,7 +9,7 @@ namespace DataLayer.Models
     public class Similar_Title
     {
         public string TitleId { get; set; }
-        public Title Title { get; set; }
+      //  public Title Title { get; set; }
         public string PrimaryTitle { get; set; }
     }
 }

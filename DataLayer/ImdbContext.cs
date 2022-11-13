@@ -20,9 +20,9 @@ namespace DataLayer
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<BookmarkPerson> BookmarkPersons { get; set; }
         public DbSet<BookmarkTitle> BookmarkTitles { get; set; }
-        public DbSet<Person> Person { get; set; }
+        public DbSet<Person> Persons { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
-        //  public DbSet<Similar_Title> SimilarTitles { get; set; }
+        public DbSet<Similar_Title> SimilarTitles { get; set; }
         public DbSet<Character> Characters { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,6 +42,7 @@ namespace DataLayer
             modelBuilder.Entity<Title>().HasKey(x => x.TitleId);
             modelBuilder.Entity<Title>().HasMany(x => x.TitleGenres); //.WithOne(x => x.Title);
                                                                       // modelBuilder.Entity<Title>().HasMany(x => x.SimilarTitles);
+            modelBuilder.Entity<Title>().HasMany(x => x.TitleCharacters).WithOne(x => x.Title); //.WithOne(x => x.Title);
 
             modelBuilder.Entity<Title>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Title>().Property(x => x.Type).HasColumnName("type");
@@ -56,13 +57,13 @@ namespace DataLayer
             modelBuilder.Entity<Title>().Property(x => x.AverageRating).HasColumnName("averagerating");
             modelBuilder.Entity<Title>().Property(x => x.NumVotes).HasColumnName("numvotes");
 
-            /*
+            
             // similar titles
             // modelBuilder.Entity<Title>().ToTable("similar_movies");
-            modelBuilder.Entity<Similar_Title>().HasKey(x => new { x.TitleId, x.PrimaryTitle });
+            modelBuilder.Entity<Similar_Title>().HasNoKey();
             modelBuilder.Entity<Similar_Title>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Similar_Title>().Property(x => x.PrimaryTitle).HasColumnName("primarytitle");
-            */
+            
 
             // title_genre
             modelBuilder.Entity<TitleGenre>().ToTable("title_genres");

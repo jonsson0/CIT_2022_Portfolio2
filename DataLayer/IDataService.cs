@@ -10,16 +10,19 @@ namespace DataLayer
         TitleOnMainPageDTO getTitle(string id);
         List<TitleOnMainPageDTO> getTitles();
         List<Title> getTitlesByGenre(TitleGenre genre);
-       // List<Similar_Title>? getSimilarTitles(string id);
-       // List<Person> getPersonsByTitle();
+        // List<Similar_Title>? getSimilarTitles(string id);
+        // List<Person> getPersonsByTitle();
+
+        List<Similar_Title>? getSimilarTitles(string id);
+
 
         // Other
         void insertTitle(Title title);
 
         // Persons
 
-        public Person getPerson(string id);
-        public List<Person> getPerson();
+        public PersonOnMainPageDTO getPerson(string id);
+        public List<PersonOnMainPageDTO> getPersons();
         public Person createPerson(string personId, string name, string birthYear, string deathYear);
         public Boolean deletePerson(string personId);
         public Boolean updatePerson(string personId, string name, string birthYear, string deathYear);
