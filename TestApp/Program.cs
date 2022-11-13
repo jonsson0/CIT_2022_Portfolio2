@@ -6,13 +6,13 @@ using Npgsql;
 
 var ds = new DataService();
 
-var list = ds.getTitles();
+//var list = ds.getTitles();
 
-Console.WriteLine("here are the title genres");
-foreach (var titleOnMainPageDto in list)
-{
-    Console.WriteLine(titleOnMainPageDto.TitleGenres.First().Genre);
-}
+//Console.WriteLine("here are the title genres");
+//foreach (var titleOnMainPageDto in list)
+//{
+//    Console.WriteLine(titleOnMainPageDto.TitleGenres.First().Genre);
+//}
 
 ;
 
@@ -82,9 +82,5 @@ Console.WriteLine("");
 
 
 
-ds.createUser("testing123", "1234");
-Console.WriteLine(ds.getUser("testing123"));
-ds.createBookmarkPerson("testing123", "Fred Astaire");
-ds.getBookmarkPersonByUser("testing123");
-ds.deleteUser("testing123", "1234");
+
 

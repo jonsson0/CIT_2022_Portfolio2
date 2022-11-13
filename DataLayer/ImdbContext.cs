@@ -78,17 +78,17 @@ namespace DataLayer
             modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
 
             modelBuilder.Entity<BookmarkPerson>().ToTable("bookmark_persons");
-            //modelBuilder.Entity<BookmarkPerson>().HasKey(x => x.UserName);
-            modelBuilder.Entity<BookmarkPerson>().HasNoKey();
-            modelBuilder.Entity<BookmarkPerson>().Property(x => x.UserName).HasColumnName("username");
-            modelBuilder.Entity<BookmarkPerson>().Property(x => x.PersonName).HasColumnName("name");
-            modelBuilder.Entity<BookmarkPerson>().Property(x => x.Timestamp).HasColumnName("timestamp");
+            modelBuilder.Entity<BookmarkPerson>().HasKey(x => x.Username);
+            //modelBuilder.Entity<BookmarkPerson>().HasNoKey();
+            modelBuilder.Entity<BookmarkPerson>().Property(x => x.Username).HasColumnName("username");
+            modelBuilder.Entity<BookmarkPerson>().Property(x => x.Personname).HasColumnName("person_name");
+            modelBuilder.Entity<BookmarkPerson>().Property(x => x.Timestamp).HasColumnName("person_timestamp");
 
             modelBuilder.Entity<BookmarkTitle>().ToTable("bookmark_titles");
             modelBuilder.Entity<BookmarkTitle>().HasKey(x => x.Username);
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Username).HasColumnName("username");
-            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Primarytitle).HasColumnName("primarytitle");
-            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Timestamp).HasColumnName("timestamp");
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Primarytitle).HasColumnName("primary_title");
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Timestamp).HasColumnName("title_timestamp");
 
             modelBuilder.Entity<Rating>().ToTable("ratings");
             modelBuilder.Entity<Rating>().HasKey(x => new { x.Username, x.Primarytitle });

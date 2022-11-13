@@ -223,32 +223,33 @@ namespace DataLayer
             else { return false; }
         }
 
-        public Boolean createBookmarkPerson(string username, string personID)
+        public Boolean createBookmarkPerson(string username, string personname)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var person = db.Person.Find(personID);
-
+            var person = db.Person.Where(x => x.Name == personname);
+            
             if (user != null && person != null)
             {
-                db.BookmarkPersons.FromSqlInterpolated($"select input_bookmark_person({username},{personID})");
+                db.Database.ExecuteSqlInterpolated($"select input_bookmark_person({username},{personname})");
+                Console.WriteLine("person booked");
+                db.SaveChanges();
+                //Console.WriteLine(test.ToList().FirstOrDefault());
                 return true;
             }
             else { return false; }
         }
 
-        public Boolean createBookmarkTitle(string username, string titleID)
+        public Boolean createBookmarkTitle(string username, string primarytitle)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var person = db.Titles.Find(titleID);
+            var title = db.Titles.Find(primarytitle);
 
-            if (user != null && titleID != null)
+            if (user != null && title != null)
             {
-                var bookmark = new BookmarkTitle();
-                bookmark.Title.TitleId = titleID;
-                bookmark.User.Username = username;
-                bookmark.Timestamp = new DateTime();
+                db.Database.ExecuteSqlInterpolated($"select input_bookmark_person({username},{primarytitle})");
+                db.SaveChanges();
                 return true;
             }
             else { return false; }
@@ -257,19 +258,29 @@ namespace DataLayer
         public void getBookmarkPersonByUser(string username)
         {
             using var db = new ImdbContext();
-            var bookmarkpersonlist = db.BookmarkPersons.Where( x => x.UserName == username);
-            Console.WriteLine("User has bookmarked these actors: \n");
-            foreach(var bookmarkperson in bookmarkpersonlist)
+            var user = db.Users.Find(username);
+
+            if(user != null)
             {
-                Console.WriteLine(bookmarkperson.PersonName);
+                Console.WriteLine("User has bookmarked these actors: \n");
+                var result = db.BookmarkPersons.FromSqlInterpolated($"select * from bookmark_persons");// WHERE bookmark_persons.username = '{username}'");
+                foreach (var bookperson in result)
+                {
+                    Console.WriteLine(bookperson.Username + bookperson.Personname);
+                }
             }
-            
         }
 
-        public List<BookmarkTitle> getBookmarkTitleByUser(string username)
+        public void getBookmarkTitleByUser(string username)
         {
             using var db = new ImdbContext();
-            return db.BookmarkTitles.ToList();
+            Console.WriteLine("User has bookmarked these titles: \n");
+            var result = db.BookmarkTitles.FromSqlInterpolated($"select * from bookmark_titles");
+            foreach (BookmarkTitle bookmarktitle in result)
+            {
+                Console.WriteLine(bookmarktitle.Username
+                    + bookmarktitle.Primarytitle);
+            }
         }
 
         // Skal have lavet mere på denne her så den opdatere total votes på titel, samt avg rating
