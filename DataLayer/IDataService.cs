@@ -27,7 +27,7 @@ namespace DataLayer
         public Person createPerson(string personId, string name, string birthYear, string deathYear);
         public Boolean deletePerson(string personId);
         public Boolean updatePerson(string personId, string name, string birthYear, string deathYear);
-        public List<CoActor_Person> getCoActors(string id);
+        public List<CoActor_Person>? getCoActors(string name);
 
 
 

@@ -62,9 +62,9 @@ namespace CIT_2022_Portfolio2.Controllers
             return model;
         }
 
-        private CoActorPersonModel createSimilarTitleModel(Similar_Title similarTitle)
+        private SimilarTitlesModel createSimilarTitleModel(Similar_Title similarTitle)
         {
-            var model = _mapper.Map<CoActorPersonModel>(similarTitle);
+            var model = _mapper.Map<SimilarTitlesModel>(similarTitle);
             model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { similarTitle.TitleId });
             return model;
         }
