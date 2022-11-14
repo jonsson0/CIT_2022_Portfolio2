@@ -279,7 +279,7 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var person = db.Person.Where(x => x.Name == personname);
+            var person = db.Persons.Where(x => x.Name == personname);
             
             if (user != null && person != null)
             {
