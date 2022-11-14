@@ -203,7 +203,6 @@ namespace DataLayer
             using var db = new ImdbContext();
             var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByName({id})");
 
-            // db.SimilarTitles.Where(x => x.TitleId == id);  //
             return list.ToList();
         }
 
