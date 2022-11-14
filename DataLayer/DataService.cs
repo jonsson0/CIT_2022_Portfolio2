@@ -6,6 +6,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
+using DataLayer.Models.ObjectsFromFunctions;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -197,6 +198,14 @@ namespace DataLayer
             }
         }
 
+        public List<CoActor_Person> getCoActors(string id)
+        {
+            using var db = new ImdbContext();
+            var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByName({id})");
+
+            // db.SimilarTitles.Where(x => x.TitleId == id);  //
+            return list.ToList();
+        }
 
 
 
