@@ -122,6 +122,18 @@ namespace DataLayer
             return personOnMainPageDTO;
         }
 
+        public PersonOnMainPageDTO getPersonName(string name)
+        {
+            using var db = new ImdbContext();
+            var person = db
+                .Persons
+                .Find(name);
+
+            var personOnMainPageDTO = createPersonOnMainPageDTO(person);
+            return personOnMainPageDTO;
+        }
+
+
         public List<PersonOnMainPageDTO> getPersons()
         {
             using var db = new ImdbContext();
@@ -201,7 +213,8 @@ namespace DataLayer
         public List<CoActor_Person>? getCoActors(string name)
         {
             using var db = new ImdbContext();
-            var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByName({name})");
+            //var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByName({name})");
+            var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByPersonId({name})");
 
             return list.ToList();
         }

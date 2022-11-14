@@ -48,8 +48,22 @@ namespace CIT_2022_Portfolio2.Controllers
             return NotFound();
         }
 
-        [HttpGet("{personId}/CoActorPerson", Name = nameof(getCoActorPersons))]
-        public IActionResult getCoActorPersons(string name)
+        [HttpGet("{personName}", Name = nameof(getPersonName))]
+        public IActionResult getPersonName(string personName)
+        {
+            var Person = _dataService.getPersonName(personName);
+
+            if (Person != null)
+            {
+                var model = createPersonModel(Person);
+
+                return Ok(model);
+            }
+            return NotFound();
+        }
+
+        [HttpGet("{personName}/CoActorPerson", Name = nameof(getCoActorPerson))]
+        public IActionResult getCoActorPerson(string name)
         {
             var CoActorPersons = _dataService.getCoActors(name)
                 .Select(createCoActorPersonModel);
@@ -59,7 +73,7 @@ namespace CIT_2022_Portfolio2.Controllers
         private PersonModel createPersonModel(PersonOnMainPageDTO personOnMainPageDTO)
         {
             var model = _mapper.Map<PersonModel>(personOnMainPageDTO);
-            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { personOnMainPageDTO.PersonId });
+            model.url = _generator.GetUriByName(HttpContext, nameof(getPersonName), new { personOnMainPageDTO.Name });
             model.CoActorPersonsUrl = model.url + "/CoActorPerson";
             return model;
         }
@@ -67,7 +81,7 @@ namespace CIT_2022_Portfolio2.Controllers
         private CoActorPersonsModel createCoActorPersonModel(CoActor_Person coActorPerson)
         {
             var model = _mapper.Map<CoActorPersonsModel>(coActorPerson);
-            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { coActorPerson.Name });
+            model.url = _generator.GetUriByName(HttpContext, nameof(getPersonName), new { coActorPerson.Name });
             return model;
         }
 
