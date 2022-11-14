@@ -1,9 +1,8 @@
 ﻿using System;
-namespace CIT_2022_Portfolio2.Models
+namespace DataLayer.DataTransferObjects
 {
-	public class CoActorPersonsModel
+	public class CoActorPersonDTO
 	{
-        public string url { get; set; }
         public string PersonId { get; set; }
         public string Name { get; set; }
         //public int Frequency { get; set; }
