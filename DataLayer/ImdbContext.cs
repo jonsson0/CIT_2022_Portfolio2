@@ -13,7 +13,7 @@ namespace DataLayer
     public class ImdbContext : DbContext
     {
 
-        const string ConnectionString = "host=cit.ruc.dk;db=cit09;uid=cit09;pwd=8wUBnJ0Lw4Zn"; // needs changing
+        const string ConnectionString = "host=cit.ruc.dk;db=cit09;uid=cit09;pwd=8wUBnJ0Lw4Zn";
 
 
         public DbSet<Title> Titles { get; set; }
