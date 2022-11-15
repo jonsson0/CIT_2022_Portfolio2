@@ -48,21 +48,21 @@ namespace CIT_2022_Portfolio2.Controllers
             return NotFound();
         }
 
-        [HttpGet("{personId}", Name = nameof(getPersonName))]
-        public IActionResult getPersonName(string personName)
-        {
-            var Person = _dataService.getPersonName(personName);
+        //[HttpGet("{personId}", Name = nameof(getPersonName))]
+        //public IActionResult getPersonName(string personName)
+        //{
+        //    var Person = _dataService.getPersonName(personName);
 
-            if (Person != null)
-            {
-                var model = createPersonModel(Person);
+        //    if (Person != null)
+        //    {
+        //        var model = createPersonModel(Person);
 
-                return Ok(model);
-            }
-            return NotFound();
-        }
+        //        return Ok(model);
+        //    }
+        //    return NotFound();
+        //}
 
-        [HttpGet("{personId}/CoActorPerson", Name = nameof(getCoActors))]
+        [HttpGet("{personId}/CoActors", Name = nameof(getCoActors))]
         public IActionResult getCoActors(string id)
         {
             var CoActorPersons = _dataService.getCoActors(id)
@@ -74,7 +74,7 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             var model = _mapper.Map<PersonModel>(personOnMainPageDTO);
             model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { personOnMainPageDTO.PersonId });
-            model.CoActorPersonsUrl = model.url + "/CoActorPerson";
+            model.CoActorPersonsUrl = model.url + "/CoActors";
             return model;
         }
 
