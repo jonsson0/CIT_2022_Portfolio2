@@ -51,19 +51,38 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpPut("{username}/bookmarkperson", Name = nameof(inputBookmarkPerson))]
-        public IActionResult inputBookmarkPerson (string username, string personname)
+        public IActionResult inputBookmarkPerson ()
         {
-            var bookmark = _dataService.createBookmarkPerson(username, personname);
-           
-            return Ok(bookmark);
+            try
+            {
+                var username = _configuration.GetSection("Auth:Username").Value;
+                var user = _dataService.getUser(username).Username;
+                var person = _dataService.getPerson("nm0000002").PersonId;
+                var bookmark = _dataService.createBookmarkPerson(username, person);
+
+                return Ok(bookmark);
+            }
+            catch
+            {
+                return Unauthorized();
+            }
         }
 
         [HttpPut("{username}/bookmarktitle", Name = nameof(inputBookmarkTitle))]
-        public IActionResult inputBookmarkTitle (string username, string titlename)
+        public IActionResult inputBookmarkTitle ()
         {
-            var bookmark = _dataService.createBookmarkTitle(username, titlename);
+            try
+            {
+                var username = _configuration.GetSection("Auth:Username").Value;
+                var title = _dataService.getTitle("tt0052520").TitleId;
+                var bookmark = _dataService.createBookmarkTitle(username, title);
 
-            return Ok(bookmark);
+                return Ok(bookmark);
+            }
+            catch
+            {
+                return Unauthorized();
+            }
         }
 
         //Delete user

@@ -8,6 +8,7 @@ namespace DataLayer.Models
 {
     public class BookmarkPerson
     {
+        // In later portfolio, change type, so the bookmarks contain types user and person
         public string Username { get; set; }
         //public User User { get; set; }
         public string Personname { get; set; }

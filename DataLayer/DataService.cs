@@ -297,15 +297,15 @@ namespace DataLayer
             else { return false; }
         }
 
-        public Boolean createBookmarkPerson(string username, string personname)
+        public Boolean createBookmarkPerson(string username, string personID)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var person = db.Persons.Find(personname);
+            var person = db.Persons.Find(personID).Name;
             
             if (user != null && person != null)
             {
-                db.Database.ExecuteSqlInterpolated($"select input_bookmark_person({username},{personname})");
+                db.Database.ExecuteSqlInterpolated($"select input_bookmark_person({username},{personID})");
                 Console.WriteLine("person booked");
                 db.SaveChanges();
                 //Console.WriteLine(test.ToList().FirstOrDefault());
