@@ -62,7 +62,7 @@ namespace CIT_2022_Portfolio2.Controllers
         //    return NotFound();
         //}
 
-        [HttpGet("{personId}/CoActors", Name = nameof(getCoActors))]
+        [HttpGet("{id}/CoActors", Name = nameof(getCoActors))]
         public IActionResult getCoActors(string id)
         {
             var CoActorPersons = _dataService.getCoActors(id)
