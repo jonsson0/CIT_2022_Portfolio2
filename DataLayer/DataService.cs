@@ -218,7 +218,17 @@ namespace DataLayer
             }
         }
 
-
+        public List<PersonSearchModel>? getPersonByName(string search)
+        {
+            using var db = new ImdbContext();
+            var persons = db
+                .Persons
+                .Where(x => x.Name.ToLower().Contains(search.ToLower()))
+                .Select(x => new PersonSearchModel { Name = x.Name, BirthYear = x.BirthYear, DeathYear = x.DeathYear })
+                .Take(25)
+                .ToList();
+            return persons;
+        }
 
      
         public List<CoActor>? getCoActors(string id)
