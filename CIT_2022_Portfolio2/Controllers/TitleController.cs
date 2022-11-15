@@ -11,13 +11,13 @@ namespace CIT_2022_Portfolio2.Controllers
 {
     [Route("api/titles")]
     [ApiController]
-    public class TitlesController : ControllerBase
+    public class TitleController : ControllerBase
     {
         private IDataService _dataService;
         private readonly LinkGenerator _generator;
         private readonly IMapper _mapper;
 
-        public TitlesController(IDataService dataService, LinkGenerator generator, IMapper mapper)
+        public TitleController(IDataService dataService, LinkGenerator generator, IMapper mapper)
         {
             _dataService = dataService;
             _generator = generator;
@@ -52,7 +52,7 @@ namespace CIT_2022_Portfolio2.Controllers
         public IActionResult getSimilarTitles(string titleId, int page, int pageSize)
         {
             var similarTitles = _dataService.getSimilarTitles(titleId, 0, 10)
-                .Select(createSimilarTitleModel).ToList();
+                .Select(x => createSimilarTitleModel(x)).ToList();
            
             var total = similarTitles.Count();
 
@@ -67,9 +67,9 @@ namespace CIT_2022_Portfolio2.Controllers
             return model;
         }
 
-        private SimilarTitlesModel createSimilarTitleModel(Similar_Title similarTitle)
+        private SimilarTitleModel createSimilarTitleModel(Similar_Title similarTitle)
         {
-            var model = _mapper.Map<SimilarTitlesModel>(similarTitle);
+            var model = _mapper.Map<SimilarTitleModel>(similarTitle);
             model.url = _generator.GetUriByName(HttpContext, nameof(getSimilarTitles), new { similarTitle.TitleId });
             return model;
         }

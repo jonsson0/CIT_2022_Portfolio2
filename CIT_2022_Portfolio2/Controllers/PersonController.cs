@@ -11,13 +11,13 @@ namespace CIT_2022_Portfolio2.Controllers
 {
     [Route("api/persons")]
     [ApiController]
-    public class PersonsController : ControllerBase
+    public class PersonController : ControllerBase
     {
         private IDataService _dataService;
         private readonly LinkGenerator _generator;
         private readonly IMapper _mapper;
 
-        public PersonsController(IDataService dataService, LinkGenerator generator, IMapper mapper)
+        public PersonController(IDataService dataService, LinkGenerator generator, IMapper mapper)
         {
             _dataService = dataService;
             _generator = generator;
