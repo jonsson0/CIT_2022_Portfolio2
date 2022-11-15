@@ -26,30 +26,22 @@ namespace CIT_2022_Portfolio2.Controllers
 
 
         [HttpGet(Name = nameof(getPersons))]
-<<<<<<< HEAD:CIT_2022_Portfolio2/Controllers/PersonController.cs
-        public IActionResult getPersons(int page = 0, int pageSize = 10)
-        {
-            var persons =
-                _dataService.getPersons(page, pageSize)
-                    .Select(x => createPersonModel(x));
-            var total = _dataService.GetNumberOfPersons();
-            return Ok(Paging(page, pageSize, total, persons));
-=======
-        public IActionResult getPersons(string? search = null)
+        public IActionResult getPersons(int page = 0, int pageSize = 10, string? search = null)
         {
             if (string.IsNullOrEmpty(search))
             {
                 var persons =
-                _dataService.getPersons()
-                    .Select(x => createPersonModel(x)).ToList();
-                return Ok(persons);
+                _dataService.getPersons(page, pageSize)
+                    .Select(x => createPersonModel(x));
+                var total = _dataService.GetNumberOfPersons();
+                return Ok(Paging(page, pageSize, total, persons));
             }
             else
             {
                 var data = _dataService.getPersonByName(search);
                 return Ok(data);
             }
->>>>>>> 2601ef9 (add add search function for persons):CIT_2022_Portfolio2/Controllers/PersonsController.cs
+
         }
 
         [HttpGet("{personId}", Name = nameof(getPerson))]

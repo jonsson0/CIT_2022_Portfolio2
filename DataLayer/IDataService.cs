@@ -30,12 +30,9 @@ namespace DataLayer
         public Boolean deletePerson(string personId);
         public Boolean updatePerson(string personId, string name, string birthYear, string deathYear);
         public List<CoActor> getCoActors(string id);
-<<<<<<< HEAD
         int GetNumberOfPersons();
 
-=======
         public List<PersonSearchModel>? getPersonByName(string search);
->>>>>>> 2601ef9 (add add search function for persons)
 
 
 
