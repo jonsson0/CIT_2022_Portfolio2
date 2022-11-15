@@ -7,6 +7,8 @@ namespace DataLayer.Models
         public string Name { get; set; }
         public string? BirthYear { get; set; }
         public string? DeathYear { get; set; }
+        public List<Character> PersonCharacters { get; set; }
+
     }
 }
 

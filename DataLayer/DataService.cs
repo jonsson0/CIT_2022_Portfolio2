@@ -114,7 +114,7 @@ namespace DataLayer
             using var db = new ImdbContext();
             var title = db
                 .Titles
-                .Where(x => x.PrimaryTitle.ToLower()/*.Concat(x.OriginalTitle)*/.Equals(search.ToLower()))
+                .Where(x => x.PrimaryTitle.ToLower().Contains(search.ToLower()))
                 .Select(x => new TitleSearchModel { TitleId = x.TitleId, PrimaryTitle = x.PrimaryTitle, OriginalTitle = x.OriginalTitle, IsAdult = x.IsAdult, StartYear = x.StartYear, EndYear = x.EndYear, AverageRating = x.AverageRating, TitleGenres = x.TitleGenres, NumVotes = x.NumVotes, Plot = x.Plot, Poster = x.Poster, RunTimeMinutes = x.RunTimeMinutes, Type = x.Type, TitleCharacters = x.TitleCharacters})
                 .ToList();
             return title;
@@ -233,8 +233,9 @@ namespace DataLayer
             using var db = new ImdbContext();
             var persons = db
                 .Persons
-                .Where(x => x.Name.ToLower().Equals(search.ToLower()))
-                .Select(x => new PersonSearchModel { PersonId = x.PersonId, Name = x.Name, BirthYear = x.BirthYear, DeathYear = x.DeathYear })
+                .Include(x => x.PersonCharacters)
+                .Where(x => x.Name.ToLower().Contains(search.ToLower()))
+                .Select(x => new PersonSearchModel { PersonId = x.PersonId, Name = x.Name, BirthYear = x.BirthYear, DeathYear = x.DeathYear, PersonCharacters = x.PersonCharacters })
                 .ToList();
             return persons;
         }
