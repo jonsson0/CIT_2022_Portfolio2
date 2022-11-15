@@ -25,13 +25,13 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpGet (Name = nameof(getTitles))]
-        public IActionResult getTitles()
+        public IActionResult getTitles(int page = 0, int pageSize = 10)
         {
             var titles =
-                _dataService.getTitles()
-                    .Select(x => createTitleModel(x)).ToList();
-                
-            return Ok(titles);
+                _dataService.getTitles(page, pageSize)
+                    .Select(x => createTitleModel(x));
+            var total = _dataService.GetNumberOfTitles();
+            return Ok(Paging(page, pageSize, total, titles));
         }
 
         [HttpGet("{titleId}", Name = nameof(getTitle))]
@@ -63,14 +63,18 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             var model = _mapper.Map<TitleModel>(titleOnMainPageDTO);
             model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { titleOnMainPageDTO.TitleId });
-            model.SimilarTitlesUrl = model.url + "/similartitles";
+           // model.SimilarTitlesUrl = model.url + "/similartitles";
+            model.SimilarTitlesUrl = _generator.GetUriByName(HttpContext, nameof(getSimilarTitles), new { titleOnMainPageDTO.TitleId });
+
             return model;
         }
+
 
         private SimilarTitleModel createSimilarTitleModel(Similar_Title similarTitle)
         {
             var model = _mapper.Map<SimilarTitleModel>(similarTitle);
             model.url = _generator.GetUriByName(HttpContext, nameof(getSimilarTitles), new { similarTitle.TitleId });
+            model.url = model.url.Replace("/similartitles", "");
             return model;
         }
 
@@ -82,7 +86,7 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             return _generator.GetUriByName(
                 HttpContext,
-                nameof(getSimilarTitles), new { page, pageSize });
+                nameof(getTitles), new { page, pageSize });
         }
 
         private object Paging<T>(int page, int pageSize, int total, IEnumerable<T> items)

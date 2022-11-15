@@ -60,15 +60,15 @@ namespace DataLayer
         }
 
 
-        public List<TitleOnMainPageDTO> getTitles()
+        public List<TitleOnMainPageDTO> getTitles(int page, int pageSize)
         {
             using var db = new ImdbContext();
 
             var titles = db
                                     .Titles
                                     .Include(x => x.TitleGenres)
-                                    //.ToList().GetRange(0, 3)
-                                    .Take(3).ToList()
+                                    .Skip(page*pageSize)
+                                    .Take(pageSize).ToList()
                                     .Select(x => createTitleOnMainPageDTO(x)).ToList();
 
           //  List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
@@ -103,6 +103,13 @@ namespace DataLayer
             return list.ToList();
         }
 
+        public int GetNumberOfTitles()
+        {
+            using var db = new ImdbContext();
+            return db.Titles.Count();
+        }
+
+
         // Other
         public void insertTitle(Title title)
         {
@@ -135,13 +142,13 @@ namespace DataLayer
         }
 
 
-        public List<PersonOnMainPageDTO> getPersons()
+        public List<PersonOnMainPageDTO> getPersons(int page, int pageSize)
         {
             using var db = new ImdbContext();
             var persons = db
                 .Persons
-                .ToList()
-                .Take(10).ToList()
+                .Skip(page*pageSize)
+                .Take(pageSize).ToList()
                 .Select(x => createPersonOnMainPageDTO(x)).ToList();
             return persons;
         }
@@ -222,6 +229,13 @@ namespace DataLayer
 
             return list.ToList();
         }
+
+        public int GetNumberOfPersons()
+        {
+            using var db = new ImdbContext();
+            return db.Persons.Count();
+        }
+
 
 
 

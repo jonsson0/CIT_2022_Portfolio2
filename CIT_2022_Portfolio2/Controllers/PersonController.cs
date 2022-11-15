@@ -26,12 +26,13 @@ namespace CIT_2022_Portfolio2.Controllers
 
 
         [HttpGet(Name = nameof(getPersons))]
-        public IActionResult getPersons()
+        public IActionResult getPersons(int page = 0, int pageSize = 10)
         {
             var persons =
-                _dataService.getPersons()
-                    .Select(x => createPersonModel(x)).ToList();
-            return Ok(persons);
+                _dataService.getPersons(page, pageSize)
+                    .Select(x => createPersonModel(x));
+            var total = _dataService.GetNumberOfPersons();
+            return Ok(Paging(page, pageSize, total, persons));
         }
 
         [HttpGet("{personId}", Name = nameof(getPerson))]
@@ -66,7 +67,7 @@ namespace CIT_2022_Portfolio2.Controllers
         public IActionResult getCoActors(string id)
         {
             var CoActorPersons = _dataService.getCoActors(id)
-                .Select(createCoActorPersonModel);
+                .Select(createCoActorModel);
             return Ok(CoActorPersons);
         }
 
@@ -78,11 +79,59 @@ namespace CIT_2022_Portfolio2.Controllers
             return model;
         }
 
-        private CoActorModel createCoActorPersonModel(CoActor coActor)
+        private CoActorModel createCoActorModel(CoActor coActor)
         {
             var model = _mapper.Map<CoActorModel>(coActor);
             model.url = _generator.GetUriByName(HttpContext, nameof(getCoActors), new { coActor.PersonId });
             return model;
+        }
+
+        private const int MaxPageSize = 25;
+
+        private string? CreateLink(int page, int pageSize)
+        {
+            return _generator.GetUriByName(
+                HttpContext,
+                nameof(getPersons), new { page, pageSize });
+        }
+
+        private object Paging<T>(int page, int pageSize, int total, IEnumerable<T> items)
+        {
+            pageSize = pageSize > MaxPageSize ? MaxPageSize : pageSize;
+
+            //if (pageSize > MaxPageSize)
+            //{
+            //    pageSize = MaxPageSize;
+            //}
+
+            var pages = (int)Math.Ceiling((double)total / (double)pageSize)
+                ;
+
+            var first = total > 0
+                ? CreateLink(0, pageSize)
+                : null;
+
+            var prev = page > 0
+                ? CreateLink(page - 1, pageSize)
+                : null;
+
+            var current = CreateLink(page, pageSize);
+
+            var next = page < pages - 1
+                ? CreateLink(page + 1, pageSize)
+                : null;
+
+            var result = new
+            {
+                first,
+                prev,
+                next,
+                current,
+                total,
+                pages,
+                items
+            };
+            return result;
         }
 
     }
