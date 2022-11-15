@@ -25,13 +25,22 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpGet (Name = nameof(getTitles))]
-        public IActionResult getTitles(int page = 0, int pageSize = 10)
+        public IActionResult getTitles(int page = 0, int pageSize = 10, string? search = null)
         {
+            if (string.IsNullOrEmpty(search))
+            {
             var titles =
                 _dataService.getTitles(page, pageSize)
                     .Select(x => createTitleModel(x));
             var total = _dataService.GetNumberOfTitles();
             return Ok(Paging(page, pageSize, total, titles));
+            }
+            else
+            {
+                var data = _dataService.getTitleByName(search);
+                return Ok(data);
+            }
+
         }
 
         [HttpGet("{titleId}", Name = nameof(getTitle))]
