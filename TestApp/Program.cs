@@ -93,5 +93,5 @@ Console.WriteLine("");
 //Console.WriteLine(TestPerson.PersonId);
 
 
-Console.WriteLine(ds.getRatingsByUser("testing123"));
+Console.WriteLine(ds.getBookmarkPersonByUser("testing123"));
 

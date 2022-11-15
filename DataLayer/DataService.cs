@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -332,12 +333,15 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
+            var actorlist = new List<BookmarkPerson>();
 
             if(user != null)
             {
-                Console.WriteLine("User has bookmarked these actors: \n");
-                var result = db.BookmarkPersons.FromSqlInterpolated($"select get_bookmark_person_by_user({username})");// WHERE bookmark_persons.username = '{username}'");
-                return result.ToList();
+                var result = db.BookmarkPersons.Where(x => x.Username == username).ToList();
+                //Console.WriteLine("User has bookmarked these actors: \n");
+                //var result = db.BookmarkPersons.FromSqlInterpolated($"select get_bookmark_person_by_user({username})");// WHERE bookmark_persons.username = '{username}'");
+                
+                return result;
                 //foreach (var bookperson in result)
                 //{
                 //    Console.WriteLine(bookperson.Username + bookperson.Personname);
@@ -349,12 +353,14 @@ namespace DataLayer
         public List<BookmarkTitle> getBookmarkTitleByUser(string username)
         {
             using var db = new ImdbContext();
+            var user = db.Users.Find(username).Username;
 
-            if (username != null)
+            if (user != null)
             {
-                Console.WriteLine("User has bookmarked these titles: \n");
-                var result = db.BookmarkTitles.FromSqlInterpolated($"select get_bookmark_title_by_user({username})");
-                return result.ToList();
+                var result = db.BookmarkTitles.Where(x => x.Username == username).ToList();
+                //Console.WriteLine("User has bookmarked these titles: \n");
+                //var result = db.BookmarkTitles.FromSqlInterpolated($"select get_bookmark_title_by_user({username})").ToList();
+                return result;
             }
             else { return null; }
             //foreach (BookmarkTitle bookmarktitle in result)
@@ -446,7 +452,7 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
 
-            var username = db.Users.Find(user).Username;
+            var username = user.Username;
             var bookmarkedtitles = getBookmarkTitleByUser(username);
             var bookmarkedactors = getBookmarkPersonByUser(username);
             var userratings = getRatingsByUser(username);
