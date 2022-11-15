@@ -235,7 +235,7 @@ namespace DataLayer
                 .Persons
                 .Include(x => x.PersonCharacters)
                 .Where(x => x.Name.ToLower().Contains(search.ToLower()))
-                .Select(x => new PersonSearchModel { PersonId = x.PersonId, Name = x.Name, BirthYear = x.BirthYear, DeathYear = x.DeathYear, PersonCharacters = x. })
+                .Select(x => new PersonSearchModel { PersonId = x.PersonId, Name = x.Name, BirthYear = x.BirthYear, DeathYear = x.DeathYear, PersonCharacters = x.PersonCharacters})
                 .ToList();
             return persons;
         }
