@@ -40,7 +40,7 @@ namespace DataLayer
         public List<BookmarkPerson> getBookmarkPersonByUser(string username);
         public List<BookmarkTitle> getBookmarkTitleByUser(string username);
         public Boolean createRating(string username, string titleID, float rating);
-        public List<Rating> getRatingsByUser(string username)
+        public List<Rating> getRatingsByUser(string username);
 
 
 

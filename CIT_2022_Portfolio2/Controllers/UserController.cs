@@ -39,6 +39,25 @@ namespace CIT_2022_Portfolio2.Controllers
             
         }
 
+        [HttpPut("{username}/bookmarkperson", Name = nameof(inputBookmarkPerson))]
+        public IActionResult inputBookmarkPerson (string username, string personname)
+        {
+            var bookmark = _dataService.createBookmarkPerson(username, personname);
+           
+            return Ok(bookmark);
+        }
+
+        [HttpPut("{username}/bookmarktitle", Name = nameof(inputBookmarkTitle))]
+        public IActionResult inputBookmarkTitle (string username, string titlename)
+        {
+            var bookmark = _dataService.createBookmarkTitle(username, titlename);
+
+            return Ok(bookmark);
+        }
+
+        //Delete user
+        [HttpDelete]
+
         private UserModel createUserModel(UserPageDTO userpagedto)
         {
             var model = _mapper.Map<UserModel>(userpagedto);

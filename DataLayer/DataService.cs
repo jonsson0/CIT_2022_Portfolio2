@@ -279,7 +279,7 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var person = db.Person.Where(x => x.Name == personname);
+            var person = db.Persons.Find(personname);
             
             if (user != null && person != null)
             {
@@ -362,11 +362,13 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
+            var ratelist = new List<Rating>();
 
             if(user != null)
             {
                 var result = db.Ratings.FromSqlInterpolated($"select get_ratings_by_user({username})");
-                return result.ToList();
+
+                return ratelist.ToList();
             }
             else { return null; }
         }

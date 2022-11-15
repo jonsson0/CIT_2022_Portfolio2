@@ -81,5 +81,5 @@ Console.WriteLine("");
 //Console.WriteLine(TestPerson.PersonId);
 
 
-
+Console.WriteLine(ds.getRatingsByUser("testing123"));
 
