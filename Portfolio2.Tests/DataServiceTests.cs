@@ -9,12 +9,18 @@ namespace Portfolio2.Tests
         [Fact]
         public void Person_Object_HasPersonIdNameBirthYearDeathYear()
         {
-            var person = new Person();
-            Assert.Null(person.PersonId); // should not be null
-            Assert.Null(person.Name); // should not be null
-            Assert.Null(person.BirthYear);
-            Assert.Null(person.DeathYear);
+            var person = new Person
+            {
+                PersonId = "1234",
+                Name = "Jens",
+                BirthYear = "1990",
+                DeathYear = null
+            };
+         Assert.Equal("1234", person.PersonId);
+         Assert.Equal("Jens", person.Name);
+         Assert.Null(person.DeathYear);
         }
+
         [Fact]
         public void PersonModel_Object_HasPersonIdNameBirthYearDeathYear()
         {

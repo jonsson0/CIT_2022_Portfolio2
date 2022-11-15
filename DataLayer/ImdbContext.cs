@@ -108,7 +108,7 @@ namespace DataLayer
             modelBuilder.Entity<Person>().Property(x => x.BirthYear).HasColumnName("birthyear");
             modelBuilder.Entity<Person>().Property(x => x.DeathYear).HasColumnName("deathyear");
 
-            // SearchCoActorByName
+            // SearchCoActorById
             modelBuilder.Entity<CoActor>().HasNoKey();
             modelBuilder.Entity<CoActor>().Property(x => x.PersonId).HasColumnName("person_ID");
             modelBuilder.Entity<CoActor>().Property(x => x.Name).HasColumnName("name");

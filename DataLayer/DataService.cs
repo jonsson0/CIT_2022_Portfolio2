@@ -211,11 +211,14 @@ namespace DataLayer
             }
         }
 
-        public List<CoActor>? getCoActors(string name)
+
+
+     
+        public List<CoActor>? getCoActors(string id)
         {
             using var db = new ImdbContext();
             //var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByName({name})");
-            var list = db.CoActors.FromSqlInterpolated($"select * FROM searchCoActorsByPersonId({name})");
+            var list = db.CoActors.FromSqlInterpolated($"select * FROM searchcoactorsbypersonid({id})");
 
             return list.ToList();
         }
