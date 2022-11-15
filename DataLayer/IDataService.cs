@@ -14,7 +14,7 @@ namespace DataLayer
         // List<Similar_Title>? getSimilarTitles(string id);
         // List<Person> getPersonsByTitle();
 
-        List<Similar_Title>? getSimilarTitles(string id);
+        List<Similar_Title>? getSimilarTitles(string id, int page, int pageSize);
 
 
         // Other

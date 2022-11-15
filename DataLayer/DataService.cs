@@ -93,10 +93,10 @@ namespace DataLayer
             return list;
         }
 
-        public List<Similar_Title>? getSimilarTitles(string id)
+        public List<Similar_Title>? getSimilarTitles(string id, int page, int pageSize)
         {
             using var db = new ImdbContext();
-            var list = db.SimilarTitles.FromSqlInterpolated($"select * FROM similar_movies({id})");
+            var list = db.SimilarTitles.FromSqlInterpolated($"select * FROM similar_movies({id}) OFFSET {page*pageSize} LIMIT {pageSize}");
 
            // db.SimilarTitles.Where(x => x.TitleId == id);  //
             return list.ToList();
