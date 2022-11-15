@@ -73,7 +73,7 @@ namespace CIT_2022_Portfolio2.Controllers
         private PersonModel createPersonModel(PersonOnMainPageDTO personOnMainPageDTO)
         {
             var model = _mapper.Map<PersonModel>(personOnMainPageDTO);
-            model.url = _generator.GetUriByName(HttpContext, nameof(getPersonName), new { personOnMainPageDTO.Name });
+            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { personOnMainPageDTO.PersonId });
             model.CoActorPersonsUrl = model.url + "/CoActorPerson";
             return model;
         }
@@ -81,7 +81,7 @@ namespace CIT_2022_Portfolio2.Controllers
         private CoActorPersonsModel createCoActorPersonModel(CoActor_Person coActorPerson)
         {
             var model = _mapper.Map<CoActorPersonsModel>(coActorPerson);
-            model.url = _generator.GetUriByName(HttpContext, nameof(getPersonName), new { coActorPerson.Name });
+            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { coActorPerson.PersonId });
             return model;
         }
 
