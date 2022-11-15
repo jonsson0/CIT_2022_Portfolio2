@@ -6,6 +6,18 @@ using Npgsql;
 
 var ds = new DataService();
 
+
+/*
+var list = ds.getSimilarTitles("tt0052520", 0, 2);
+
+foreach (var similarTitle in list)
+{
+    Console.WriteLine(similarTitle.PrimaryTitle);
+}
+*/
+
+
+
 //var list = ds.getTitles();
 
 //Console.WriteLine("here are the title genres");

@@ -6,6 +6,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
+using DataLayer.Models.ObjectsFromFunctions;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -92,10 +93,10 @@ namespace DataLayer
             return list;
         }
 
-        public List<Similar_Title>? getSimilarTitles(string id)
+        public List<Similar_Title>? getSimilarTitles(string id, int page, int pageSize)
         {
             using var db = new ImdbContext();
-            var list = db.SimilarTitles.FromSqlInterpolated($"select * FROM similar_movies({id})");
+            var list = db.SimilarTitles.FromSqlInterpolated($"select * FROM similar_movies({id}) OFFSET {page*pageSize} LIMIT {pageSize}");
 
            // db.SimilarTitles.Where(x => x.TitleId == id);  //
             return list.ToList();
@@ -120,6 +121,18 @@ namespace DataLayer
             var personOnMainPageDTO = createPersonOnMainPageDTO(person);
             return personOnMainPageDTO;
         }
+
+        public PersonOnMainPageDTO getPersonName(string name)
+        {
+            using var db = new ImdbContext();
+            var person = db
+                .Persons
+                .Find(name);
+
+            var personOnMainPageDTO = createPersonOnMainPageDTO(person);
+            return personOnMainPageDTO;
+        }
+
 
         public List<PersonOnMainPageDTO> getPersons()
         {
@@ -197,6 +210,14 @@ namespace DataLayer
             }
         }
 
+        public List<CoActor_Person>? getCoActors(string name)
+        {
+            using var db = new ImdbContext();
+            //var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByName({name})");
+            var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByPersonId({name})");
+
+            return list.ToList();
+        }
 
 
 

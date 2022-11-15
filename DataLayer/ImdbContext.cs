@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Models;
 using Microsoft.Extensions.Logging;
+using DataLayer.Models.ObjectsFromFunctions;
 
 namespace DataLayer
 {
     public class ImdbContext : DbContext
     {
 
-        const string ConnectionString = "host=cit.ruc.dk;db=cit09;uid=cit09;pwd=8wUBnJ0Lw4Zn"; // needs changing
+        const string ConnectionString = "host=cit.ruc.dk;db=cit09;uid=cit09;pwd=8wUBnJ0Lw4Zn";
 
 
         public DbSet<Title> Titles { get; set; }
@@ -23,6 +24,8 @@ namespace DataLayer
         public DbSet<Person> Persons { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
         public DbSet<Similar_Title> SimilarTitles { get; set; }
+        public DbSet<CoActor_Person> CoActorPerson { get; set; }
+
         public DbSet<Character> Characters { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -104,6 +107,13 @@ namespace DataLayer
             modelBuilder.Entity<Person>().Property(x => x.Name).HasColumnName("name");
             modelBuilder.Entity<Person>().Property(x => x.BirthYear).HasColumnName("birthyear");
             modelBuilder.Entity<Person>().Property(x => x.DeathYear).HasColumnName("deathyear");
+
+            // SearchCoActorByName
+            modelBuilder.Entity<CoActor_Person>().HasNoKey();
+            modelBuilder.Entity<CoActor_Person>().Property(x => x.PersonId).HasColumnName("person_ID");
+            modelBuilder.Entity<CoActor_Person>().Property(x => x.Name).HasColumnName("name");
+            //modelBuilder.Entity<CoActor_Person>().Property(x => x.Frequency).HasColumnName("name");
+
 
             // Characters
             modelBuilder.Entity<Character>().ToTable("characters");

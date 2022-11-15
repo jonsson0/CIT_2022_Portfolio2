@@ -1,5 +1,6 @@
 ﻿using DataLayer.DataTransferObjects;
 using DataLayer.Models;
+using DataLayer.Models.ObjectsFromFunctions;
 
 namespace DataLayer
 {
@@ -13,7 +14,7 @@ namespace DataLayer
         // List<Similar_Title>? getSimilarTitles(string id);
         // List<Person> getPersonsByTitle();
 
-        List<Similar_Title>? getSimilarTitles(string id);
+        List<Similar_Title>? getSimilarTitles(string id, int page, int pageSize);
 
 
         // Other
@@ -22,10 +23,13 @@ namespace DataLayer
         // Persons
 
         public PersonOnMainPageDTO getPerson(string id);
+        public PersonOnMainPageDTO getPersonName(string name);
         public List<PersonOnMainPageDTO> getPersons();
         public Person createPerson(string personId, string name, string birthYear, string deathYear);
         public Boolean deletePerson(string personId);
         public Boolean updatePerson(string personId, string name, string birthYear, string deathYear);
+        public List<CoActor_Person>? getCoActors(string name);
+
 
 
 
