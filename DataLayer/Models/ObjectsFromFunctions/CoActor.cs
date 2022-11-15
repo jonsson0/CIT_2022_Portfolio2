@@ -1,9 +1,8 @@
 ﻿using System;
-namespace CIT_2022_Portfolio2.Models
+namespace DataLayer.Models.ObjectsFromFunctions
 {
-	public class CoActorPersonsModel
+	public class CoActor
 	{
-        public string url { get; set; }
         public string PersonId { get; set; }
         public string Name { get; set; }
         //public int Frequency { get; set; }

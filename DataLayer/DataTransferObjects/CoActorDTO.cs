@@ -1,7 +1,7 @@
 ﻿using System;
-namespace DataLayer.Models.ObjectsFromFunctions
+namespace DataLayer.DataTransferObjects
 {
-	public class CoActor_Person
+	public class CoActorDTO
 	{
         public string PersonId { get; set; }
         public string Name { get; set; }
