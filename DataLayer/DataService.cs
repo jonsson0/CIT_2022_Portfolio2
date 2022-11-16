@@ -159,8 +159,8 @@ namespace DataLayer
             var persons = db
                 .Persons
                 .Skip(page*pageSize)
-                .Take(pageSize).ToList()
-                .Select(x => createPersonOnMainPageDTO(x)).ToList();
+                .Take(pageSize)
+                .Select(createPersonOnMainPageDTO).ToList();
             return persons;
         }
 
