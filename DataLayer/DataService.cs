@@ -233,7 +233,7 @@ namespace DataLayer
             using var db = new ImdbContext();
             var persons = db
                 .Persons
-                .Include(x => x.PersonProfessions)
+                //.Include(x => x.PersonProfessions)
                 .Where(x => x.Name.ToLower().Contains(search.ToLower()))
                 .ToList()
                 .Select(x => createPersonsSearchInListDTO(x))
@@ -495,6 +495,7 @@ namespace DataLayer
             {
                 PersonId = person.PersonId,
                 Name = person.Name,
+                //Jobs = person.PersonProfessions.Select(x => x.Category).ToList()
             };
 
             return personsSearchInListDTO;
