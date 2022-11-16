@@ -6,15 +6,19 @@ using Npgsql;
 
 var ds = new DataService();
 
+var title = ds.getTitle("tt0052520");
 
-/*
-var list = ds.getSimilarTitles("tt0052520", 0, 2);
-
-foreach (var similarTitle in list)
-{
-    Console.WriteLine(similarTitle.PrimaryTitle);
-}
-*/
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
 
 
 

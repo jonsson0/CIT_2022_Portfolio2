@@ -9,26 +9,31 @@ namespace DataLayer
         // Titles
         // Get
         TitleOnMainPageDTO getTitle(string id);
-        List<TitleOnMainPageDTO> getTitles();
+        List<TitleOnMainPageDTO> getTitles(int page, int pageSize);
         List<Title> getTitlesByGenre(TitleGenre genre);
         // List<Similar_Title>? getSimilarTitles(string id);
         // List<Person> getPersonsByTitle();
 
         List<Similar_Title>? getSimilarTitles(string id, int page, int pageSize);
+       
+        int GetNumberOfTitles();
+        public List<TitleSearchModel>? getTitleByName(string search);
 
-
-        // Other
+       // Other
         void insertTitle(Title title);
 
         // Persons
 
         public PersonOnMainPageDTO getPerson(string id);
         public PersonOnMainPageDTO getPersonName(string name);
-        public List<PersonOnMainPageDTO> getPersons();
+        public List<PersonOnMainPageDTO> getPersons(int page, int pageSize);
         public Person createPerson(string personId, string name, string birthYear, string deathYear);
         public Boolean deletePerson(string personId);
         public Boolean updatePerson(string personId, string name, string birthYear, string deathYear);
-        public List<CoActor_Person>? getCoActors(string name);
+        public List<CoActor> getCoActors(string id);
+        int GetNumberOfPersons();
+
+        public List<PersonsSearchInListDTO>? getPersonByName(string search);
 
 
 

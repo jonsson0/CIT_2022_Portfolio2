@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+    <ProjectReference Include="..\CIT_2022_Portfolio2\CIT_2022_Portfolio2.csproj" />
+  </ItemGroup>
 </Project>

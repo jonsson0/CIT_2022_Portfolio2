@@ -24,9 +24,11 @@ namespace DataLayer
         public DbSet<Person> Persons { get; set; }
         public DbSet<TitleGenre> TitleGenres { get; set; }
         public DbSet<Similar_Title> SimilarTitles { get; set; }
-        public DbSet<CoActor_Person> CoActorPerson { get; set; }
+        public DbSet<CoActor> CoActors { get; set; }
 
         public DbSet<Character> Characters { get; set; }
+        public DbSet<PersonProfession> PersonProfessions { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -108,12 +110,15 @@ namespace DataLayer
             modelBuilder.Entity<Person>().Property(x => x.Name).HasColumnName("name");
             modelBuilder.Entity<Person>().Property(x => x.BirthYear).HasColumnName("birthyear");
             modelBuilder.Entity<Person>().Property(x => x.DeathYear).HasColumnName("deathyear");
+            //modelBuilder.Entity<Person>().HasMany(x => x.PersonCharacters).WithMany(x => x.PersonId);
+            modelBuilder.Entity<Person>().HasMany(x => x.PersonProfessions).WithOne(x => x.Person);
 
-            // SearchCoActorByName
-            modelBuilder.Entity<CoActor_Person>().HasNoKey();
-            modelBuilder.Entity<CoActor_Person>().Property(x => x.PersonId).HasColumnName("person_ID");
-            modelBuilder.Entity<CoActor_Person>().Property(x => x.Name).HasColumnName("name");
-            //modelBuilder.Entity<CoActor_Person>().Property(x => x.Frequency).HasColumnName("name");
+
+            // SearchCoActorById
+            modelBuilder.Entity<CoActor>().HasNoKey();
+            modelBuilder.Entity<CoActor>().Property(x => x.PersonId).HasColumnName("person_ID");
+            modelBuilder.Entity<CoActor>().Property(x => x.Name).HasColumnName("name");
+            modelBuilder.Entity<CoActor>().Property(x => x.Frequency).HasColumnName("frequency");
 
 
             // Characters
@@ -124,6 +129,13 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Character>().Property(x => x.TitleCharacter).HasColumnName("character");
 
+            // PersonProfessions
+            modelBuilder.Entity<PersonProfession>().ToTable("person_professions");
+            modelBuilder.Entity<PersonProfession>().HasKey(x => new { x.TitleId, x.PersonId, x.Category });
+            modelBuilder.Entity<PersonProfession>().Property(x => x.TitleId).HasColumnName("title_ID");
+            modelBuilder.Entity<PersonProfession>().Property(x => x.PersonId).HasColumnName("person_ID");
+            modelBuilder.Entity<PersonProfession>().Property(x => x.Category).HasColumnName("category");
+            modelBuilder.Entity<PersonProfession>().Property(x => x.Job).HasColumnName("job");
         }
     }
 }

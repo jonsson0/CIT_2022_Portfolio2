@@ -12,7 +12,7 @@ namespace CIT_2022_Portfolio2.Models.Profiles
         {
             CreateMap<PersonOnMainPageDTO, PersonModel>().ReverseMap();
 
-            CreateMap<CoActorPersonsModel, CoActor_Person>().ReverseMap();
+            CreateMap<CoActorModel, CoActor>().ReverseMap();
         }
     }
 }

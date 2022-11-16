@@ -60,16 +60,17 @@ namespace DataLayer
         }
 
 
-        public List<TitleOnMainPageDTO> getTitles()
+        public List<TitleOnMainPageDTO> getTitles(int page, int pageSize)
         {
             using var db = new ImdbContext();
 
             var titles = db
                                     .Titles
                                     .Include(x => x.TitleGenres)
-                                    //.ToList().GetRange(0, 3)
-                                    .Take(3).ToList()
-                                    .Select(x => createTitleOnMainPageDTO(x)).ToList();
+                                    .Include(x => x.TitleCharacters)
+                                    .Skip(page*pageSize)
+                                    .Take(pageSize) // IT IS HERE YOU NEED TO LOOK
+                                    .Select(createTitleOnMainPageDTO).ToList();
 
           //  List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            
@@ -101,6 +102,23 @@ namespace DataLayer
 
            // db.SimilarTitles.Where(x => x.TitleId == id);  //
             return list.ToList();
+        }
+
+        public int GetNumberOfTitles()
+        {
+            using var db = new ImdbContext();
+            return db.Titles.Count();
+        }
+
+        public List<TitleSearchModel>? getTitleByName(string search)
+        {
+            using var db = new ImdbContext();
+            var title = db
+                .Titles
+                .Where(x => x.PrimaryTitle.ToLower().Contains(search.ToLower()))
+                .Select(x => new TitleSearchModel { TitleId = x.TitleId, PrimaryTitle = x.PrimaryTitle, OriginalTitle = x.OriginalTitle, IsAdult = x.IsAdult, StartYear = x.StartYear, EndYear = x.EndYear, AverageRating = x.AverageRating, TitleGenres = x.TitleGenres, NumVotes = x.NumVotes, Plot = x.Plot, Poster = x.Poster, RunTimeMinutes = x.RunTimeMinutes, Type = x.Type, TitleCharacters = x.TitleCharacters})
+                .ToList();
+            return title;
         }
 
         // Other
@@ -135,14 +153,14 @@ namespace DataLayer
         }
 
 
-        public List<PersonOnMainPageDTO> getPersons()
+        public List<PersonOnMainPageDTO> getPersons(int page, int pageSize)
         {
             using var db = new ImdbContext();
             var persons = db
                 .Persons
-                .ToList()
-                .Take(10).ToList()
-                .Select(x => createPersonOnMainPageDTO(x)).ToList();
+                .Skip(page*pageSize)
+                .Take(pageSize)
+                .Select(createPersonOnMainPageDTO).ToList();
             return persons;
         }
 
@@ -159,7 +177,7 @@ namespace DataLayer
 
 
 
-        public Person createPerson(string personId, string name, string birthYear, string deathYear)
+        public Person createPerson(string personId, string name, string? birthYear, string? deathYear)
         {
             using var db = new ImdbContext();
             var person = new Person();
@@ -211,14 +229,34 @@ namespace DataLayer
             }
         }
 
-        public List<CoActor_Person>? getCoActors(string name)
+        public List<PersonsSearchInListDTO>? getPersonByName(string search)
+        {
+            using var db = new ImdbContext();
+            var persons = db
+                .Persons
+                //.Include(x => x.PersonProfessions)
+                .Where(x => x.Name.ToLower().Contains(search.ToLower()))
+                .ToList()
+                .Select(x => createPersonsSearchInListDTO(x))
+                .ToList();
+            return persons;
+        }
+     
+        public List<CoActor>? getCoActors(string id)
         {
             using var db = new ImdbContext();
             //var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByName({name})");
-            var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByPersonId({name})");
+            var list = db.CoActors.FromSqlInterpolated($"select * FROM searchcoactorsbypersonid({id})");
 
             return list.ToList();
         }
+
+        public int GetNumberOfPersons()
+        {
+            using var db = new ImdbContext();
+            return db.Persons.Count();
+        }
+
 
 
 
@@ -455,7 +493,23 @@ namespace DataLayer
             return personOnMainPageDTO;
         }
 
-       
+        public PersonsSearchInListDTO createPersonsSearchInListDTO(Person person)
+        {
+            using var db = new ImdbContext();
+
+            // Could implement mapping
+
+            var personsSearchInListDTO = new PersonsSearchInListDTO
+            {
+                PersonId = person.PersonId,
+                Name = person.Name,
+                //Jobs = person.PersonProfessions.Select(x => x.Category).ToList()
+            };
+
+            return personsSearchInListDTO;
+        }
+
+
         public UserPageDTO createUserPageDTO(User user)
         {
             using var db = new ImdbContext();

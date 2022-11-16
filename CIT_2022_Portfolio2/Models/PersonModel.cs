@@ -9,7 +9,7 @@ namespace CIT_2022_Portfolio2.Models
         public string Name { get; set; }
         public string? BirthYear { get; set; }
         public string? DeathYear { get; set; }
-        public string CoActorPersonsUrl { get; set; }
+        public string CoActorsUrl { get; set; }
     }
 }
 
