@@ -8,6 +8,41 @@ namespace Portfolio2.Tests
     public class DataServiceTests
     {
         // titles
+        public void GetTitles_WithPaging()
+        {
+            var service = new DataService();
+            var titles = service.getTitles(0,25);
+            Assert.Equal(25, titles.Count);
+            Assert.Equal("The Twilight Zone", titles.First().PrimaryTitle);
+            Assert.Equal("tvSeries", titles.First().Type);
+        }
+
+        [Fact]
+        public void GetTitle_ValidId_ReturnsTitle()
+        {
+            var service = new DataService();
+            var title = service.getTitle("tt0052520");
+            Assert.Equal("The Twilight Zone", title.PrimaryTitle);
+            Assert.Equal("tvSeries", title.Type);
+        }
+
+        public void GetSimilarTitlesToTitleWithPaging()
+        {
+            var service = new DataService();
+            var titles = service.getSimilarTitles("tt0052520", 0, 25);
+            Assert.Equal(25, titles.Count);
+            Assert.Equal("Episode #1.13", titles.First().PrimaryTitle);
+        }
+
+        public void GetCharactersByTitle()
+        {
+            var service = new DataService();
+            Title title = new Title();
+            title.TitleId = "tt0052520";
+            var characters = service.getCharactersByTitle(title);
+            Assert.Equal(title, title);
+            Assert.Equal("Episode #1.13", title.PrimaryTitle);
+        }
 
 
         // Persons
@@ -38,7 +73,7 @@ namespace Portfolio2.Tests
 
 
         // User
-        public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
+        /*public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
         {
             var service = new DataService();
             var user = service.createUser("testCreateUser", "12345");
@@ -48,7 +83,7 @@ namespace Portfolio2.Tests
 
             // cleanup
             service.DeleteCategory(category.Id);
-        }
+        }*/
 
     }
 }

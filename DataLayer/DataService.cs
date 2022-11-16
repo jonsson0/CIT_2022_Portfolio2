@@ -68,8 +68,8 @@ namespace DataLayer
                                     .Titles
                                     .Include(x => x.TitleGenres)
                                     .Skip(page*pageSize)
-                                    .Take(pageSize).ToList()
-                                    .Select(x => createTitleOnMainPageDTO(x)).ToList();
+                                    .Take(pageSize) // IT IS HERE YOU NEED TO LOOK
+                                    .Select(createTitleOnMainPageDTO).ToList();
 
           //  List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
            

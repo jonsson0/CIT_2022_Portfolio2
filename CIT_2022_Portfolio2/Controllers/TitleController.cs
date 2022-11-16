@@ -1,5 +1,6 @@
 ﻿using System.Net.NetworkInformation;
 using System.Numerics;
+using System.Reflection.Emit;
 using AutoMapper;
 using CIT_2022_Portfolio2.Models;
 using DataLayer;
@@ -34,16 +35,14 @@ namespace CIT_2022_Portfolio2.Controllers
                 _dataService.getTitles(page, pageSize)
                     .Select(x => createTitleModel(x));
             var total = _dataService.GetNumberOfTitles();
-            return Ok(Paging(page, pageSize, total, titles));
+            return Ok(Paging(nameof(getTitles), page, pageSize, total, titles));
             }
             else
             {
                 var data = _dataService.getTitleByName(search);
                 var total = data.Count;
 
-                var response = Ok(Paging(page, pageSize, total, data));
-
-                return Ok(Paging(page, pageSize, total, data));
+                return Ok(Paging(nameof(getTitles), page, pageSize, total, data));
             }
 
         }
@@ -70,7 +69,7 @@ namespace CIT_2022_Portfolio2.Controllers
            
             var total = similarTitles.Count();
 
-            return Ok(Paging(page, pageSize, total, similarTitles));
+            return Ok(Paging(nameof(getSimilarTitles), page, pageSize, total, similarTitles));
         }
 
         private TitleModel createTitleModel(TitleOnMainPageDTO titleOnMainPageDTO)
@@ -87,8 +86,7 @@ namespace CIT_2022_Portfolio2.Controllers
         private SimilarTitleModel createSimilarTitleModel(Similar_Title similarTitle)
         {
             var model = _mapper.Map<SimilarTitleModel>(similarTitle);
-            model.url = _generator.GetUriByName(HttpContext, nameof(getSimilarTitles), new { similarTitle.TitleId });
-            model.url = model.url.Replace("/similartitles", "");
+            model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { similarTitle.TitleId });
             return model;
         }
 
@@ -96,14 +94,17 @@ namespace CIT_2022_Portfolio2.Controllers
 
         private const int MaxPageSize = 25;
 
-        private string? CreateLink(int page, int pageSize)
+        private string? CreateGetTilesLink(int page, int pageSize)
         {
-            return _generator.GetUriByName(
-                HttpContext,
-                nameof(getTitles), new { page, pageSize });
+            return CreateLink(nameof(getTitles), new { page, pageSize });
         }
 
-        private object Paging<T>(int page, int pageSize, int total, IEnumerable<T> items)
+        private string? CreateLink(string endpointName, object? values)
+        {
+            return _generator.GetUriByName(HttpContext, endpointName,values);
+        }
+
+        private object Paging<T>(string endpointName, int page, int pageSize, int total, IEnumerable<T> items)
         {
             pageSize = pageSize > MaxPageSize ? MaxPageSize : pageSize;
 
@@ -112,21 +113,20 @@ namespace CIT_2022_Portfolio2.Controllers
             //    pageSize = MaxPageSize;
             //}
 
-            var pages = (int)Math.Ceiling((double)total / (double)pageSize)
-                ;
+            var pages = (int)Math.Ceiling((double)total / (double)pageSize);
 
             var first = total > 0
-                ? CreateLink(0, pageSize)
+                ? CreateLink(endpointName, new { page, pageSize })
                 : null;
 
-            var prev = page > 0
-                ? CreateLink(page - 1, pageSize)
+            var prev = page >  0
+                ? CreateLink(endpointName, new { page = page -1, pageSize })
                 : null;
 
-            var current = CreateLink(page, pageSize);
+            var current = CreateLink(endpointName, new { page, pageSize });
 
             var next = page < pages - 1
-                ? CreateLink(page + 1, pageSize)
+                ? CreateLink(endpointName, new { page = page + 1, pageSize })
                 : null;
 
             var result = new
