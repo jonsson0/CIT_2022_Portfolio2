@@ -8,6 +8,7 @@ namespace Portfolio2.Tests
     public class DataServiceTests
     {
         // titles
+        [Fact]
         public void GetTitles_WithPaging()
         {
             var service = new DataService();
@@ -26,6 +27,7 @@ namespace Portfolio2.Tests
             Assert.Equal("tvSeries", title.Type);
         }
 
+        [Fact]
         public void GetSimilarTitlesToTitleWithPaging()
         {
             var service = new DataService();
@@ -34,6 +36,7 @@ namespace Portfolio2.Tests
             Assert.Equal("Episode #1.13", titles.First().PrimaryTitle);
         }
 
+        [Fact]
         public void GetCharactersByTitle()
         {
             var service = new DataService();

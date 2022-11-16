@@ -6,23 +6,9 @@ using Npgsql;
 
 var ds = new DataService();
 
-var coacters = ds.getCoActors("nm0000002");
+var title = ds.getTitle("tt0052520");
 
-foreach (var coacter in coacters)
-{
-    Console.WriteLine("this is a coacter:");
-    Console.WriteLine(coacter.PersonId);
-}
-
-
-
-var list = ds.getSimilarTitles("tt0052520", 0, 2);
-
-foreach (var similarTitle in list)
-{
-    Console.WriteLine(similarTitle.PrimaryTitle);
-}
-
+//Console.WriteLine(title.);
 
 
 
