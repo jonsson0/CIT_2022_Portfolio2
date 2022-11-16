@@ -3,6 +3,7 @@ using CIT_2022_Portfolio2.Models;
 using DataLayer;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NpgsqlTypes;
@@ -16,6 +17,7 @@ namespace CIT_2022_Portfolio2.Controllers
 {
     [Route("api/users")]
     [ApiController]
+    //[Authorize]
     public class UserController : ControllerBase
     {
         private IDataService _dataService;
@@ -41,6 +43,7 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpGet("{username}", Name = nameof(getUser))]
+        //[Authorize]
         public IActionResult getUser([FromRoute] string username)
         {
             try
@@ -64,7 +67,8 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpPut]
-        [Route("{username}/bookmarkperson/{person}")]//, Name = nameof(inputBookmarkPerson))]
+        [Route("{username}/bookmarkperson/{person}")]
+        [Authorize]
         public IActionResult inputBookmarkPerson([FromRoute] string username, [FromRoute] string person)
         {
             try
@@ -86,7 +90,8 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpPut]
-        [Route("{username}/bookmarktitle/{title}")]// ("{username}/{title}", Name = nameof(inputBookmarkTitle))]
+        [Route("{username}/bookmarktitle/{title}")]
+        [Authorize]
         public IActionResult inputBookmarkTitle([FromRoute] string username, [FromRoute] string title)
         {
             try
@@ -106,6 +111,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         //Delete user
         [HttpDelete ("{username}/delete/{password}", Name = nameof(DeleteUser))]
+        [Authorize]
         public IActionResult DeleteUser([FromRoute] string username, [FromRoute] string password)
         {
             try
@@ -120,6 +126,7 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpPut ("{username}/{title}/{rating}", Name = nameof(createRating))]
+        [Authorize]
         public IActionResult createRating([FromRoute] string username, [FromRoute] string title, [FromRoute] float rating)
         {
             try
@@ -164,7 +171,7 @@ namespace CIT_2022_Portfolio2.Controllers
             };
 
             //Key to tokens - Is secure on server side - Better not to hardcode the key
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secret123421312312312312312312356789"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Auth:secret").Value));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
