@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Net.NetworkInformation;
+using System.Numerics;
 using AutoMapper;
 using CIT_2022_Portfolio2.Models;
 using DataLayer;
@@ -38,7 +39,11 @@ namespace CIT_2022_Portfolio2.Controllers
             else
             {
                 var data = _dataService.getTitleByName(search);
-                return Ok(data);
+                var total = data.Count;
+
+                var response = Ok(Paging(page, pageSize, total, data));
+
+                return Ok(Paging(page, pageSize, total, data));
             }
 
         }

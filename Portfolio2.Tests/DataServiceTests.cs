@@ -1,11 +1,16 @@
 ﻿
 using CIT_2022_Portfolio2.Models;
+using DataLayer;
 using DataLayer.Models;
 
 namespace Portfolio2.Tests
 {
     public class DataServiceTests
     {
+        // titles
+
+
+        // Persons
         [Fact]
         public void Person_Object_HasPersonIdNameBirthYearDeathYear()
         {
@@ -30,5 +35,20 @@ namespace Portfolio2.Tests
             Assert.Null(personModel.BirthYear);
             Assert.Null(personModel.DeathYear);
         }
+
+
+        // User
+        public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
+        {
+            var service = new DataService();
+            var user = service.createUser("testCreateUser", "12345");
+            Assert.True(user);
+            Assert.Equal("testCreateUser", user.name);
+            Assert.Equal("CreateCategory_ValidData_CreteCategoryAndReturnsNewObject", category.Description);
+
+            // cleanup
+            service.DeleteCategory(category.Id);
+        }
+
     }
 }
