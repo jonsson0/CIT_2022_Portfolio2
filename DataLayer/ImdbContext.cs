@@ -27,6 +27,8 @@ namespace DataLayer
         public DbSet<CoActor> CoActors { get; set; }
 
         public DbSet<Character> Characters { get; set; }
+        public DbSet<PersonProfession> PersonProfessions { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -108,6 +110,8 @@ namespace DataLayer
             modelBuilder.Entity<Person>().Property(x => x.BirthYear).HasColumnName("birthyear");
             modelBuilder.Entity<Person>().Property(x => x.DeathYear).HasColumnName("deathyear");
             //modelBuilder.Entity<Person>().HasMany(x => x.PersonCharacters).WithMany(x => x.PersonId);
+            modelBuilder.Entity<Person>().HasMany(x => x.PersonProfessions).WithOne(x => x.Person);
+
 
             // SearchCoActorById
             modelBuilder.Entity<CoActor>().HasNoKey();
@@ -124,6 +128,13 @@ namespace DataLayer
             modelBuilder.Entity<Character>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Character>().Property(x => x.TitleCharacter).HasColumnName("character");
 
+            // PersonProfessions
+            modelBuilder.Entity<PersonProfession>().ToTable("person_professions");
+            modelBuilder.Entity<PersonProfession>().HasKey(x => x.PersonId);
+            modelBuilder.Entity<PersonProfession>().Property(x => x.TitleId).HasColumnName("title_ID");
+            modelBuilder.Entity<PersonProfession>().Property(x => x.PersonId).HasColumnName("person_ID");
+            modelBuilder.Entity<PersonProfession>().Property(x => x.Category).HasColumnName("category");
+            modelBuilder.Entity<PersonProfession>().Property(x => x.Job).HasColumnName("job");
         }
     }
 }

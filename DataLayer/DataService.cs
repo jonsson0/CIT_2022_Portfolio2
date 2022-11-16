@@ -228,14 +228,15 @@ namespace DataLayer
             }
         }
 
-        public List<PersonSearchModel>? getPersonByName(string search)
+        public List<PersonsSearchInListDTO>? getPersonByName(string search)
         {
             using var db = new ImdbContext();
             var persons = db
                 .Persons
-                .Include(x => x.PersonCharacters)
+                .Include(x => x.PersonProfessions)
                 .Where(x => x.Name.ToLower().Contains(search.ToLower()))
-                .Select(x => new PersonSearchModel { PersonId = x.PersonId, Name = x.Name, BirthYear = x.BirthYear, DeathYear = x.DeathYear, PersonCharacters = x.PersonCharacters})
+                .ToList()
+                .Select(x => createPersonsSearchInListDTO(x))
                 .ToList();
             return persons;
         }
@@ -483,6 +484,22 @@ namespace DataLayer
             };
             return personOnMainPageDTO;
         }
+
+        public PersonsSearchInListDTO createPersonsSearchInListDTO(Person person)
+        {
+            using var db = new ImdbContext();
+
+            // Could implement mapping
+
+            var personsSearchInListDTO = new PersonsSearchInListDTO
+            {
+                PersonId = person.PersonId,
+                Name = person.Name,
+            };
+
+            return personsSearchInListDTO;
+        }
+
 
         public UserPageDTO createUserPageDTO(User user)
         {

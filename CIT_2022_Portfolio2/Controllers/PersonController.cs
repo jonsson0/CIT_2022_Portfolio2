@@ -95,6 +95,14 @@ namespace CIT_2022_Portfolio2.Controllers
             return model;
         }
 
+        //private PersonsSearchInListModel createCoActorModel(CoActor coActor)
+        //{
+        //    var model = _mapper.Map<PersonsSearchInListModel>(coActor);
+        //    model.url = _generator.GetUriByName(HttpContext, nameof(getCoActors), new { coActor.PersonId });
+        //    return model;
+        //}
+
+
         private const int MaxPageSize = 25;
 
         private string? CreateLink(int page, int pageSize)
