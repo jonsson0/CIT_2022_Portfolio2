@@ -33,7 +33,7 @@ namespace DataLayer
         public List<CoActor> getCoActors(string id);
         int GetNumberOfPersons();
 
-        public List<PersonSearchModel>? getPersonByName(string search);
+        public List<PersonsSearchInListDTO>? getPersonByName(string search);
 
 
 
