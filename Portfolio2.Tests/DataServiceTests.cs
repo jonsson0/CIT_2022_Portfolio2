@@ -12,7 +12,9 @@ namespace Portfolio2.Tests
         public void GetTitles_WithPaging()
         {
             var service = new DataService();
-            var titles = service.getTitles(0,25);
+            var page = 0;
+            var pageSize = 25;
+            var titles = service.getTitles(page,pageSize);
             Assert.Equal(25, titles.Count);
             Assert.Equal("The Twilight Zone", titles.First().PrimaryTitle);
             Assert.Equal("tvSeries", titles.First().Type);
@@ -72,6 +74,38 @@ namespace Portfolio2.Tests
             Assert.Null(personModel.Name); // should not be null
             Assert.Null(personModel.BirthYear);
             Assert.Null(personModel.DeathYear);
+        }
+
+        [Fact]
+        public void GetPersons_WithPaging()
+        {
+            var service = new DataService();
+            var page = 0;
+            var pageSize = 10;
+            var persons = service.getPersons(page, pageSize);
+            Assert.Equal(10, persons.Count);
+            Assert.Equal("Fred Astaire", persons.First().Name);
+            Assert.Equal("1899", persons.First().BirthYear);
+            Assert.Equal("1987", persons.First().DeathYear);
+        }
+
+        [Fact]
+        public void GetPerson_ValidId_ReturnsPerson()
+        {
+            var service = new DataService();
+            var person = service.getPerson("nm0000002");
+            Assert.Equal("Lauren Bacall", person.Name);
+            Assert.Equal("1924", person.BirthYear);
+            Assert.Equal("2014", person.DeathYear);
+        }
+
+        [Fact]
+        public void getPersonByName_ReturnPerson()
+        {
+            var service = new DataService();
+            var person = service.getPersonByName("Tom Hanks");
+            Assert.Equal("nm0000158", person.First().PersonId);
+            Assert.Equal("Tom Hanks", person.First().Name);
         }
 
 
