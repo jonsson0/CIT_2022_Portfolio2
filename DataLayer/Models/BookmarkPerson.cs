@@ -11,7 +11,7 @@ namespace DataLayer.Models
         // In later portfolio, change type, so the bookmarks contain types user and person
         public string Username { get; set; }
         //public User User { get; set; }
-        public string Personname { get; set; }
+        public string Person_ID { get; set; }
         //public Person Person { get; set; }
         public DateTime Timestamp { get; set; }
     }
