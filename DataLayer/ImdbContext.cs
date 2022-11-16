@@ -130,7 +130,7 @@ namespace DataLayer
 
             // PersonProfessions
             modelBuilder.Entity<PersonProfession>().ToTable("person_professions");
-            modelBuilder.Entity<PersonProfession>().HasKey(x => x.PersonId);
+            modelBuilder.Entity<PersonProfession>().HasKey(x => new { x.TitleId, x.PersonId, x.Category });
             modelBuilder.Entity<PersonProfession>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<PersonProfession>().Property(x => x.PersonId).HasColumnName("person_ID");
             modelBuilder.Entity<PersonProfession>().Property(x => x.Category).HasColumnName("category");

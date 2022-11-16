@@ -6,6 +6,7 @@ namespace DataLayer.DataTransferObjects
 
 		public string PersonId { get; set; }
 		public string Name { get; set; }
+		//public IList<string> Jobs { get; set; }
 	}
 }
 
