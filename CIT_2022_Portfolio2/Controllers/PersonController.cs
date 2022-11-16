@@ -84,14 +84,16 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             var model = _mapper.Map<PersonModel>(personOnMainPageDTO);
             model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { personOnMainPageDTO.PersonId });
-            model.CoActorPersonsUrl = model.url + "/CoActors";
+            model.CoActorsUrl = model.url + "/CoActors";
+            //model.CoActorsUrl = _generator.GetUriByName(HttpContext, nameof(getCoActors), new { personOnMainPageDTO.PersonId });
             return model;
         }
 
         private CoActorModel createCoActorModel(CoActor coActor)
         {
             var model = _mapper.Map<CoActorModel>(coActor);
-            model.url = _generator.GetUriByName(HttpContext, nameof(getCoActors), new { coActor.PersonId });
+            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { coActor.PersonId });
+
             return model;
         }
 

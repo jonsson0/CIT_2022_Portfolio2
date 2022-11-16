@@ -117,7 +117,7 @@ namespace DataLayer
             modelBuilder.Entity<CoActor>().HasNoKey();
             modelBuilder.Entity<CoActor>().Property(x => x.PersonId).HasColumnName("person_ID");
             modelBuilder.Entity<CoActor>().Property(x => x.Name).HasColumnName("name");
-            //modelBuilder.Entity<CoActor_Person>().Property(x => x.Frequency).HasColumnName("frequency");
+            modelBuilder.Entity<CoActor>().Property(x => x.Frequency).HasColumnName("frequency");
 
 
             // Characters
