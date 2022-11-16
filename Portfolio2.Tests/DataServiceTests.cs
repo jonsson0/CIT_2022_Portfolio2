@@ -37,14 +37,20 @@ namespace Portfolio2.Tests
         }
 
         [Fact]
-        public void GetCharactersByTitle()
+        public void GetCharactersByTitleWithPerson()
         {
             var service = new DataService();
-            Title title = new Title();
-            title.TitleId = "tt0052520";
+            Title title = new Title
+            {
+                TitleId = "tt9999999", 
+                Type = 
+        public string
+            PrimaryTitle { get; set; }
+        public string OriginalTitle { get; set; }
+        public bool IsAdult { get; set; }
+    };
             var characters = service.getCharactersByTitle(title);
-            Assert.Equal(title, title);
-            Assert.Equal("Episode #1.13", title.PrimaryTitle);
+            Assert.Equal("John Anderson", title.TitleCharacters.First().Person.Name);
         }
 
 

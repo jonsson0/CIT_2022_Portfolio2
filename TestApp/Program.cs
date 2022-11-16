@@ -8,7 +8,17 @@ var ds = new DataService();
 
 var title = ds.getTitle("tt0052520");
 
-//Console.WriteLine(title.);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
+Console.WriteLine(title.TitleCharacters.First().Person.Name);
 
 
 

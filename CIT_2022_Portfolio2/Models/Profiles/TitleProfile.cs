@@ -13,7 +13,8 @@ namespace CIT_2022_Portfolio2.Models.Profiles
             CreateMap<TitleOnMainPageDTO, TitleModel>().ReverseMap();
 
             CreateMap<Similar_Title, SimilarTitleModel>().ReverseMap();
-
+            
+            CreateMap<Character, CharacterModel>().ReverseMap();
         }
     }
 }

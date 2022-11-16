@@ -67,6 +67,7 @@ namespace DataLayer
             var titles = db
                                     .Titles
                                     .Include(x => x.TitleGenres)
+                                    .Include(x => x.TitleCharacters)
                                     .Skip(page*pageSize)
                                     .Take(pageSize) // IT IS HERE YOU NEED TO LOOK
                                     .Select(createTitleOnMainPageDTO).ToList();
