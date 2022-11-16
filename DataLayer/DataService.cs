@@ -176,7 +176,7 @@ namespace DataLayer
 
 
 
-        public Person createPerson(string personId, string name, string birthYear, string deathYear)
+        public Person createPerson(string personId, string name, string? birthYear, string? deathYear)
         {
             using var db = new ImdbContext();
             var person = new Person();

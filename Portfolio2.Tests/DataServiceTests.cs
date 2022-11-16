@@ -1,4 +1,5 @@
 ﻿
+using System.Xml.Linq;
 using CIT_2022_Portfolio2.Models;
 using DataLayer;
 using DataLayer.Models;
@@ -108,6 +109,19 @@ namespace Portfolio2.Tests
             Assert.Equal("Tom Hanks", person.First().Name);
         }
 
+        [Fact]
+        public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
+        {
+            var service = new DataService();
+            var person = service.createPerson("nm9993710", "Steen", "1991", null);
+            var personFronDB = service.getPerson("nm9993710");
+            Assert.Equal(person.PersonId, personFronDB.PersonId);
+            Assert.Equal(person.BirthYear, personFronDB.BirthYear);
+            Assert.Null(person.DeathYear);
+
+            //// cleanup
+            //service.DeleteCategory(category.Id);
+        }
 
         // User
         /*public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
