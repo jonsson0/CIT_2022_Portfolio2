@@ -87,17 +87,7 @@ namespace Portfolio2.Tests
             Assert.Null(person.DeathYear);
         }
 
-        [Fact]
-        public void PersonModel_Object_HasPersonIdNameBirthYearDeathYear()
-        {
-            var personModel = new PersonModel();
-            Assert.Null(personModel.url);
-            Assert.Null(personModel.Name); // should not be null
-            Assert.Null(personModel.BirthYear);
-            Assert.Null(personModel.DeathYear);
-        }
-
-        [Fact]
+         [Fact]
         public void GetPersons_WithPaging()
         {
             var service = new DataService();
@@ -151,12 +141,11 @@ namespace Portfolio2.Tests
             var person = service.createPerson("nm9993710", "Steen", "1991", null);
             var personFromDB = service.getPerson("nm9993710");
             Assert.Equal(person.PersonId, personFromDB.PersonId);
-
-            // cleanup
-            service.deletePerson(personFromDB.PersonId);
-            Assert.Null(personFromDB);
+            var isDeleted = service.deletePerson(personFromDB.PersonId);
+            var personAfterDelete = service.getPerson("nm9993710");
+            Assert.True(isDeleted);
         }
-
+        
     }
 }
 
