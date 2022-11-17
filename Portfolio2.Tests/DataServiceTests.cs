@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using CIT_2022_Portfolio2.Models;
 using DataLayer;
+using DataLayer.DataTransferObjects;
 using DataLayer.Models;
 
 namespace Portfolio2.Tests
@@ -122,18 +123,35 @@ namespace Portfolio2.Tests
         }
 
         [Fact]
-        public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
+        public void CreatePerson_ValidData()
         {
             var service = new DataService();
             var person = service.createPerson("nm9993710", "Steen", "1991", null);
-            var personFronDB = service.getPerson("nm9993710");
-            Assert.Equal(person.PersonId, personFronDB.PersonId);
-            Assert.Equal(person.BirthYear, personFronDB.BirthYear);
+            var personFromDB = service.getPerson("nm9993710");
+            Assert.Equal(person.PersonId, personFromDB.PersonId);
+            Assert.Equal(person.BirthYear, personFromDB.BirthYear);
             Assert.Null(person.DeathYear);
 
-            //// cleanup
-            //service.DeleteCategory(category.Id);
+            // cleanup
+            service.deletePerson(personFromDB.PersonId);
         }
+
+
+        [Fact]
+        public void DeletePerson_ValidData()
+        {
+            var service = new DataService();
+            var person = service.createPerson("nm9993710", "Steen", "1991", null);
+            var personFromDB = service.getPerson("nm9993710");
+            Assert.Equal(person.PersonId, personFromDB.PersonId);
+    
+            // cleanup
+            service.deletePerson(personFromDB.PersonId);
+            Assert.Null(personFromDB);
+        }
+
+
+
 
         // User
         /*public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()

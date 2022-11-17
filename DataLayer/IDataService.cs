@@ -41,7 +41,7 @@ namespace DataLayer
         // Users
 
         public UserPageDTO getUser(string username);
-        public Boolean createUser(string username, string password);
+        public Boolean createUser(string username, string password, string salt);
         public Boolean updateUserPassword(string username, string oldpassword, string newpassword);
         public Boolean deleteUser(string username, string password);
         public Boolean createBookmarkPerson(string username, string personname);
@@ -50,6 +50,8 @@ namespace DataLayer
         public List<BookmarkTitle> getBookmarkTitleByUser(string username);
         public Boolean createRating(string username, string titleID, float rating);
         public List<Rating> getRatingsByUser(string username);
+        public List<UserPageDTO> getUsers();
+
 
 
 

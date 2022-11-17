@@ -159,8 +159,8 @@ namespace DataLayer
             var persons = db
                 .Persons
                 .Skip(page*pageSize)
-                .Take(pageSize).ToList()
-                .Select(x => createPersonOnMainPageDTO(x)).ToList();
+                .Take(pageSize)
+                .Select(createPersonOnMainPageDTO).ToList();
             return persons;
         }
 
@@ -279,6 +279,14 @@ namespace DataLayer
 
         // Users:
 
+        public List<UserPageDTO> getUsers()
+        {
+            using var db = new ImdbContext();
+
+            var users = db.Users.ToList().Select(x => createUserPageDTO(x)).ToList();
+            return users;
+        }
+
         public UserPageDTO getUser(string username)
         {
             using var db = new ImdbContext();
@@ -294,7 +302,7 @@ namespace DataLayer
             
             
         }
-        public Boolean createUser(string username, string password)
+        public Boolean createUser(string username, string password, string salt)
         {
             using var db = new ImdbContext();
             if (username == null || password == null)
@@ -303,7 +311,7 @@ namespace DataLayer
             }
             else
             {
-                db.Database.ExecuteSqlInterpolated($"select input_user({username},{password})");
+                db.Database.ExecuteSqlInterpolated($"select input_user({username},{password},{salt})");
                 return true;
             }
         }
@@ -339,12 +347,11 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var person = db.Persons.Find(personID).Name;
+            var person = db.Persons.Find(personID);
             
             if (user != null && person != null)
             {
                 db.Database.ExecuteSqlInterpolated($"select input_bookmark_person({username},{personID})");
-                Console.WriteLine("person booked");
                 db.SaveChanges();
                 //Console.WriteLine(test.ToList().FirstOrDefault());
                 return true;
@@ -352,15 +359,15 @@ namespace DataLayer
             else { return false; }
         }
 
-        public Boolean createBookmarkTitle(string username, string primarytitle)
+        public Boolean createBookmarkTitle(string username, string titleID)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var title = db.Titles.Find(primarytitle);
+            var title = db.Titles.Find(titleID);
 
             if (user != null && title != null)
             {
-                db.Database.ExecuteSqlInterpolated($"select input_bookmark_person({username},{primarytitle})");
+                db.Database.ExecuteSqlInterpolated($"select input_bookmark_title({username},{titleID})");
                 db.SaveChanges();
                 return true;
             }
@@ -409,15 +416,15 @@ namespace DataLayer
         }
 
         // Skal have lavet mere på denne her så den opdatere total votes på titel, samt avg rating
-        public Boolean createRating(string username, string titlename, float rating)
+        public Boolean createRating(string username, string titleID, float rating)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var title = db.Titles.Find(titlename);
+            var title = db.Titles.Find(titleID);
 
             if (user != null && title != null)
             {
-                var result = db.Ratings.FromSqlInterpolated($"select input_rating({username},{titlename},{rating})");
+                var result = db.Ratings.FromSqlInterpolated($"select input_rating({username},{titleID},{rating})");
                 return true;
             }
             else { return false; }
@@ -508,6 +515,8 @@ namespace DataLayer
             using var db = new ImdbContext();
 
             var username = user.Username;
+            var password = user.Password;
+            var salt = user.Salt;
             var bookmarkedtitles = getBookmarkTitleByUser(username);
             var bookmarkedactors = getBookmarkPersonByUser(username);
             var userratings = getRatingsByUser(username);
@@ -516,6 +525,8 @@ namespace DataLayer
             var userPageDTO = new UserPageDTO
             {
                 Username = user.Username,
+                Password = user.Password,
+                Salt = user.Salt,
                 BookmarkedActors = bookmarkedactors,
                 BookmarkedTitles = bookmarkedtitles,
                 UserRatings = userratings

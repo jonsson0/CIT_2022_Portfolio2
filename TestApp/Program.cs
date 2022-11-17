@@ -97,5 +97,5 @@ Console.WriteLine("");
 //Console.WriteLine(TestPerson.PersonId);
 
 
-ds.createBookmarkPerson("testing123", "John Travolta");
+ds.createBookmarkTitle("testing123", "tt0052520");
 
