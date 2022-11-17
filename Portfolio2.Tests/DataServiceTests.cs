@@ -185,8 +185,9 @@ namespace Portfolio2.Tests
             //string newPassword = "123456789";
 
             service.updateUserPassword(user.Username, user.Password, "123456789");
-            Assert.Equal("123456789", user.Password);
-            //service.deleteUser(user.Username, newPassword);
+            var userNewPassword = service.getUser("test123");
+
+            Assert.Equal("123456789", userNewPassword.Password);
             service.deleteUser(user.Username, "123456789");
             Assert.DoesNotContain(user, service.getUsers());
 
@@ -203,7 +204,7 @@ namespace Portfolio2.Tests
 
             service.createBookmarkPerson(user.Username, "nm0000001");
 
-            Assert.NotEmpty(user.BookmarkedActors);
+            Assert.NotEmpty(service.getBookmarkPersonByUser(user.Username));
 
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
@@ -217,7 +218,7 @@ namespace Portfolio2.Tests
             var user = service.getUser("test123");
             service.createBookmarkTitle(user.Username, "tt0052520");
 
-            Assert.NotEmpty(user.BookmarkedTitles);
+            Assert.NotEmpty(service.getBookmarkTitleByUser(user.Username));
 
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
@@ -234,7 +235,7 @@ namespace Portfolio2.Tests
 
             service.createRating(user.Username, "tt0098904", 8);
             //service.createRating(user.Us)
-            Assert.NotEmpty(user.UserRatings);
+            Assert.NotEmpty(service.getRatingsByUser(user.Username));
 
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
