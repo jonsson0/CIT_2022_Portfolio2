@@ -15,7 +15,7 @@ namespace Portfolio2.Tests
             var service = new DataService();
             var page = 0;
             var pageSize = 25;
-            var titles = service.getTitles(page,pageSize);
+            var titles = service.getTitles(page, pageSize);
             Assert.Equal(25, titles.Count);
             Assert.Equal("The Twilight Zone", titles.First().PrimaryTitle);
             Assert.Equal("tvSeries", titles.First().Type);
@@ -45,19 +45,25 @@ namespace Portfolio2.Tests
             var service = new DataService();
             Title title = new Title
             {
-                TitleId = "tt9999999", 
-                Type = 
+                TitleId = "tt9999999",
+                Type = "hey"
+            };
+
         public string
             PrimaryTitle { get; set; }
+
         public string OriginalTitle { get; set; }
         public bool IsAdult { get; set; }
-    };
-            var characters = service.getCharactersByTitle(title);
-            Assert.Equal("John Anderson", title.TitleCharacters.First().Person.Name);
-        }
+
+        var characters = service.getCharactersByTitle(title);
+        Assert.Equal("John Anderson", title.TitleCharacters.First().Person.Name);
+    
 
 
-        // Persons
+
+
+
+// Persons
         [Fact]
         public void Person_Object_HasPersonIdNameBirthYearDeathYear()
         {
