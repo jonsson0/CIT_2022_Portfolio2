@@ -13,6 +13,8 @@ namespace CIT_2022_Portfolio2.Models.Profiles
             CreateMap<PersonOnMainPageDTO, PersonModel>().ReverseMap();
 
             CreateMap<CoActorModel, CoActor>().ReverseMap();
+
+            CreateMap<PersonsSearchInListModel, PersonsSearchInListDTO>().ReverseMap();
         }
     }
 }

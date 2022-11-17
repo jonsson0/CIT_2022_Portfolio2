@@ -41,23 +41,35 @@ namespace Portfolio2.Tests
             Assert.Equal("Episode #1.13", titles.First().PrimaryTitle);
         }
 
-        //[Fact]
-    //    public void GetCharactersByTitleWithPerson()
-    //    {
-    //        var service = new DataService();
-    //        Title title = new Title
-    //        {
-    //            TitleId = "tt9999999",
-    //            Type = 
-    //    public string
-    //        PrimaryTitle { get; set; }
-    //    public string OriginalTitle { get; set; }
-    //    public bool IsAdult { get; set; }
-        
-    //var characters = service.getCharactersByTitle(title);
-    //Assert.Equal("John Anderson", title.TitleCharacters.First().Person.Name);
-            
-        
+
+        /*
+        [Fact]
+        public void GetCharactersByTitleWithPerson()
+        {
+            var service = new DataService();
+            Title title = new Title
+            {
+                TitleId = "tt9999999",
+                Type = "hey"
+            };
+
+            public string
+            PrimaryTitle { get; set; }
+
+            public string OriginalTitle { get; set; }
+            public bool IsAdult { get; set; }
+
+        var characters = service.getCharactersByTitle(title);
+        Assert.Equal("John Anderson", title.TitleCharacters.First().Person.Name);
+        */
+
+
+
+
+
+
+
+
 
 
         // Persons
@@ -71,9 +83,9 @@ namespace Portfolio2.Tests
                 BirthYear = "1990",
                 DeathYear = null
             };
-         Assert.Equal("1234", person.PersonId);
-         Assert.Equal("Jens", person.Name);
-         Assert.Null(person.DeathYear);
+            Assert.Equal("1234", person.PersonId);
+            Assert.Equal("Jens", person.Name);
+            Assert.Null(person.DeathYear);
         }
 
         [Fact]
@@ -140,118 +152,27 @@ namespace Portfolio2.Tests
             var person = service.createPerson("nm9993710", "Steen", "1991", null);
             var personFromDB = service.getPerson("nm9993710");
             Assert.Equal(person.PersonId, personFromDB.PersonId);
-    
+
             // cleanup
             service.deletePerson(personFromDB.PersonId);
             Assert.Null(personFromDB);
         }
 
-
-
-
-        // User
-        
-
-
-        [Fact]
-        public void createUser_test()
-        {
-            var service = new DataService();
-            service.createUser("test123", "1234", null);
-            var user = service.getUser("test123");
-            //var username = service.getUser("test123");
-            Assert.Equal(user.Password, "1234");
-            //service.deleteUser(user.Username, "1234");
-            service.deleteUser(user.Username, user.Password);
-            Assert.DoesNotContain(user, service.getUsers());
-        }
-
-        [Fact]
-        public void updateUserPassword_test()
-        {
-            var service = new DataService();
-            var setupUser = service.createUser("test123", "1234", null);
-            var user = service.getUser("test123");
-
-            //string newPassword = "123456789";
-
-            service.updateUserPassword(user.Username, user.Password, "123456789");
-            Assert.Equal("123456789", user.Password);
-            //service.deleteUser(user.Username, newPassword);
-            service.deleteUser(user.Username, user.Password);
-            Assert.DoesNotContain(user, service.getUsers());
-
-        }
-
-
-
-        [Fact]
-        public void createBookmarkPerson_test()
-        {
-            var service = new DataService();
-            var setupUser = service.createUser("test123", "1234", null);
-            var user = service.getUser("test123");
-
-            service.createBookmarkPerson(user.Username, "nm0000001");
-
-            Assert.NotEmpty(user.BookmarkedActors);
-
-            service.deleteUser(user.Username, user.Password);
-            Assert.DoesNotContain(user, service.getUsers());
-        }
-
-        [Fact]
-        public void createBookmarkTitle_test()
-        {
-            var service = new DataService();
-            var setupUser = service.createUser("test123", "1234", null);
-            var user = service.getUser("test123");
-            service.createBookmarkTitle(user.Username, "tt0052520");
-
-            Assert.NotEmpty(user.BookmarkedTitles);
-
-            service.deleteUser(user.Username, user.Password);
-            Assert.DoesNotContain(user, service.getUsers());
-        }
-
-        [Fact]
-        public void createRating_test()
-        {
-            var service = new DataService();
-            var setupUser = service.createUser("test123", "1234", null);
-            
-            var user = service.getUser("test123");
-            Assert.Equal("test123", user.Username);
-
-            service.createRating(user.Username, "tt0098904", 8);
-            //service.createRating(user.Us)
-            Assert.NotEmpty(user.UserRatings);
-
-            service.deleteUser(user.Username, user.Password);
-            Assert.DoesNotContain(user, service.getUsers());
-        }
-
-        [Fact]
-        public void deleteUser_test()
-        {
-            var service = new DataService();
-            var setupUser = service.createUser("test123", "1234", null);
-            var user = service.getUser("test123");
-
-            service.deleteUser(user.Username, user.Password);
-            Assert.DoesNotContain(user, service.getUsers());
-        }
-        /*public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
-        {
-            var service = new DataService();
-            var user = service.createUser("testCreateUser", "12345");
-            Assert.True(user);
-            Assert.Equal("testCreateUser", user.name);
-            Assert.Equal("CreateCategory_ValidData_CreteCategoryAndReturnsNewObject", category.Description);
-
-            // cleanup
-            service.DeleteCategory(category.Id);
-        }*/
-
     }
 }
+
+
+// User
+/*public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
+{
+    var service = new DataService();
+    var user = service.createUser("testCreateUser", "12345");
+    Assert.True(user);
+    Assert.Equal("testCreateUser", user.name);
+    Assert.Equal("CreateCategory_ValidData_CreteCategoryAndReturnsNewObject", category.Description);
+
+    // cleanup
+    service.DeleteCategory(category.Id);
+}*/
+
+
