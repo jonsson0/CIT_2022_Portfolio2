@@ -40,6 +40,8 @@ namespace Portfolio2.Tests
             Assert.Equal("Episode #1.13", titles.First().PrimaryTitle);
         }
 
+
+        /*
         [Fact]
         public void GetCharactersByTitleWithPerson()
         {
@@ -50,21 +52,26 @@ namespace Portfolio2.Tests
                 Type = "hey"
             };
 
-        public string
+            public string
             PrimaryTitle { get; set; }
 
-        public string OriginalTitle { get; set; }
-        public bool IsAdult { get; set; }
+            public string OriginalTitle { get; set; }
+            public bool IsAdult { get; set; }
 
         var characters = service.getCharactersByTitle(title);
         Assert.Equal("John Anderson", title.TitleCharacters.First().Person.Name);
-    
+        */
 
 
 
 
 
-// Persons
+
+
+
+
+
+        // Persons
         [Fact]
         public void Person_Object_HasPersonIdNameBirthYearDeathYear()
         {
@@ -75,9 +82,9 @@ namespace Portfolio2.Tests
                 BirthYear = "1990",
                 DeathYear = null
             };
-         Assert.Equal("1234", person.PersonId);
-         Assert.Equal("Jens", person.Name);
-         Assert.Null(person.DeathYear);
+            Assert.Equal("1234", person.PersonId);
+            Assert.Equal("Jens", person.Name);
+            Assert.Null(person.DeathYear);
         }
 
         [Fact]
@@ -144,27 +151,27 @@ namespace Portfolio2.Tests
             var person = service.createPerson("nm9993710", "Steen", "1991", null);
             var personFromDB = service.getPerson("nm9993710");
             Assert.Equal(person.PersonId, personFromDB.PersonId);
-    
+
             // cleanup
             service.deletePerson(personFromDB.PersonId);
             Assert.Null(personFromDB);
         }
 
-
-
-
-        // User
-        /*public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
-        {
-            var service = new DataService();
-            var user = service.createUser("testCreateUser", "12345");
-            Assert.True(user);
-            Assert.Equal("testCreateUser", user.name);
-            Assert.Equal("CreateCategory_ValidData_CreteCategoryAndReturnsNewObject", category.Description);
-
-            // cleanup
-            service.DeleteCategory(category.Id);
-        }*/
-
     }
 }
+
+
+// User
+/*public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
+{
+    var service = new DataService();
+    var user = service.createUser("testCreateUser", "12345");
+    Assert.True(user);
+    Assert.Equal("testCreateUser", user.name);
+    Assert.Equal("CreateCategory_ValidData_CreteCategoryAndReturnsNewObject", category.Description);
+
+    // cleanup
+    service.DeleteCategory(category.Id);
+}*/
+
+
