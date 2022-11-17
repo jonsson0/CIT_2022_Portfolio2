@@ -140,19 +140,7 @@ namespace DataLayer
             var personOnMainPageDTO = createPersonOnMainPageDTO(person);
             return personOnMainPageDTO;
         }
-
-        public PersonOnMainPageDTO getPersonName(string name)
-        {
-            using var db = new ImdbContext();
-            var person = db
-                .Persons
-                .Find(name);
-
-            var personOnMainPageDTO = createPersonOnMainPageDTO(person);
-            return personOnMainPageDTO;
-        }
-
-
+        
         public List<PersonOnMainPageDTO> getPersons(int page, int pageSize)
         {
             using var db = new ImdbContext();

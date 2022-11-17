@@ -25,7 +25,6 @@ namespace DataLayer
         // Persons
 
         public PersonOnMainPageDTO getPerson(string id);
-        public PersonOnMainPageDTO getPersonName(string name);
         public List<PersonOnMainPageDTO> getPersons(int page, int pageSize);
         public Person createPerson(string personId, string name, string birthYear, string deathYear);
         public Boolean deletePerson(string personId);

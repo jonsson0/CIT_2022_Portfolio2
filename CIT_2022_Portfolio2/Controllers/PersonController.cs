@@ -61,20 +61,6 @@ namespace CIT_2022_Portfolio2.Controllers
             return NotFound();
         }
 
-        //[HttpGet("{personId}", Name = nameof(getPersonName))]
-        //public IActionResult getPersonName(string personName)
-        //{
-        //    var Person = _dataService.getPersonName(personName);
-
-        //    if (Person != null)
-        //    {
-        //        var model = createPersonModel(Person);
-
-        //        return Ok(model);
-        //    }
-        //    return NotFound();
-        //}
-
         [HttpGet("{id}/CoActors", Name = nameof(getCoActors))]
         public IActionResult getCoActors(string id)
         {
