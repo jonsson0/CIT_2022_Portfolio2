@@ -36,6 +36,7 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpGet(Name = nameof(getUsers))]
+        //[Authorize]
         public IActionResult getUsers()
         {
             var users = _dataService.getUsers().Select(createUserModel);
@@ -68,7 +69,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         [HttpPut]
         [Route("{username}/bookmarkperson/{person}")]
-        [Authorize]
+        //[Authorize]
         public IActionResult inputBookmarkPerson([FromRoute] string username, [FromRoute] string person)
         {
             try
@@ -91,7 +92,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         [HttpPut]
         [Route("{username}/bookmarktitle/{title}")]
-        [Authorize]
+        //[Authorize]
         public IActionResult inputBookmarkTitle([FromRoute] string username, [FromRoute] string title)
         {
             try
@@ -111,7 +112,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         //Delete user
         [HttpDelete ("{username}/delete/{password}", Name = nameof(DeleteUser))]
-        [Authorize]
+        //[Authorize]
         public IActionResult DeleteUser([FromRoute] string username, [FromRoute] string password)
         {
             try
@@ -126,7 +127,6 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpPut ("{username}/{title}/{rating}", Name = nameof(createRating))]
-        [Authorize]
         public IActionResult createRating([FromRoute] string username, [FromRoute] string title, [FromRoute] float rating)
         {
             try
@@ -140,7 +140,6 @@ namespace CIT_2022_Portfolio2.Controllers
             }
         }
 
-        //Mangler create user og update user password
 
         private UserModel createUserModel(UserPageDTO userpagedto)
         {
@@ -182,7 +181,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-            return Ok(new {user.Username, token = jwt});
+            return Ok(new { user.Username, token = jwt });
         }
 
         //api/users?action=register

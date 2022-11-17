@@ -98,9 +98,9 @@ namespace DataLayer
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Timestamp).HasColumnName("title_timestamp");
 
             modelBuilder.Entity<Rating>().ToTable("ratings");
-            modelBuilder.Entity<Rating>().HasKey(x => new { x.Username, x.Primarytitle });
+            modelBuilder.Entity<Rating>().HasKey(x => new { x.Username, x.Title_ID });
             modelBuilder.Entity<Rating>().Property(x => x.Username).HasColumnName("username");
-            modelBuilder.Entity<Rating>().Property(x => x.Primarytitle).HasColumnName("primarytitle");
+            modelBuilder.Entity<Rating>().Property(x => x.Title_ID).HasColumnName("titleid");
             modelBuilder.Entity<Rating>().Property(x => x.rating).HasColumnName("rating");
 
             // Persons

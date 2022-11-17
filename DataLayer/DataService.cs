@@ -322,7 +322,10 @@ namespace DataLayer
             var user = db.Users.Find(username);
             if (user != null && oldpassword == user.Password)
             {
-                db.Database.ExecuteSqlInterpolated($"select update_password({username},{oldpassword},{newpassword})");
+                user.Password = newpassword;
+                
+                //db.Database.ExecuteSqlInterpolated($"select update_password({username},{oldpassword},{newpassword})");
+                db.SaveChanges();
                 return true;
             }
             else
@@ -378,7 +381,7 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var actorlist = new List<BookmarkPerson>();
+            //var actorlist = new List<BookmarkPerson>();
 
             if(user != null)
             {
@@ -424,7 +427,8 @@ namespace DataLayer
 
             if (user != null && title != null)
             {
-                var result = db.Ratings.FromSqlInterpolated($"select input_rating({username},{titleID},{rating})");
+                var result = db.Database.ExecuteSqlInterpolated($"select input_rating({username},{titleID},{rating})");
+                db.SaveChanges();
                 return true;
             }
             else { return false; }
@@ -434,13 +438,14 @@ namespace DataLayer
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            var ratelist = new List<Rating>();
+            //var ratelist = new List<Rating>();
 
             if(user != null)
             {
-                var result = db.Ratings.FromSqlInterpolated($"select get_ratings_by_user({username})");
+                var result = db.Ratings.Where(x => x.Username == user.Username).ToList();
+                    //ExecuteSqlInterpolated($"select get_ratings_by_user({username})");
 
-                return ratelist.ToList();
+                return result;
             }
             else { return null; }
         }
