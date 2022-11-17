@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DataLayer.DataTransferObjects.CharacterDTO" Collapsed="true">
+    <Position X="10.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAEAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\CharacterDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.DataTransferObjects.CoActorDTO" Collapsed="true">
+    <Position X="5.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\CoActorDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.DataTransferObjects.PersonOnMainPageDTO" Collapsed="true">
+    <Position X="14" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAIAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\PersonOnMainPageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.DataTransferObjects.PersonsSearchInListDTO" Collapsed="true">
+    <Position X="7" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\PersonsSearchInListDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.DataTransferObjects.SimilarTitleDTO" Collapsed="true">
+    <Position X="14" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\SimilarTitleDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.DataTransferObjects.TitleGenreDTO" Collapsed="true">
+    <Position X="8.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\TitleGenreDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.DataTransferObjects.TitleOnMainPageDTO" Collapsed="true">
+    <Position X="10.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABgAAABAAAIAAAAEAAACAAAAAAAAEAAAISAEAAIAAEA=</HashCode>
+      <FileName>DataTransferObjects\TitleOnMainPageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.DataTransferObjects.TitleSearchInListDTO" Collapsed="true">
+    <Position X="12.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABgAAABAAAIAAAAEAAACAAAAAAAAEAAAISAEAAIAAEA=</HashCode>
+      <FileName>DataTransferObjects\TitleSearchInListDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.DataTransferObjects.UserPageDTO" Collapsed="true">
+    <Position X="7" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gABAAIAAAAAAAAAAAwAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\UserPageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.ObjectsFromFunctions.CoActor" Collapsed="true">
+    <Position X="14" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ObjectsFromFunctions\CoActor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.Similar_Title" Collapsed="true">
+    <Position X="12.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Models\ObjectsFromFunctions\Similar_Title.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.BookmarkPerson" Collapsed="true">
+    <Position X="5.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAQACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BookmarkPerson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.BookmarkTitle" Collapsed="true">
+    <Position X="7" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQACAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BookmarkTitle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.Character">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAABAAAAAAEAEAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Character.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.KnownFors" Collapsed="true">
+    <Position X="10.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\KnownFor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.Person" Collapsed="true">
+    <Position X="12.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAIAAAEAAAAAAQAAAAAAAAAAQAAAAAAgAA=</HashCode>
+      <FileName>Models\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.PersonProfession" Collapsed="true">
+    <Position X="5.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEAAAAAAAAAAACAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Models\PersonProfession.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.Rating" Collapsed="true">
+    <Position X="8.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAEAAIQAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Rating.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.SearchHistory" Collapsed="true">
+    <Position X="10.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAFAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SearchHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.Title" Collapsed="true">
+    <Position X="5.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABgAAABAAAIAAAAEAAACAAAAAAAAEAAAISAEAAIAAEA=</HashCode>
+      <FileName>Models\Title.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.TitleGenre" Collapsed="true">
+    <Position X="7" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TitleGenre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.TitleSearchModel" Collapsed="true">
+    <Position X="14" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABgAAABAAAIAAAAEAAACAAAAAAAAEAAAISAEAAIAAEA=</HashCode>
+      <FileName>Models\TitleSearchModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.User" Collapsed="true">
+    <Position X="5.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.Models.Wi" Collapsed="true">
+    <Position X="8.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAQAAAAAAIAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Models\Wi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.DataService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEAEiCAAAgIAEDEAAAAgwigREEAAIABAAABABgAAAw=</HashCode>
+      <FileName>DataService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataLayer.ImdbContext" Collapsed="true">
+    <Position X="8.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAQAAAMAAEgAAAAABEAAAAABAASAAAAMAgAA=</HashCode>
+      <FileName>ImdbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DataLayer.IDataService">
+    <Position X="2.75" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAEAEiCAAAAIAEDEAAAAgQigBEEAAIAAAAABABgAAAQ=</HashCode>
+      <FileName>IDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

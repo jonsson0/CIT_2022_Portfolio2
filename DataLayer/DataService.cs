@@ -110,13 +110,13 @@ namespace DataLayer
             return db.Titles.Count();
         }
 
-        public List<TitleSearchModel>? getTitleByName(string search)
+        public List<TitleSearchInListDTO>? getTitleByName(int page, int pageSize, string search)
         {
             using var db = new ImdbContext();
             var title = db
                 .Titles
                 .Where(x => x.PrimaryTitle.ToLower().Contains(search.ToLower()))
-                .Select(x => new TitleSearchModel { TitleId = x.TitleId, PrimaryTitle = x.PrimaryTitle, OriginalTitle = x.OriginalTitle, IsAdult = x.IsAdult, StartYear = x.StartYear, EndYear = x.EndYear, AverageRating = x.AverageRating, TitleGenres = x.TitleGenres, NumVotes = x.NumVotes, Plot = x.Plot, Poster = x.Poster, RunTimeMinutes = x.RunTimeMinutes, Type = x.Type, TitleCharacters = x.TitleCharacters})
+                .Select(createTitleSearchInListDTO)
                 .ToList();
             return title;
         }
@@ -507,6 +507,34 @@ namespace DataLayer
             };
 
             return personsSearchInListDTO;
+        }
+
+        public TitleSearchInListDTO createTitleSearchInListDTO(Title title)
+        {
+            using var db = new ImdbContext();
+
+            // Could implement mapping
+
+            var titleSearchInListDT = new TitleSearchInListDTO
+            {
+                    TitleId = title.TitleId,
+                    PrimaryTitle = title.PrimaryTitle,
+                    OriginalTitle = title.OriginalTitle,
+                    IsAdult = title.IsAdult,
+                    StartYear = title.StartYear,
+                    EndYear = title.EndYear,
+                    AverageRating = title.AverageRating,
+                    TitleGenres = title.TitleGenres,
+                    NumVotes = title.NumVotes,
+                    Plot = title.Plot,
+                    Poster = title.Poster,
+                    RunTimeMinutes = title.RunTimeMinutes,
+                    Type = title.Type,
+                    TitleCharacters = title.TitleCharacters
+
+                };
+
+            return titleSearchInListDT;
         }
 
 

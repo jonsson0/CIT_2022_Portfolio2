@@ -124,7 +124,7 @@ namespace Portfolio2.Tests
         public void getPersonByName_ReturnPerson()
         {
             var service = new DataService();
-            var person = service.getPersonByName("Tom Hanks");
+            var person = service.getPersonByName(0, 0,"Tom Hanks");
             Assert.Equal("nm0000158", person.First().PersonId);
             Assert.Equal("Tom Hanks", person.First().Name);
         }

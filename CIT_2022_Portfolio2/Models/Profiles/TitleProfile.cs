@@ -15,6 +15,9 @@ namespace CIT_2022_Portfolio2.Models.Profiles
             CreateMap<Similar_Title, SimilarTitleModel>().ReverseMap();
             
             CreateMap<Character, CharacterModel>().ReverseMap();
+
+            CreateMap<TitleSearchInListDTO, TitleSearchInListModel>().ReverseMap();
+
         }
     }
 }

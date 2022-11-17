@@ -17,7 +17,7 @@ namespace DataLayer
         List<Similar_Title>? getSimilarTitles(string id, int page, int pageSize);
        
         int GetNumberOfTitles();
-        public List<TitleSearchModel>? getTitleByName(string search);
+        public List<TitleSearchInListDTO>? getTitleByName(int page, int pageSize, string search);
 
        // Other
         void insertTitle(Title title);
