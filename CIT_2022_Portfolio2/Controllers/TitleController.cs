@@ -46,7 +46,6 @@ namespace CIT_2022_Portfolio2.Controllers
 
                 return Ok(Paging(nameof(getTitles), page, pageSize, total, titles));
             }
-
         }
 
         [HttpGet("{titleId}", Name = nameof(getTitle))]
