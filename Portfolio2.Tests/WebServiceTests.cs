@@ -7,13 +7,24 @@ namespace Portfolio2.Tests
     public class WebServiceTests
     {
         private const string PersonsApi = "http://localhost:5001/api/persons";
+        private const string UsersApi = "http://localhost:5001/api/users";
 
         [Fact]
-        public void Test1()
+        public void ApiUsers_GetWithNoArguments_OkAndAllUsers()
         {
+            var (data, statusCode) = GetArray(UsersApi);
 
+            Assert.Equal(HttpStatusCode.OK, statusCode);
         }
 
+        [Fact]
+        public void ApiUsers_GetWithValidUserID_OkAndUser()
+        {
+            var (user, statusCode) = GetObject($"{UsersApi}/testing123");
+
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal("testing123", user["username"]);
+        }
 
         [Fact]
         public void ApiPersons_GetWithNoArguments_OkAndAllPersons()
