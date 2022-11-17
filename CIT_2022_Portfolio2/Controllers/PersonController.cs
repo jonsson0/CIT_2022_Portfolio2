@@ -32,14 +32,17 @@ namespace CIT_2022_Portfolio2.Controllers
             {
                 var persons =
                 _dataService.getPersons(page, pageSize)
-                    .Select(x => createPersonModel(x));
+                    .Select(createPersonModel);
                 var total = _dataService.GetNumberOfPersons();
                 return Ok(Paging(page, pageSize, total, persons));
             }
             else
             {
-                var data = _dataService.getPersonByName(search);
-                return Ok(data);
+                var persons =
+                        _dataService.getPersonByName(page, pageSize, search)
+                        .Select(createPersonsSearchInListModel);
+                var total = persons.Count();
+                return Ok(Paging(page, pageSize, total, persons));
             }
 
         }
@@ -97,12 +100,12 @@ namespace CIT_2022_Portfolio2.Controllers
             return model;
         }
 
-        //private PersonsSearchInListModel createCoActorModel(CoActor coActor)
-        //{
-        //    var model = _mapper.Map<PersonsSearchInListModel>(coActor);
-        //    model.url = _generator.GetUriByName(HttpContext, nameof(getCoActors), new { coActor.PersonId });
-        //    return model;
-        //}
+        private PersonsSearchInListModel createPersonsSearchInListModel(PersonsSearchInListDTO personsSearchInListDTO)
+        {
+            var model = _mapper.Map<PersonsSearchInListModel>(personsSearchInListDTO);
+            model.url = _generator.GetUriByName(HttpContext, nameof(getPerson), new { personsSearchInListDTO.PersonId });
+            return model;
+        }
 
 
         private const int MaxPageSize = 25;
