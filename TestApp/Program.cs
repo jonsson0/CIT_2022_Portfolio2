@@ -96,6 +96,8 @@ Console.WriteLine("");
 //ds.deletePerson("nm9993710");
 //Console.WriteLine(TestPerson.PersonId);
 
-
-ds.createBookmarkTitle("testing123", "tt0052520");
+//ds.deleteUser("test123", "1234");
+ds.createRating("testing123", "tt0063929", 8);
+ds.getRatingsByUser("testing123");
+//ds.createBookmarkTitle("testing123", "tt0052520");
 

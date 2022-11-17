@@ -140,7 +140,6 @@ namespace CIT_2022_Portfolio2.Controllers
             }
         }
 
-        //Mangler create user og update user password
 
         private UserModel createUserModel(UserPageDTO userpagedto)
         {
