@@ -39,12 +39,13 @@ namespace CIT_2022_Portfolio2.Controllers
             }
             else
             {
-                var data = _dataService.getTitleByName(search);
-                var total = data.Count;
+                var titles = 
+                    _dataService.getTitleByName(page, pageSize, search)
+                    .Select(createPersonsSearchInListModel);
+                var total = titles.Count();
 
-                return Ok(Paging(nameof(getTitles), page, pageSize, total, data));
+                return Ok(Paging(nameof(getTitles), page, pageSize, total, titles));
             }
-
         }
 
         [HttpGet("{titleId}", Name = nameof(getTitle))]
@@ -87,6 +88,13 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             var model = _mapper.Map<SimilarTitleModel>(similarTitle);
             model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { similarTitle.TitleId });
+            return model;
+        }
+
+        private TitleSearchInListModel createPersonsSearchInListModel(TitleSearchInListDTO titleSearchInListDTO)
+        {
+            var model = _mapper.Map<TitleSearchInListModel>(titleSearchInListDTO);
+            model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { titleSearchInListDTO.TitleId });
             return model;
         }
 

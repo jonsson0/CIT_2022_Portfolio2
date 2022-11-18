@@ -17,7 +17,7 @@ namespace DataLayer
         List<Similar_Title>? getSimilarTitles(string id, int page, int pageSize);
        
         int GetNumberOfTitles();
-        public List<TitleSearchModel>? getTitleByName(string search);
+        public List<TitleSearchInListDTO>? getTitleByName(int page, int pageSize, string search);
 
        // Other
         void insertTitle(Title title);
@@ -25,7 +25,6 @@ namespace DataLayer
         // Persons
 
         public PersonOnMainPageDTO getPerson(string id);
-        public PersonOnMainPageDTO getPersonName(string name);
         public List<PersonOnMainPageDTO> getPersons(int page, int pageSize);
         public Person createPerson(string personId, string name, string birthYear, string deathYear);
         public Boolean deletePerson(string personId);

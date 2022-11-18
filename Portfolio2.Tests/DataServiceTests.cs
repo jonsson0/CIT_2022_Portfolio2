@@ -4,7 +4,6 @@ using CIT_2022_Portfolio2.Models;
 using DataLayer;
 using DataLayer.DataTransferObjects;
 using DataLayer.Models;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Portfolio2.Tests
 {
@@ -88,17 +87,7 @@ namespace Portfolio2.Tests
             Assert.Null(person.DeathYear);
         }
 
-        [Fact]
-        public void PersonModel_Object_HasPersonIdNameBirthYearDeathYear()
-        {
-            var personModel = new PersonModel();
-            Assert.Null(personModel.url);
-            Assert.Null(personModel.Name); // should not be null
-            Assert.Null(personModel.BirthYear);
-            Assert.Null(personModel.DeathYear);
-        }
-
-        [Fact]
+         [Fact]
         public void GetPersons_WithPaging()
         {
             var service = new DataService();
@@ -121,16 +110,14 @@ namespace Portfolio2.Tests
             Assert.Equal("2014", person.DeathYear);
         }
 
-        //Noget er galt i denne her metode 
-
-        //[Fact]
-        //public void getPersonByName_ReturnPerson()
-        //{
-        //    var service = new DataService();
-        //    var person = service.getPersonByName("Tom Hanks");
-        //    Assert.Equal("nm0000158", person.First().PersonId);
-        //    Assert.Equal("Tom Hanks", person.First().Name);
-        //}
+        [Fact]
+        public void getPersonByName_ReturnPerson()
+        {
+            var service = new DataService();
+            var person = service.getPersonByName(0, 0,"Tom Hanks");
+            Assert.Equal("nm0000158", person.First().PersonId);
+            Assert.Equal("Tom Hanks", person.First().Name);
+        }
 
         [Fact]
         public void CreatePerson_ValidData()
@@ -154,10 +141,9 @@ namespace Portfolio2.Tests
             var person = service.createPerson("nm9993710", "Steen", "1991", null);
             var personFromDB = service.getPerson("nm9993710");
             Assert.Equal(person.PersonId, personFromDB.PersonId);
-
-            // cleanup
-            service.deletePerson(personFromDB.PersonId);
-            Assert.Null(personFromDB);
+            var isDeleted = service.deletePerson(personFromDB.PersonId);
+            var personAfterDelete = service.getPerson("nm9993710");
+            Assert.True(isDeleted);
         }
 
         //Users
@@ -234,37 +220,6 @@ namespace Portfolio2.Tests
 
         }
 
-        [Fact]
-        public void createRating_test()
-        {
-            var service = new DataService();
-            var setupUser = service.createUser("test123", "1234", null);
-
-            var user = service.getUser("test123");
-            Assert.Equal("test123", user.Username);
-
-            service.createRating(user.Username, "tt0098904", 8);
-            //service.createRating(user.Us)
-            Assert.NotEmpty(service.getRatingsByUser(user.Username));
-
-            service.deleteUser(user.Username, user.Password);
-            Assert.DoesNotContain(user, service.getUsers());
-        }
-
-        [Fact]
-        public void deleteUser_test()
-        {
-            var service = new DataService();
-            var setupUser = service.createUser("test123", "1234", null);
-            var user = service.getUser("test123");
-
-            service.deleteUser(user.Username, user.Password);
-            Assert.DoesNotContain(user, service.getUsers());
-        }
-
-    }
-}
-
 
 // User
 /*public void CreateCategory_ValidData_CreteCategoryAndReturnsNewObject()
@@ -278,6 +233,5 @@ namespace Portfolio2.Tests
     // cleanup
     service.DeleteCategory(category.Id);
 }*/
-
 
 
