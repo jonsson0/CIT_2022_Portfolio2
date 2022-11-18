@@ -71,19 +71,14 @@ namespace DataLayer
                                     .Skip(page*pageSize)
                                     .Take(pageSize) // IT IS HERE YOU NEED TO LOOK
                                     .Select(createTitleOnMainPageDTO).ToList();
-
-          //  List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
-           
-            
-            //foreach (var title in titles)
-            //{
-            //    var titleDTO = CreateTitleOnMainPageDTO(title);
-            //   titlesDTO.Add(titleDTO);
-            //}
-            
-
             return titles;
         }
+        //  List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
+        //foreach (var title in titles)
+        //{
+        //    var titleDTO = CreateTitleOnMainPageDTO(title);
+        //   titlesDTO.Add(titleDTO);
+        //}
 
         public List<Title> getTitlesByGenre(TitleGenre genre)
         {
