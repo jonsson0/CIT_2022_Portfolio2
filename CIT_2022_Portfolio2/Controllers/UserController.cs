@@ -81,7 +81,7 @@ namespace CIT_2022_Portfolio2.Controllers
                 {
                     var bookmark = _dataService.createBookmarkPerson(username, personID);
 
-                    return Ok(getUser(username));
+                    return Ok(createUserModel(user));
                 }
                 else { return BadRequest(); }
                 
@@ -109,7 +109,7 @@ namespace CIT_2022_Portfolio2.Controllers
                 {
                     var bookmark = _dataService.createBookmarkTitle(username, titleID);
 
-                    return Ok(getUser(username));
+                    return Ok(createUserModel(user));
                 }
                 else { return BadRequest(); }
             }
@@ -140,8 +140,9 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             try
             {
+                var user = _dataService.getUser(username);
                 _dataService.updateUserPassword(username, currentpassword, newpassword);
-                return Ok(getUser(username));
+                return Ok(createUserModel(user));
             }
             catch
             {
@@ -154,8 +155,9 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             try
             {
+                var user = _dataService.getUser(username);
                 var createrating = _dataService.createRating(username, title, rating);
-                return Ok(getUser(username));
+                return Ok(createUserModel(user));
             }
             catch
             {

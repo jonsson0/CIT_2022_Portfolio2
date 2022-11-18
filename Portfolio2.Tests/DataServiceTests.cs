@@ -114,7 +114,6 @@ namespace Portfolio2.Tests
             var personFromDB = service.getPerson("nm9993710");
             Assert.Equal(person.PersonId, personFromDB.PersonId);
             var isDeleted = service.deletePerson(personFromDB.PersonId);
-            var personAfterDelete = service.getPerson("nm9993710");
             Assert.True(isDeleted);
         }
 

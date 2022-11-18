@@ -85,23 +85,23 @@ namespace Portfolio2.Tests
             Assert.Equal("testing123", user["username"]);
         }
 
-        [Fact]
-        public void ApiUsersUpdateUserPassword()
-        {
-            var updatepassword = PutData($"{UsersApi}/testing123/updatepassword/1234/12345", "12345");
-            var (user, statusCode) = GetObject($"{UsersApi}/testing123");
+        //[Fact]
+        //public void ApiUsersUpdateUserPassword()
+        //{
+        //    var updatepassword = PutData($"{UsersApi}/testing123/updatepassword/12345/12345", "12345");
+        //    var (user, statusCode) = GetObject($"{UsersApi}/testing123");
 
-            Assert.Equal(HttpStatusCode.OK, updatepassword);
-            //Assert.Equal("12345", user["password"]);
-        }
-        [Fact]
-        public void ApiUsers_DeleteUser()
-        {
-            var data = DeleteData($"{UsersApi}/testing123/delete/1234");
+        //    Assert.Equal(HttpStatusCode.OK, updatepassword);
+        //    Assert.Equal("12345", user["password"]);
+        //}
+        //[Fact]
+        //public void ApiUsers_DeleteUser()
+        //{
+        //    var data = DeleteData($"{UsersApi}/testing123/delete/1234");
 
-            Assert.Equal(HttpStatusCode.OK, data);
+        //    Assert.Equal(HttpStatusCode.OK, data);
    
-        }
+        //}
 
         //[Fact]
         //public void ApiUsers_PostRegisterUser()
@@ -114,25 +114,38 @@ namespace Portfolio2.Tests
         [Fact]
         public void ApiPersons_GetWithNoArguments_OkAndAllPersons()
         {
-            var (data, statusCode) = GetArray(PersonsApi);
+            var (person, statusCode) = GetObject($"{PersonsApi}");
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
-            Assert.Equal(10, data.Count);
-            Assert.Equal("Fred Astaire", data.First()["name"]);
-            Assert.Equal("Olivia de Havilland", data.Last()["name"]);
+            Assert.Equal(10, person["items"].Count());
+            Assert.Equal(28282, person["pages"]);
+            Assert.Equal(282820, person["total"]);
+            Assert.Equal($"{PersonsApi}?page=1&pageSize=10", person["next"].ToString());
         }
 
         [Fact]
         public void ApiPersons_GetWithValidPersonId_OkAndPerson()
         {
-            var (person, statusCode) = GetObject($"{PersonsApi}/nm0000001"); // bør trim PersonId til 1
+            var (person, statusCode) = GetObject($"{PersonsApi}/nm0000001");
 
             Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal("Fred Astaire", person["name"]);
+
         }
 
-        // Helpers
+        [Fact]
+        public void ApiPersons_GetCoActorsWithValidPersonId()
+        {
+            var (CoActors, statusCode) = GetArray($"{PersonsApi}/nm0000002/CoActors");
 
+            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal(6, CoActors.Count());
+            Assert.Equal("Kirk Douglas", CoActors.First["name"]);
+            Assert.Equal("Paul Bettany", CoActors.Last["name"]);
+        }
+
+
+        // Helpers
         (JArray, HttpStatusCode) GetArray(string url)
         {
             var client = new HttpClient();
