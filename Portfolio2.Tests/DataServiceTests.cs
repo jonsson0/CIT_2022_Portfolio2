@@ -18,8 +18,8 @@ namespace Portfolio2.Tests
             var pageSize = 25;
             var titles = service.getTitles(page, pageSize);
             Assert.Equal(25, titles.Count);
-            Assert.Equal("The Twilight Zone", titles.First().PrimaryTitle);
-            Assert.Equal("tvSeries", titles.First().Type);
+            Assert.Equal("Pride and Prejudice", titles.First().PrimaryTitle);
+            Assert.Equal("tvMiniSeries", titles.First().Type);
         }
 
         [Fact]
@@ -29,47 +29,19 @@ namespace Portfolio2.Tests
             var title = service.getTitle("tt0052520");
             Assert.Equal("The Twilight Zone", title.PrimaryTitle);
             Assert.Equal("tvSeries", title.Type);
+            Assert.Equal("Capt. 'Skipper' Farver", title.TitleCharacters.First().TitleCharacter);
         }
 
         [Fact]
         public void GetSimilarTitlesToTitleWithPaging()
         {
             var service = new DataService();
-            var titles = service.getSimilarTitles("tt0052520", 0, 25);
+            var page = 0;
+            var pageSize = 25;
+            var titles = service.getSimilarTitles("tt0052520", page, pageSize);
             Assert.Equal(25, titles.Count);
             Assert.Equal("Episode #1.13", titles.First().PrimaryTitle);
         }
-
-
-        /*
-        [Fact]
-        public void GetCharactersByTitleWithPerson()
-        {
-            var service = new DataService();
-            Title title = new Title
-            {
-                TitleId = "tt9999999",
-                Type = "hey"
-            };
-
-            public string
-            PrimaryTitle { get; set; }
-
-            public string OriginalTitle { get; set; }
-            public bool IsAdult { get; set; }
-
-        var characters = service.getCharactersByTitle(title);
-        Assert.Equal("John Anderson", title.TitleCharacters.First().Person.Name);
-        */
-
-
-
-
-
-
-
-
-
 
         // Persons
         [Fact]
@@ -87,7 +59,7 @@ namespace Portfolio2.Tests
             Assert.Null(person.DeathYear);
         }
 
-         [Fact]
+        [Fact]
         public void GetPersons_WithPaging()
         {
             var service = new DataService();
@@ -114,7 +86,7 @@ namespace Portfolio2.Tests
         public void getPersonByName_ReturnPerson()
         {
             var service = new DataService();
-            var person = service.getPersonByName(0, 0,"Tom Hanks");
+            var person = service.getPersonByName(0, 0, "Tom Hanks");
             Assert.Equal("nm0000158", person.First().PersonId);
             Assert.Equal("Tom Hanks", person.First().Name);
         }
@@ -155,7 +127,7 @@ namespace Portfolio2.Tests
             service.createUser("test123", "1234", null);
             var user = service.getUser("test123");
             //var username = service.getUser("test123");
-            
+
             //service.deleteUser(user.Username, "1234");
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
@@ -197,7 +169,7 @@ namespace Portfolio2.Tests
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
 
-            
+
         }
 
         [Fact]
@@ -216,9 +188,11 @@ namespace Portfolio2.Tests
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
 
-            
+
 
         }
+    }
+}
 
 
 // User
