@@ -59,7 +59,7 @@ namespace Portfolio2.Tests
             Assert.Null(person.DeathYear);
         }
 
-         [Fact]
+        [Fact]
         public void GetPersons_WithPaging()
         {
             var service = new DataService();
@@ -86,7 +86,7 @@ namespace Portfolio2.Tests
         public void getPersonByName_ReturnPerson()
         {
             var service = new DataService();
-            var person = service.getPersonByName(0, 0,"Tom Hanks");
+            var person = service.getPersonByName(0, 0, "Tom Hanks");
             Assert.Equal("nm0000158", person.First().PersonId);
             Assert.Equal("Tom Hanks", person.First().Name);
         }
@@ -127,7 +127,7 @@ namespace Portfolio2.Tests
             service.createUser("test123", "1234", null);
             var user = service.getUser("test123");
             //var username = service.getUser("test123");
-            
+
             //service.deleteUser(user.Username, "1234");
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
@@ -169,7 +169,7 @@ namespace Portfolio2.Tests
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
 
-            
+
         }
 
         [Fact]
@@ -188,9 +188,11 @@ namespace Portfolio2.Tests
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
 
-            
+
 
         }
+    }
+}
 
 
 // User
