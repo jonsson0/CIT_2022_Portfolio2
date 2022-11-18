@@ -117,9 +117,80 @@ namespace Portfolio2.Tests
             var personAfterDelete = service.getPerson("nm9993710");
             Assert.True(isDeleted);
         }
-        
-    }
-}
+
+        //Users
+
+        [Fact]
+        public void createUser_test()
+        {
+            var service = new DataService();
+            service.createUser("test123", "1234", null);
+            var user = service.getUser("test123");
+            //var username = service.getUser("test123");
+            
+            //service.deleteUser(user.Username, "1234");
+            service.deleteUser(user.Username, user.Password);
+            Assert.DoesNotContain(user, service.getUsers());
+        }
+
+        [Fact]
+        public void updateUserPassword_test()
+        {
+            var service = new DataService();
+            var setupUser = service.createUser("test123", "1234", null);
+            var user = service.getUser("test123");
+
+            //string newPassword = "123456789";
+
+            service.updateUserPassword(user.Username, user.Password, "123456789");
+            var userNewPassword = service.getUser("test123");
+
+            Assert.Equal("123456789", userNewPassword.Password);
+            service.deleteUser(user.Username, "123456789");
+            Assert.DoesNotContain(user, service.getUsers());
+
+        }
+
+
+
+        [Fact]
+        public void createBookmarkPerson_test()
+        {
+            var service = new DataService();
+            var setupUser = service.createUser("test123", "1234", null);
+            var user = service.getUser("test123");
+
+            service.createBookmarkPerson(user.Username, "nm0000001");
+            Assert.NotEmpty(service.getBookmarkPersonByUser(user.Username));
+
+            service.createBookmarkPerson(user.Username, "nm0000001");
+            Assert.Empty(service.getBookmarkPersonByUser(user.Username));
+
+            service.deleteUser(user.Username, user.Password);
+            Assert.DoesNotContain(user, service.getUsers());
+
+            
+        }
+
+        [Fact]
+        public void createBookmarkTitle_test()
+        {
+            var service = new DataService();
+            var setupUser = service.createUser("test123", "1234", null);
+            var user = service.getUser("test123");
+
+            service.createBookmarkTitle(user.Username, "tt0052520");
+            Assert.NotEmpty(service.getBookmarkTitleByUser(user.Username));
+
+            service.createBookmarkTitle(user.Username, "tt0052520");
+            Assert.Empty(service.getBookmarkTitleByUser(user.Username));
+
+            service.deleteUser(user.Username, user.Password);
+            Assert.DoesNotContain(user, service.getUsers());
+
+            
+
+        }
 
 
 // User

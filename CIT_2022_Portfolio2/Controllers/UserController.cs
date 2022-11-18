@@ -68,21 +68,24 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpPut]
-        [Route("{username}/bookmarkperson/{person}")]
+        [Route("{username}/bookmarkperson/{personID}")]
         //[Authorize]
-        public IActionResult inputBookmarkPerson([FromRoute] string username, [FromRoute] string person)
+        public IActionResult inputBookmarkPerson([FromRoute] string username, [FromRoute] string personID)
         {
             try
             {
-                if (username == _configuration.GetSection("Auth:Username").Value)
-                {
-                    //var user = _dataService.getUser(username).Username;
-                    //var person = _dataService.getPerson("nm0000002").PersonId;
-                    var bookmark = _dataService.createBookmarkPerson(username, person);
+                var user = _dataService.getUser(username);
+                var person = _dataService.getPerson(personID);
 
-                    return Ok(bookmark);
+                if (user != null && person != null)
+                {
+                    var bookmark = _dataService.createBookmarkPerson(username, personID);
+
+                    return Ok(getUser(username));
                 }
-                else { return Unauthorized(); }
+                else { return BadRequest(); }
+                
+            { return Unauthorized(); }
             }
             catch
             {
@@ -91,18 +94,24 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpPut]
-        [Route("{username}/bookmarktitle/{title}")]
+        [Route("{username}/bookmarktitle/{titleID}")]
         //[Authorize]
-        public IActionResult inputBookmarkTitle([FromRoute] string username, [FromRoute] string title)
+        public IActionResult inputBookmarkTitle([FromRoute] string username, [FromRoute] string titleID)
         {
             try
             {
-                username = _configuration.GetSection("Auth:Username").Value;
+                //username = _configuration.GetSection("Auth:Username").Value;
                 //title = _dataService.getTitle(title).TitleId;
                 //var user = _dataService.getUser(username);
-                var bookmark = _dataService.createBookmarkTitle(username, title);
+                var user = _dataService.getUser(username);
+                var title = _dataService.getTitle(titleID);
+                if (user != null && title != null)
+                {
+                    var bookmark = _dataService.createBookmarkTitle(username, titleID);
 
-                return Ok(bookmark);
+                    return Ok(getUser(username));
+                }
+                else { return BadRequest(); }
             }
             catch
             {
@@ -118,11 +127,25 @@ namespace CIT_2022_Portfolio2.Controllers
             try
             {
                 var deleteuser = _dataService.deleteUser(username, password);
-                return Ok();
+                return Ok(getUsers());
             }
             catch
             {
                 return Unauthorized();
+            }
+        }
+
+        [HttpPut ("{username}/updatepassword/{currentpassword}/{newpassword}", Name = nameof(UpdatePassword))]
+        public IActionResult UpdatePassword([FromRoute] string username, [FromRoute] string currentpassword, [FromRoute] string newpassword)
+        {
+            try
+            {
+                _dataService.updateUserPassword(username, currentpassword, newpassword);
+                return Ok(getUser(username));
+            }
+            catch
+            {
+                return  BadRequest();
             }
         }
 
@@ -132,7 +155,7 @@ namespace CIT_2022_Portfolio2.Controllers
             try
             {
                 var createrating = _dataService.createRating(username, title, rating);
-                return Ok(createrating);
+                return Ok(getUser(username));
             }
             catch
             {
