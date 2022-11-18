@@ -116,13 +116,11 @@ namespace Portfolio2.Tests
         {
             var (person, statusCode) = GetObject($"{PersonsApi}");
 
-
             Assert.Equal(HttpStatusCode.OK, statusCode);
             Assert.Equal(10, person["items"].Count());
             Assert.Equal(28282, person["pages"]);
             Assert.Equal(282820, person["total"]);
-            Assert.Equal($"{PersonsApi}?page=1&pageSize=10", person["next"]);
-            Assert.Equal(HttpStatusCode.OK, statusCode);
+            Assert.Equal($"{PersonsApi}?page=1&pageSize=10", person["next"].ToString());
         }
 
         [Fact]
