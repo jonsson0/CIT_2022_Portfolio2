@@ -73,6 +73,7 @@ namespace DataLayer
                                     .Select(createTitleOnMainPageDTO).ToList();
             return titles;
         }
+
         //  List<TitleOnMainPageDTO> titlesDTO = new List<TitleOnMainPageDTO>();
         //foreach (var title in titles)
         //{
