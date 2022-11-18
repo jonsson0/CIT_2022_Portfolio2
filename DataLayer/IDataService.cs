@@ -44,8 +44,8 @@ namespace DataLayer
         public Boolean createUser(string username, string password, string salt);
         public Boolean updateUserPassword(string username, string oldpassword, string newpassword);
         public Boolean deleteUser(string username, string password);
-        public Boolean createBookmarkPerson(string username, string personname);
-        public Boolean createBookmarkTitle(string username, string primarytitle);
+        public Boolean createBookmarkPerson(string username, string personID);
+        public Boolean createBookmarkTitle(string username, string titleID);
         public List<BookmarkPerson> getBookmarkPersonByUser(string username);
         public List<BookmarkTitle> getBookmarkTitleByUser(string username);
         public Boolean createRating(string username, string titleID, float rating);

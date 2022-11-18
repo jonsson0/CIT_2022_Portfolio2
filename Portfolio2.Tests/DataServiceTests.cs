@@ -203,11 +203,15 @@ namespace Portfolio2.Tests
             var user = service.getUser("test123");
 
             service.createBookmarkPerson(user.Username, "nm0000001");
-
             Assert.NotEmpty(service.getBookmarkPersonByUser(user.Username));
+
+            service.createBookmarkPerson(user.Username, "nm0000001");
+            Assert.Empty(service.getBookmarkPersonByUser(user.Username));
 
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
+
+            
         }
 
         [Fact]
@@ -216,12 +220,18 @@ namespace Portfolio2.Tests
             var service = new DataService();
             var setupUser = service.createUser("test123", "1234", null);
             var user = service.getUser("test123");
-            service.createBookmarkTitle(user.Username, "tt0052520");
 
+            service.createBookmarkTitle(user.Username, "tt0052520");
             Assert.NotEmpty(service.getBookmarkTitleByUser(user.Username));
+
+            service.createBookmarkTitle(user.Username, "tt0052520");
+            Assert.Empty(service.getBookmarkTitleByUser(user.Username));
 
             service.deleteUser(user.Username, user.Password);
             Assert.DoesNotContain(user, service.getUsers());
+
+            
+
         }
 
         [Fact]

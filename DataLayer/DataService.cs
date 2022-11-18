@@ -316,6 +316,7 @@ namespace DataLayer
             }
         }
 
+
         public Boolean updateUserPassword(string username, string oldpassword, string newpassword)
         {
             using var db = new ImdbContext();
@@ -365,8 +366,8 @@ namespace DataLayer
         public Boolean createBookmarkTitle(string username, string titleID)
         {
             using var db = new ImdbContext();
-            var user = db.Users.Find(username);
-            var title = db.Titles.Find(titleID);
+            var user = db.Users.Where(x => x.Username == username);
+            var title = db.Titles.Where(x => x.TitleId == titleID);
 
             if (user != null && title != null)
             {
@@ -377,6 +378,7 @@ namespace DataLayer
             else { return false; }
         }
 
+        
         public List<BookmarkPerson> getBookmarkPersonByUser(string username)
         {
             using var db = new ImdbContext();
