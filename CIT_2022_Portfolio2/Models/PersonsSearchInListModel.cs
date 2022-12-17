@@ -5,6 +5,8 @@ namespace CIT_2022_Portfolio2.Models
 	{
         public string? url { get; set; }
         public string Name { get; set; }
+        public string? BirthYear { get; set; }
+        public string? DeathYear { get; set; }
 
     }
 }

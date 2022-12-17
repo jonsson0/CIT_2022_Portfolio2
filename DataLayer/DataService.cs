@@ -494,6 +494,8 @@ namespace DataLayer
             {
                 PersonId = person.PersonId,
                 Name = person.Name,
+                BirthYear = person.BirthYear,
+                DeathYear = person.DeathYear
                 //Jobs = person.PersonProfessions.Select(x => x.Category).ToList()
             };
 
