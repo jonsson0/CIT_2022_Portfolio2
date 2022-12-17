@@ -126,6 +126,7 @@ namespace DataLayer
             modelBuilder.Entity<Character>().HasKey(x => x.CharacterId);
             modelBuilder.Entity<Character>().Property(x => x.CharacterId).HasColumnName("character_ID");
             modelBuilder.Entity<Character>().Property(x => x.PersonId).HasColumnName("person_ID");
+            modelBuilder.Entity<Character>().Property(x => x.Name).HasColumnName("name");
             modelBuilder.Entity<Character>().Property(x => x.TitleId).HasColumnName("title_ID");
             modelBuilder.Entity<Character>().Property(x => x.TitleCharacter).HasColumnName("character");
 

@@ -12,6 +12,7 @@ namespace DataLayer.DataTransferObjects
     {
         public int CharacterId { get; set; }
         public string PersonId { get; set; }
+        public string Name { get; set; }
         public string TitleId { get; set; }
         public string TitleCharacter { get; set; }
     }

@@ -8,6 +8,7 @@ namespace DataLayer.Models
         public int CharacterId { get; set; }
         public string PersonId { get; set; }
         public Person Person { get; set; }
+        public string Name { get; set; }
         public string TitleId { get; set; }
       
         [JsonIgnore]
