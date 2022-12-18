@@ -69,7 +69,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         [HttpPut]
         [Route("{username}/bookmarkperson/{personID}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult inputBookmarkPerson([FromRoute] string username, [FromRoute] string personID)
         {
             try
@@ -95,7 +95,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         [HttpPut]
         [Route("{username}/bookmarktitle/{titleID}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult inputBookmarkTitle([FromRoute] string username, [FromRoute] string titleID)
         {
             try
@@ -140,9 +140,16 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             try
             {
-                var user = _dataService.getUser(username);
-                _dataService.updateUserPassword(username, currentpassword, newpassword);
-                return Ok(createUserModel(user));
+                if (_dataService.getUser(username).Password == currentpassword)
+                {
+                    var user = _dataService.getUser(username);
+                    _dataService.updateUserPassword(username, currentpassword, newpassword);
+                    return Ok(createUserModel(user));
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch
             {
@@ -151,6 +158,7 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpPut ("{username}/{title}/{rating}", Name = nameof(createRating))]
+        [Authorize]
         public IActionResult createRating([FromRoute] string username, [FromRoute] string title, [FromRoute] float rating)
         {
             try
@@ -161,7 +169,7 @@ namespace CIT_2022_Portfolio2.Controllers
             }
             catch
             {
-                return Unauthorized();
+                return BadRequest();
             }
         }
 
@@ -201,7 +209,8 @@ namespace CIT_2022_Portfolio2.Controllers
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddSeconds(30),
+                //Dont know if we want/need expiration for this type of project, but it makes testing annoying :)
+                //expires: DateTime.Now.AddSeconds(3600),
                 signingCredentials: creds);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
