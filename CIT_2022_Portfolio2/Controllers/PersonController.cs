@@ -99,11 +99,6 @@ namespace CIT_2022_Portfolio2.Controllers
 
         private const int MaxPageSize = 25;
 
-        private string? CreateGetTilesLink(int page, int pageSize)
-        {
-            return CreateLink(nameof(getPersons), new { page, pageSize });
-        }
-
         private string? CreateLink(string endpointName, object? values)
         {
             return _generator.GetUriByName(HttpContext, endpointName, values);
