@@ -26,25 +26,24 @@ namespace CIT_2022_Portfolio2.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet (Name = nameof(getTitles))]
+        [HttpGet(Name = nameof(getTitles))]
         public IActionResult getTitles(int page = 0, int pageSize = 10, string? search = null)
         {
             if (string.IsNullOrEmpty(search))
             {
-            var titles =
-                _dataService.getTitles(page, pageSize)
-                    .Select(x => createTitleModel(x));
-            var total = _dataService.GetNumberOfTitles();
-            return Ok(Paging(nameof(getTitles), page, pageSize, total, titles));
+                var titles =
+                    _dataService.getTitles(page, pageSize)
+                        .Select(x => createTitleModel(x));
+                var total = _dataService.GetNumberOfTitles();
+                return Ok(Paging(nameof(getTitles), page, pageSize, total, titles, search));
             }
             else
             {
-                var titles = 
-                    _dataService.getTitleByName(page, pageSize, search)
+                var titles =
+                    _dataService.getTitlesByNamePaging(page, pageSize, search)
                     .Select(createPersonsSearchInListModel);
-                var total = titles.Count();
-
-                return Ok(Paging(nameof(getTitles), page, pageSize, total, titles));
+                var total = _dataService.getTitlesByName(page, pageSize, search).Count();
+                return Ok(Paging(nameof(getTitles), page, pageSize, total, titles, search));
             }
         }
 
@@ -67,7 +66,7 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             var similarTitles = _dataService.getSimilarTitles(titleId, 0, 10)
                 .Select(x => createSimilarTitleModel(x)).ToList();
-           
+
             var total = similarTitles.Count();
 
             return Ok(Paging(nameof(getSimilarTitles), page, pageSize, total, similarTitles));
@@ -77,7 +76,7 @@ namespace CIT_2022_Portfolio2.Controllers
         {
             var model = _mapper.Map<TitleModel>(titleOnMainPageDTO);
             model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { titleOnMainPageDTO.TitleId });
-           // model.SimilarTitlesUrl = model.url + "/similartitles";
+            // model.SimilarTitlesUrl = model.url + "/similartitles";
             model.SimilarTitlesUrl = _generator.GetUriByName(HttpContext, nameof(getSimilarTitles), new { titleOnMainPageDTO.TitleId });
 
             return model;
@@ -109,10 +108,10 @@ namespace CIT_2022_Portfolio2.Controllers
 
         private string? CreateLink(string endpointName, object? values)
         {
-            return _generator.GetUriByName(HttpContext, endpointName,values);
+            return _generator.GetUriByName(HttpContext, endpointName, values);
         }
 
-        private object Paging<T>(string endpointName, int page, int pageSize, int total, IEnumerable<T> items)
+        private object Paging<T>(string endpointName, int page, int pageSize, int total, IEnumerable<T> items, string search = null)
         {
             pageSize = pageSize > MaxPageSize ? MaxPageSize : pageSize;
 
@@ -124,17 +123,17 @@ namespace CIT_2022_Portfolio2.Controllers
             var pages = (int)Math.Ceiling((double)total / (double)pageSize);
 
             var first = total > 0
-                ? CreateLink(endpointName, new { page, pageSize })
+                ? CreateLink(endpointName, new { page = 0, pageSize, search })
                 : null;
 
-            var prev = page >  0
-                ? CreateLink(endpointName, new { page = page -1, pageSize })
+            var prev = page > 0
+                ? CreateLink(endpointName, new { page = page - 1, pageSize, search })
                 : null;
 
-            var current = CreateLink(endpointName, new { page, pageSize });
+            var current = CreateLink(endpointName, new { page, pageSize, search });
 
             var next = page < pages - 1
-                ? CreateLink(endpointName, new { page = page + 1, pageSize })
+                ? CreateLink(endpointName, new { page = page + 1, pageSize, search })
                 : null;
 
             var result = new

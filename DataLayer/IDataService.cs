@@ -17,9 +17,12 @@ namespace DataLayer
         List<Similar_Title>? getSimilarTitles(string id, int page, int pageSize);
        
         int GetNumberOfTitles();
-        public List<TitleSearchInListDTO>? getTitleByName(int page, int pageSize, string search);
+        public List<TitleSearchInListDTO>? getTitlesByNamePaging(int page, int pageSize, string search);
 
-       // Other
+        public List<TitleSearchInListDTO>? getTitlesByName(int page, int pageSize, string search);
+
+
+        // Other
         void insertTitle(Title title);
 
         // Persons
@@ -29,10 +32,11 @@ namespace DataLayer
         public Person createPerson(string personId, string name, string birthYear, string deathYear);
         public Boolean deletePerson(string personId);
         public Boolean updatePerson(string personId, string name, string birthYear, string deathYear);
-        public List<CoActor> getCoActors(string id);
+        public List<CoActor> getCoActors(string id, int page, int pageSize);
         int GetNumberOfPersons();
 
-        public List<PersonsSearchInListDTO>? getPersonByName(int page, int pageSize, string search);
+        public List<PersonsSearchInListDTO>? getPersonsByNamePaging(int page, int pageSize, string search);
+        public List<PersonsSearchInListDTO>? getPersonsByName(int page, int pageSize, string search);
 
 
 

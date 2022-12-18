@@ -6,6 +6,7 @@ using DataLayer.DataTransferObjects;
 using DataLayer.Models;
 using DataLayer.Models.ObjectsFromFunctions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CIT_2022_Portfolio2.Controllers
 {
@@ -34,15 +35,15 @@ namespace CIT_2022_Portfolio2.Controllers
                 _dataService.getPersons(page, pageSize)
                     .Select(createPersonModel);
                 var total = _dataService.GetNumberOfPersons();
-                return Ok(Paging(page, pageSize, total, persons));
+                return Ok(Paging(nameof(getPersons), page, pageSize, total, persons, search));
             }
             else
             {
                 var persons =
-                        _dataService.getPersonByName(page, pageSize, search)
+                        _dataService.getPersonsByNamePaging(page, pageSize, search)
                         .Select(createPersonsSearchInListModel);
-                var total = persons.Count();
-                return Ok(Paging(page, pageSize, total, persons));
+                var total = _dataService.getPersonsByName(page, pageSize, search).Count();
+                return Ok(Paging(nameof(getPersons), page, pageSize, total, persons, search));
             }
 
         }
@@ -62,11 +63,13 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpGet("{id}/CoActors", Name = nameof(getCoActors))]
-        public IActionResult getCoActors(string id)
+        public IActionResult getCoActors(string id, int page = 0, int pageSize = 10)
         {
-            var CoActorPersons = _dataService.getCoActors(id)
+            var CoActorPersons = _dataService.getCoActors(id, page, pageSize)
                 .Select(createCoActorModel);
-            return Ok(CoActorPersons);
+            var total = CoActorPersons.Count();
+
+            return Ok(Paging(nameof(getCoActors), page, pageSize, total, CoActorPersons));
         }
 
         private PersonModel createPersonModel(PersonOnMainPageDTO personOnMainPageDTO)
@@ -96,14 +99,12 @@ namespace CIT_2022_Portfolio2.Controllers
 
         private const int MaxPageSize = 25;
 
-        private string? CreateLink(int page, int pageSize)
+        private string? CreateLink(string endpointName, object? values)
         {
-            return _generator.GetUriByName(
-                HttpContext,
-                nameof(getPersons), new { page, pageSize });
+            return _generator.GetUriByName(HttpContext, endpointName, values);
         }
 
-        private object Paging<T>(int page, int pageSize, int total, IEnumerable<T> items)
+        private object Paging<T>(string endpointName, int page, int pageSize, int total, IEnumerable<T> items, string search = null)
         {
             pageSize = pageSize > MaxPageSize ? MaxPageSize : pageSize;
 
@@ -112,21 +113,20 @@ namespace CIT_2022_Portfolio2.Controllers
             //    pageSize = MaxPageSize;
             //}
 
-            var pages = (int)Math.Ceiling((double)total / (double)pageSize)
-                ;
+            var pages = (int)Math.Ceiling((double)total / (double)pageSize);
 
             var first = total > 0
-                ? CreateLink(0, pageSize)
+                ? CreateLink(endpointName, new { page = 0, pageSize, search })
                 : null;
 
             var prev = page > 0
-                ? CreateLink(page - 1, pageSize)
+                ? CreateLink(endpointName, new { page = page - 1, pageSize, search })
                 : null;
 
-            var current = CreateLink(page, pageSize);
+            var current = CreateLink(endpointName, new { page, pageSize, search });
 
             var next = page < pages - 1
-                ? CreateLink(page + 1, pageSize)
+                ? CreateLink(endpointName, new { page = page + 1, pageSize, search })
                 : null;
 
             var result = new
