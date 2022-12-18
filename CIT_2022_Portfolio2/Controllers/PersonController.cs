@@ -6,6 +6,7 @@ using DataLayer.DataTransferObjects;
 using DataLayer.Models;
 using DataLayer.Models.ObjectsFromFunctions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CIT_2022_Portfolio2.Controllers
 {
@@ -62,11 +63,13 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpGet("{id}/CoActors", Name = nameof(getCoActors))]
-        public IActionResult getCoActors(string id)
+        public IActionResult getCoActors(string id, int page = 0, int pageSize = 10)
         {
-            var CoActorPersons = _dataService.getCoActors(id)
+            var CoActorPersons = _dataService.getCoActors(id, page, pageSize)
                 .Select(createCoActorModel);
-            return Ok(CoActorPersons);
+            var total = CoActorPersons.Count();
+
+            return Ok(Paging(nameof(getCoActors), page, pageSize, total, CoActorPersons));
         }
 
         private PersonModel createPersonModel(PersonOnMainPageDTO personOnMainPageDTO)

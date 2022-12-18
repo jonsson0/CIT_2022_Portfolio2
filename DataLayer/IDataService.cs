@@ -32,7 +32,7 @@ namespace DataLayer
         public Person createPerson(string personId, string name, string birthYear, string deathYear);
         public Boolean deletePerson(string personId);
         public Boolean updatePerson(string personId, string name, string birthYear, string deathYear);
-        public List<CoActor> getCoActors(string id);
+        public List<CoActor> getCoActors(string id, int page, int pageSize);
         int GetNumberOfPersons();
 
         public List<PersonsSearchInListDTO>? getPersonsByNamePaging(int page, int pageSize, string search);

@@ -251,11 +251,11 @@ namespace DataLayer
             return persons;
         }
 
-        public List<CoActor>? getCoActors(string id)
+        public List<CoActor>? getCoActors(string id, int page, int pageSize)
         {
             using var db = new ImdbContext();
             //var list = db.CoActorPerson.FromSqlInterpolated($"select * FROM searchCoActorsByName({name})");
-            var list = db.CoActors.FromSqlInterpolated($"select * FROM searchcoactorsbypersonid({id})");
+            var list = db.CoActors.FromSqlInterpolated($"select * FROM searchcoactorsbypersonid({id}) OFFSET {page * pageSize} LIMIT {pageSize}");
 
             return list.ToList();
         }
@@ -265,26 +265,6 @@ namespace DataLayer
             using var db = new ImdbContext();
             return db.Persons.Count();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         // Users:
 
