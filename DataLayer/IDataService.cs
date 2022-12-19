@@ -45,7 +45,7 @@ namespace DataLayer
 
         public UserPageDTO getUser(string username);
         public Boolean createUser(string username, string password, string salt);
-        public Boolean updateUserPassword(string username, string oldpassword, string newpassword);
+        public Boolean updateUserPassword(string username, string newpassword);
         public Boolean deleteUser(string username, string password);
         public Boolean createBookmarkPerson(string username, string personID);
         public Boolean createBookmarkTitle(string username, string titleID);

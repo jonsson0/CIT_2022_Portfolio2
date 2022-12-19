@@ -306,11 +306,11 @@ namespace DataLayer
         }
 
 
-        public Boolean updateUserPassword(string username, string oldpassword, string newpassword)
+        public Boolean updateUserPassword(string username, string newpassword)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            if (user != null && oldpassword == user.Password)
+            if (user != null)
             {
                 user.Password = newpassword;
                 

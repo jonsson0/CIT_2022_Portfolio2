@@ -69,7 +69,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         [HttpPut]
         [Route("{username}/bookmarkperson/{personID}")]
-        [Authorize]
+        //[Authorize]
         public IActionResult inputBookmarkPerson([FromRoute] string username, [FromRoute] string personID)
         {
             try
@@ -95,7 +95,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         [HttpPut]
         [Route("{username}/bookmarktitle/{titleID}")]
-        [Authorize]
+        //[Authorize]
         public IActionResult inputBookmarkTitle([FromRoute] string username, [FromRoute] string titleID)
         {
             try
@@ -135,20 +135,23 @@ namespace CIT_2022_Portfolio2.Controllers
             }
         }
 
-        [HttpPut ("{username}/updatepassword/{currentpassword}/{newpassword}", Name = nameof(UpdatePassword))]
-        public IActionResult UpdatePassword([FromRoute] string username, [FromRoute] string currentpassword, [FromRoute] string newpassword)
+        [HttpPut ("{username}/updatepassword/{newpassword}", Name = nameof(UpdatePassword))]
+        //[Authorize]
+        public IActionResult UpdatePassword([FromRoute] string username, [FromRoute] string newpassword)
         {
             try
             {
-                if (_dataService.getUser(username).Password == currentpassword)
+                var user = _dataService.getUser(username);
+                //Kan ikke få lavet verification på password fordi det er hashet, så kan ikke sammenligne input med aktuel password
+                //if (_hashing.verify(user.Username, user.Password, user.Salt))
+                if(user != null)
                 {
-                    var user = _dataService.getUser(username);
-                    _dataService.updateUserPassword(username, currentpassword, newpassword);
+                    _dataService.updateUserPassword(username, _hashing.Hash(newpassword).hash);
                     return Ok(createUserModel(user));
                 }
                 else
                 {
-                    return BadRequest();
+                    return BadRequest(user.Password);
                 }
             }
             catch
@@ -210,7 +213,7 @@ namespace CIT_2022_Portfolio2.Controllers
             var token = new JwtSecurityToken(
                 claims: claims,
                 //Dont know if we want/need expiration for this type of project, but it makes testing annoying :)
-                //expires: DateTime.Now.AddSeconds(3600),
+                expires: DateTime.Now.AddSeconds(36000),
                 signingCredentials: creds);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
