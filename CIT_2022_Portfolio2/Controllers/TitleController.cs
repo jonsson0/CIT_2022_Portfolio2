@@ -41,7 +41,7 @@ namespace CIT_2022_Portfolio2.Controllers
             {
                 var titles =
                     _dataService.getTitlesByNamePaging(page, pageSize, search)
-                    .Select(createPersonsSearchInListModel);
+                    .Select(createTitlesSearchInListModel);
                 var total = _dataService.getTitlesByName(page, pageSize, search).Count();
                 return Ok(Paging(nameof(getTitles), page, pageSize, total, titles, search));
             }
@@ -90,7 +90,7 @@ namespace CIT_2022_Portfolio2.Controllers
             return model;
         }
 
-        private TitleSearchInListModel createPersonsSearchInListModel(TitleSearchInListDTO titleSearchInListDTO)
+        private TitleSearchInListModel createTitlesSearchInListModel(TitleSearchInListDTO titleSearchInListDTO)
         {
             var model = _mapper.Map<TitleSearchInListModel>(titleSearchInListDTO);
             model.url = _generator.GetUriByName(HttpContext, nameof(getTitle), new { titleSearchInListDTO.TitleId });
