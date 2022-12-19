@@ -306,7 +306,7 @@ namespace DataLayer
         }
 
 
-        public Boolean updateUserPassword(string username, string oldpassword, string newpassword)
+        public Boolean updateUserPassword(string username, string newpassword)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
@@ -324,13 +324,13 @@ namespace DataLayer
             }
         }
 
-        public Boolean deleteUser(string username, string password)
+        public Boolean deleteUser(string username)
         {
             using var db = new ImdbContext();
             var user = db.Users.Find(username);
-            if(user != null && user.Password == password)
+            if(user != null)
             {
-                db.Database.ExecuteSqlInterpolated($"select delete_user({username},{password})");
+                db.Database.ExecuteSqlInterpolated($"select delete_user({username})");
                 return true;
             }
             else { return false; }

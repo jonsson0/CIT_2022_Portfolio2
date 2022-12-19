@@ -120,14 +120,21 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         //Delete user
-        [HttpDelete ("{username}/delete/{password}", Name = nameof(DeleteUser))]
+        [HttpDelete ("{username}/delete", Name = nameof(DeleteUser))]
         //[Authorize]
-        public IActionResult DeleteUser([FromRoute] string username, [FromRoute] string password)
+        public IActionResult DeleteUser([FromRoute] string username)
         {
             try
             {
-                var deleteuser = _dataService.deleteUser(username, password);
-                return Ok(getUsers());
+                if (_dataService.getUser(username) != null)
+                {
+                    var deleteuser = _dataService.deleteUser(username);
+                    return Ok(getUsers());
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch
             {
