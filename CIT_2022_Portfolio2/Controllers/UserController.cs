@@ -44,7 +44,7 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpGet("{username}", Name = nameof(getUser))]
-        //[Authorize]
+        [Authorize]
         public IActionResult getUser([FromRoute] string username)
         {
             try
@@ -69,7 +69,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         [HttpPut]
         [Route("{username}/bookmarkperson/{personID}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult inputBookmarkPerson([FromRoute] string username, [FromRoute] string personID)
         {
             try
@@ -95,7 +95,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         [HttpPut]
         [Route("{username}/bookmarktitle/{titleID}")]
-        //[Authorize]
+        [Authorize]
         public IActionResult inputBookmarkTitle([FromRoute] string username, [FromRoute] string titleID)
         {
             try
@@ -121,7 +121,7 @@ namespace CIT_2022_Portfolio2.Controllers
 
         //Delete user
         [HttpDelete ("{username}/delete", Name = nameof(DeleteUser))]
-        //[Authorize]
+        [Authorize]
         public IActionResult DeleteUser([FromRoute] string username)
         {
             try
@@ -143,7 +143,7 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpPut ("{username}/updatepassword/{newpassword}", Name = nameof(UpdatePassword))]
-        //[Authorize]
+        [Authorize]
         public IActionResult UpdatePassword([FromRoute] string username, [FromRoute] string newpassword)
         {
             try
