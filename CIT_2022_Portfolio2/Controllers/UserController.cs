@@ -44,7 +44,7 @@ namespace CIT_2022_Portfolio2.Controllers
         }
 
         [HttpGet("{username}", Name = nameof(getUser))]
-        [Authorize]
+        //[Authorize]
         public IActionResult getUser([FromRoute] string username)
         {
             try
